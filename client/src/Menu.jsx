@@ -5,11 +5,10 @@ function Menu() {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="#home">LOGO</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to="/" className='nav-link'>Home</Link>
                         <NavDropdown title="About" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">
                                 <Link to="/about/mission" className='nav-link'>Our mission</Link>

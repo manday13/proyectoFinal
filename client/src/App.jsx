@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-
+        <Menu />  
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -35,8 +35,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
-
-        <Menu />
 
 
 

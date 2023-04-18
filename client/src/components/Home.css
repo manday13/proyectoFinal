@@ -1,0 +1,11 @@
+.one{
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blanchedalmond;
+}
+
+.one h1{
+    text-align: center;
+}
