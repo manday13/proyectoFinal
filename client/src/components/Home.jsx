@@ -5,6 +5,8 @@ function Home() {
         <>
             <div className='one'>
                 <h1>For women, by women.</h1>
+                <br/>
+                <h1>For women, by women.</h1>
             </div>
         </>
     )
