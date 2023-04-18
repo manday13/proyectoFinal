@@ -19,9 +19,10 @@ import Story from './components/about/Story';
 function App() {
 
   return (
-    <>
+    <>  
+    <div className="ContainerPage">
         <Menu />  
-        <div>
+        
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
