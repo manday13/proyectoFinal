@@ -2,6 +2,7 @@ import './App.css'
 import { Routes, Route } from "react-router-dom";
 
 import Menu from './Menu';
+import Footer from './Footer';
 
 import Home from './components/Home';
 import About from './components/About';
@@ -19,7 +20,6 @@ function App() {
 
   return (
     <>
-        <Menu />
 
         <div>
           <Routes>
@@ -36,6 +36,11 @@ function App() {
           </Routes>
         </div>
 
+        <Menu />
+
+
+
+        <Footer />
     </>
   )
 }
