@@ -1,5 +1,5 @@
 .one {
-    height: 600px;
+    height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,6 @@
 }
 
 .one h1 {
-    opacity: 0;
     animation: fadeIn 2s ease forwards;
     font-size: 300%;
     color: white;
@@ -135,7 +134,7 @@
 }
 
 .homebutton {
-    animation: pulse 1s ease infinite;
+    animation: pulse 2s ease infinite;
 }
 
 @keyframes pulse {
