@@ -1,0 +1,41 @@
+.navbar {
+    background-color: #FEDCD2;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-brand {
+    font-family: 'Amatic SC', cursive;
+    font-size: 36px;
+    color: #f5d389;
+  }
+  
+  .nav-link {
+    font-size: 20px;
+    color: #535353;
+    text-align: center;
+  }
+  
+  .nav-link:hover {
+    color: #e6b065;
+  }
+  
+  .dropdown-menu {
+    background-color: #fcdcac;
+    border: none;
+  }
+  
+  .dropdown-item {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
+    color: #5F5F5F;
+  }
+  
+  .dropdown-item:hover {
+    color: #ffe1b5;
+    background-color: transparent;
+  }
+  
+  .dropdown-divider {
+    border: none
+  }
