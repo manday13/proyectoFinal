@@ -9,7 +9,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
 import Services from './components/Services';
-import Join from './components/Join';
+import Register from './components/Register';
 import Sign from './components/Sign';
 import Badges from './components/about/Badges';
 import Impact from './components/about/Impact';
@@ -32,7 +32,7 @@ function App() {
             <Route path="/about/impact" element={<Impact />} />
             <Route path="/about/badges" element={<Badges />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/join" element={<Join />} />
+            <Route path="/Register" element={<Register />} />
             <Route path="/sign" element={<Sign />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>

@@ -36,7 +36,7 @@ function Home() {
                     <div className='col2'>
                         <h1>Join Us </h1>
                         <p>Be part of the good change, and sign up/ volunteer</p>
-                        <button className='homebutton'><a href="/Join">Read more</a></button>
+                        <button className='homebutton'><a href="/Register">Read more</a></button>
                     </div>
                 </div>
             </div>

@@ -17,6 +17,7 @@ label {
     margin-bottom: 10px;
     font-size: 18px;
     color: #333;
+    width: 100%;
 }
 
 input[type="email"],
@@ -53,10 +54,15 @@ button[type="button"]:hover {
     color: #333;
 }
 
-select {
-    margin-top: 10px;
+.logincontainer {
+    width: 400px;
+    margin: 50px auto;
 }
 
-option {
-    font-size: 18px;
+.loginbox {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 4px;
+    display: inline-block;
+    height: 500px;
 }

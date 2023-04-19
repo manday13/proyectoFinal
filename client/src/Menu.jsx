@@ -28,8 +28,8 @@ function Menu() {
                             </NavDropdown.Item>
                         </NavDropdown>
                         <Link to="/services" className='nav-link'>Our services</Link>
-                        <Link to="/join" className='nav-link'>Join us</Link>
-                        <Link to="/sign" className='nav-link'>Sign up / Sign in</Link>
+                        <Link to="/Register" className='nav-link'>Register</Link>
+                        <Link to="/sign" className='nav-link'>Login</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
