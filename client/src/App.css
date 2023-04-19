@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 .ContainerPage{
     min-height: 90vh;
+    font-family: 'Montserrat', sans-serif;    
 }
