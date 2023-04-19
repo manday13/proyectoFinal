@@ -1,6 +1,6 @@
 
 import "./Footer.css"
-import {Row, Col} from "react-bootstrap"
+import {Row, Col, Form, FormGroup, Button} from "react-bootstrap"
 
 function Footer() {
     return (
@@ -8,14 +8,32 @@ function Footer() {
         <div className="footer">
         
             <Row>
-                <Col className="col-4"><p>Follow us</p></Col>
-                <Col className="col-4">
-            <h4>Women's health and reinsertion</h4>  
+                <Col className="col-12 col-sm-4"><p className="center ">CONTACT US</p><p className="center margincopy contacthelp">help@help.com</p></Col>
+                <Col className="col-12 col-sm-4">
+            <h4 className="center">WOMEN'S HEALTH AND REINSERTION</h4> 
+            <p className="center">"For women, by women..."</p> 
             </Col>
-            <Col className="col-4"><p>Newsletter</p></Col>
-            </Row>
+            <Col className="col-12 col-sm-4">
+                <p className="center ">NEWSLETTER</p>
+                <Form>                
+                    <FormGroup>
+                        <Form.Control className="formin" type="email" placeholder="Email"/>
+                    </FormGroup>
+                </Form>
+                <br />
+                <div className="formsend"><button className="bsend"  type="submit">Submit</button></div>
             
-            <p style={{fontSize: "small", textAlign: "center", paddingTop: "10px"}}>Copyright 2023 © All rights Reserved.</p>
+            </Col>
+            </Row>
+            <br />
+            <br/>
+            <hr />
+            <p className="center small margincopy">Copyright 2023 © All rights Reserved.</p>
+            <div className="frrss">
+                <a href="https://www.instagram.com/" target="_blank"><button className="rrss">i</button></a>
+                <a href="https://es-es.facebook.com/" target="_blank"><button className="rrss">f</button></a>
+                <a href="https://twitter.com/?lang=es " target="_blank"><button className="rrss">t</button></a>
+            </div>
         </div>
         
         </>

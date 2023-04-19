@@ -1,13 +1,59 @@
 .footer{
     color: white;
-    background-color: #3A5766;    
-    /* display: flex;
-    justify-content: space-around; */
-   
-    padding: 10px;
-    
+    background-color: #3A5766;       
+   padding-top: 50px;
+    padding-bottom: 10px;    
+}
+.center {
+    width: 100%;
+    text-align: center;   
 }
 
-p, h4{
-    text-align: center;
+.margincopy{
+    margin-top: 0px;    
+    font-size: small;
+}
+
+.contacthelp{
+    margin-bottom: 50px;
+}
+
+.formin{
+    width: 80%;
+    margin: auto;
+}
+.frrss{    
+    width: fit-content;
+    margin: auto;
+}
+.rrss{
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    opacity: 0.5;
+    border: 0px;
+    margin-right: 5px;
+}
+
+.formsend{
+    margin: auto;
+    width: fit-content;
+}
+.bsend{
+    border: solid white;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #3A5766;  
+    color:white; 
+}
+.bsend:hover{
+    border: solid white;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #3A5766;  
+    color:white;
+    opacity: 0.5; 
 }
