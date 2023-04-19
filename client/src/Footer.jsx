@@ -1,16 +1,16 @@
 
 import "./Footer.css"
-import {Row, Col, Form, FormGroup, Button} from "react-bootstrap"
+import {Row, Col, Form, FormGroup, Button, Container} from "react-bootstrap"
 
 function Footer() {
     return (
-        <>
-        <div className="footer">
+        <Container className="footer" fluid>
+        
         
             <Row>
                 <Col className="col-12 col-sm-4"><p className="center ">CONTACT US</p><p className="center margincopy contacthelp">help@help.com</p></Col>
                 <Col className="col-12 col-sm-4">
-            <h4 className="center">WOMEN'S HEALTH AND REINSERTION</h4> 
+            <h4 className="center"><b>WOMEN'S HEALTH AND REINSERTION</b></h4> 
             <p className="center">"For women, by women..."</p> 
             </Col>
             <Col className="col-12 col-sm-4">
@@ -34,9 +34,9 @@ function Footer() {
                 <a href="https://es-es.facebook.com/" target="_blank"><button className="rrss">f</button></a>
                 <a href="https://twitter.com/?lang=es " target="_blank"><button className="rrss">t</button></a>
             </div>
-        </div>
+      
         
-        </>
+        </Container>
     )
 }
 
