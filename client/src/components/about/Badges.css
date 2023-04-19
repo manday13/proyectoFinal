@@ -1,0 +1,29 @@
+.titleAboutB {
+    flex: 100%;
+    background-image: url("../public/image6.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px 500px 150px 130px;
+    color: white;
+    font-weight: bold;
+    font-size: 75px;
+}
+
+.infoAboutB {
+    display: flex;
+    flex-wrap: wrap;
+}
+.infoAboutB p {
+    margin: 25px 200px;
+    text-align: justify;
+}
+
+.bCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 35px;
+}
+.badges {
+    margin: 5px;
+}
