@@ -4,6 +4,7 @@ import {Container} from "react-bootstrap"
 
 import Menu from './Menu';
 import Footer from './Footer';
+import ButtonUp from './ButtonUp';
 
 import Home from './components/Home';
 import About from './components/About';
@@ -15,6 +16,7 @@ import Badges from './components/about/Badges';
 import Impact from './components/about/Impact';
 import Mission from './components/about/Mission';
 import Story from './components/about/Story';
+
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
 
 
         <Footer />
+
+        <ButtonUp />
     </>
   )
 }
