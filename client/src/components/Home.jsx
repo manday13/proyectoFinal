@@ -1,14 +1,16 @@
 import './Home.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 
 
 function Home() {
     return (
         <>
             <div className='one'>
-                <h1>For Women, By Women...</h1>
+                <h1>For women, by women ...</h1>
+                <p style={{marginBottom: "100px", fontSize:"large", color:"rgb(254,226,203)"}}>We support women who have been incarcerated, offering them psychological support through therapy and workshops. We also provide guidance on reintegration into the workforce, helping women to rebuild their lives and achieve their goals.</p>
+                <p><b>You want to know more about us, right?</b></p>
                 <a href="#inicio"><FontAwesomeIcon icon={faChevronDown} /></a>
             </div>
             <div className='rows' id="inicio">
@@ -19,14 +21,14 @@ function Home() {
                     <div className='col2'>
                         <h1>Our mission</h1>
                         <p>our mission is to empower and support women who have been released from prison to successfully reintegrate into society</p>
-                        <button className='homebutton'><a href="/about/Mission">Read more</a></button>
+                        <a href="/about/Mission"><button className='homebutton'>Read more</button></a>
                     </div>
                 </div>
                 <div className='row2'>
                     <div className='col1'>
-                        <h1>Our story</h1>
-                        <p>[Website Name] was founded with a deep passion for social justice and a desire to address the unique challenges that women face upon re-entry into society after incarceration.</p>
-                        <button className='homebutton'><a href="/about/Story">Read more</a></button>
+                        <h1>Our support</h1>
+                        <p>Our personal touch is that in our workshops you can work different competencies. Moreover, we provide the figure of a tutor that can write for our clients a recommendation letter related to the competencies that have been achieved in the workshops.</p>
+                        <a href="/about/Support"><button className='homebutton'>Read more</button></a>
                     </div>
                     <div className='col2'>
                         <img src="../public/image2.jpg" />
@@ -40,16 +42,20 @@ function Home() {
                     <div className='col2'>
                         <h1>Join Us </h1>
                         <p>Be part of the good change, and sign up/ volunteer</p>
-                        <button className='homebutton'><a href="/Register">Read more</a></button>
+                        <a href="/Register"><button className='homebutton'>Read more</button></a>
                     </div>
                 </div>
             </div>
             <div className="about">
-                <h1>Discover Our Badges</h1>
-                <p>About</p>
-                <div className='homebuttondiv'>
-                    <button className='homebutton'><a href="/about/Badges">Read more</a></button>
+                <h1>Testimonies</h1>
+                <div className="testimon">
+                     <FontAwesomeIcon icon={faQuoteLeft} className="testicon"/>
+                    <p>After being out of the workforce for several years due to personal reasons, I felt like I was starting from scratch. But thanks to this amazing website, I was able to find job openings that matched my skills and interests. The website's resources helped me build a strong resume and cover letter, and I received guidance on how to prepare for interviews.</p>
+                    <FontAwesomeIcon icon={faQuoteRight} className="testicon" />
                 </div>
+                <p><i>-User of Womenoutprison</i></p>
+                
+                
             </div>
         </>
     )

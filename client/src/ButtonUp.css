@@ -13,27 +13,6 @@
 }
 
 
-@keyframes bounce-in {
-    0% {
-      opacity: 0;
-      transform: scale(.3);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    70% { transform: scale(.9); }
-    100% { transform: scale(1); }
-  }
-
-
-@keyframes bounce {
-    0% {transform: translateY(-30px); opacity: 1}
-    20%, 50%, 80%, 100% {transform: translateY(0);}	
-    40% {transform: translateY(-20px);}
-    70% {transform: translateY(-10px);}
-}
-
 @keyframes grow {
   from { transform: scale(0); }
   to { transform: scale(1); }

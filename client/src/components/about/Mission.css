@@ -8,3 +8,28 @@
     font-weight: bold;
     font-size: 75px;
 }
+
+.servicesbutton{
+    color: black;
+    background-color: transparent;
+    padding: 7px 17px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 15px;
+    border-color: black;
+}
+
+
+.servicesbutton:hover {
+    background-color: black;
+    color: white;
+}
+
+.infoAbout div{
+    width: fit-content;
+    margin: auto;
+}

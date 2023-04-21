@@ -8,14 +8,14 @@ import ButtonUp from './ButtonUp';
 
 import Home from './components/Home';
 import About from './components/About';
-import Contact from './components/Contact';
+
 import Services from './components/Services';
 import Register from './components/Register';
 import Sign from './components/Sign';
-import Badges from './components/about/Badges';
-import Impact from './components/about/Impact';
+
 import Mission from './components/about/Mission';
-import Story from './components/about/Story';
+
+import Support from './components/about/Support';
 
 
 
@@ -30,13 +30,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/about/mission" element={<Mission />} />
-            <Route path="/about/story" element={<Story />} />
-            <Route path="/about/impact" element={<Impact />} />
-            <Route path="/about/badges" element={<Badges />} />
+            <Route path="/about/support" element={<Support />} />
             <Route path="/services" element={<Services />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/sign" element={<Sign />} />
-            <Route path="/contact" element={<Contact />} />
+            
           </Routes>
         </div>
 

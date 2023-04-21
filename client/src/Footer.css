@@ -26,8 +26,9 @@
 }
 
 .formin{
-    width: 80%;
-    margin: auto;
+    width: 70% !important;
+    margin-bottom: 15px;
+   
 }
 .frrss{    
     width: fit-content;
@@ -43,10 +44,7 @@
     margin-right: 5px;
 }
 
-.formsend{
-    margin: auto;
-    width: fit-content;
-}
+
 .bsend{
     border: solid white !important;
     border-radius: 20px !important;
@@ -63,4 +61,11 @@
     background-color: #3A5766;  
     color:white;
     opacity: 0.5; 
+}
+
+.medium{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
