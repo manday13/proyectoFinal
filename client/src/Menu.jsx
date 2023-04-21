@@ -16,20 +16,20 @@ function Menu() {
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.2">
-                                <Link to="/about/story" className='nav-link'>Our story</Link>
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.2">
-                                <Link to="/about/impact" className='nav-link'>Our impact</Link>
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.2">
-                                <Link to="/about/badges" className='nav-link'>Our badges</Link>
+                                <Link to="/about/story" className='nav-link'>Our support</Link>
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Link to="/services" className='nav-link'>Our services</Link>
-                        <Link to="/Register" className='nav-link'>Register</Link>
-                        <Link to="/sign" className='nav-link'>Login</Link>
+                        <Link to="/services" className='nav-link'>Services</Link>
+                        {/* <Link id="navRegister" to="/Register" className='nav-link'>Register</Link>
+                        <Link id="navLogin" to="/sign" className='nav-link'>Login</Link> */}
+                    </Nav>
+                    <Nav className="ml-auto">
+                        <Link id="navRegister" to="/Register" className="nav-link">
+                            Register
+                        </Link>
+                        <Link id="navLogin" to="/sign" className="nav-link">
+                            Login
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
