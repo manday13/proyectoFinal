@@ -10,21 +10,15 @@ function Footer() {
         
         
             <Row>
-                <Col className="col-12 col-sm-4"><p className="center ">CONTACT US</p><p className="center  contacthelp"><a href="mailto:help@womenprison.com"><FontAwesomeIcon style={{marginRight:"5px"}} icon={faEnvelope} />help@womenprison.com</a></p></Col>
+                <Col className="col-12 col-sm-4 medium"><p className="center ">CONTACT US</p><p className="center  contacthelp"><a href="mailto:help@womenprison.com"><FontAwesomeIcon style={{marginRight:"5px"}} icon={faEnvelope} />help@womenprison.com</a></p></Col>
                 <Col className="col-12 col-sm-4">
             <h4 className="center"><b>WOMEN'S HEALTH AND REINSERTION</b></h4> 
             <p className="center">"For women, by women..."</p> 
             </Col>
-            <Col className="col-12 col-sm-4">
+            <Col className="col-12 col-sm-4 medium">
                 <p className="center ">NEWSLETTER</p>
-                <Form>                
-                    <FormGroup>
-                        <Form.Control className="formin" type="email" placeholder="Email"/>
-                    </FormGroup>
-                </Form>
-                <br />
-                <div className="formsend"><button className="bsend"  type="submit">Submit</button></div>
-            
+                <input className="formin" type="email" name="email" placeholder="Email" required />                
+                <button className="bsend"  type="submit">Submit</button>            
             </Col>
             </Row>
             <br />
