@@ -16,7 +16,7 @@ function Menu() {
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.2">
-                                <Link to="/about/story" className='nav-link'>Our support</Link>
+                                <Link to="/about/support" className='nav-link'>Our support</Link>
                             </NavDropdown.Item>
                         </NavDropdown>
                         <Link to="/services" className='nav-link'>Services</Link>
