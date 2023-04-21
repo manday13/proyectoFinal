@@ -47,11 +47,11 @@ function RegistrationForm() {
 
     return (
         <div>
+            <h3 className="titleAboutR">Join us today, and be part of the community!</h3>
             <div className='firstpart'>
-                <br />
-                <br />
-                <h3>Join us today, and be part of the community!</h3>
-                <br />
+                
+                
+                
                 <hr />
                 <div>
                     <Collapsible title="Your role as a client" content = "this is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the client"></Collapsible>
@@ -61,15 +61,16 @@ function RegistrationForm() {
                 <br />
                 <h5>What would you like to join as?</h5>
                 <br />
-                <span>
-                    <button
+                <span> <a href="#button1">
+                    <button id="button1"
                         type='choice1' style={{backgroundColor: (registrationType === "volunteer") ? "grey" : "#f5d389" }}
                         onClick={handleVolunteerClick}
                     >
                         Volunteer
-                    </button>
-                    <button type='choice' style={{backgroundColor: (registrationType === "client") ? "grey" : "#f5d389" }}
-                     onClick={handleClientChange}>Client</button>
+                    </button></a>
+                    <a href="#button2">
+                    <button id="button2" type='choice' style={{backgroundColor: (registrationType === "client") ? "grey" : "#f5d389" }}
+                     onClick={handleClientChange}>Client</button></a>
                 </span>
             </div>
             {registrationType === 'volunteer' && (

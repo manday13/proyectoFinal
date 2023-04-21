@@ -4,32 +4,65 @@
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 500px 150px 130px;
-    color: white;
+    color: antiquewhite;
     font-weight: bold;
     font-size: 75px;
 }
 
 .servicesbutton{
-    color: black;
-    background-color: transparent;
+    color: #ba158b;
+    background-color: #f5d389;
     padding: 7px 17px;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
+    text-align: center;   
+    font-size: 20px;
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 15px;
-    border-color: black;
+    border-color: antiquewhite;
 }
 
 
 .servicesbutton:hover {
     background-color: black;
-    color: white;
+    color: antiquewhite;
 }
 
-.infoAbout div{
+.infoAbout div{    
     width: fit-content;
     margin: auto;
+    position: relative; 
 }
+
+.trans{
+    bottom: 0px;
+    right: 350px;
+    transform: rotate(100deg);
+    position: absolute;    
+}
+
+.minus1, .minus2, .minus3{
+    position: absolute;
+    
+}
+
+
+
+.minus1{
+    transform: rotate(40deg);
+    right: -25px;
+    bottom: -10px;   
+}
+
+.minus3{
+    transform: rotate(140deg);
+    right: -25px;
+    bottom: 50px;  
+
+}
+
+.minus2{
+    right: -30px;
+    bottom: 20px;
+}
+

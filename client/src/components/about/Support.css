@@ -1,10 +1,21 @@
 .titleAboutS {
     flex: 100%;
-    background-image: url("../public/image2.jpg");
+    background-image: url("../public/image6.jpg");
+    background-position: 0px -110px; /*para hacer que la imagen se vea desde mas abajo y no coincida el titulo con el blanco de la imagen */
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 500px 150px 130px;
-    color: white;
+    color: antiquewhite;
     font-weight: bold;
     font-size: 75px;
+}
+
+.bCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+.badges {
+    margin: 5px;
 }
