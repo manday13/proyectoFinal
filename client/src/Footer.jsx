@@ -1,6 +1,8 @@
 
 import "./Footer.css"
 import {Row, Col, Form, FormGroup, Button, Container} from "react-bootstrap"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 function Footer() {
     return (
@@ -8,7 +10,7 @@ function Footer() {
         
         
             <Row>
-                <Col className="col-12 col-sm-4"><p className="center ">CONTACT US</p><p className="center margincopy contacthelp">help@help.com</p></Col>
+                <Col className="col-12 col-sm-4"><p className="center ">CONTACT US</p><p className="center  contacthelp"><a href="mailto:help@womenprison.com"><FontAwesomeIcon style={{marginRight:"5px"}} icon={faEnvelope} />help@womenprison.com</a></p></Col>
                 <Col className="col-12 col-sm-4">
             <h4 className="center"><b>WOMEN'S HEALTH AND REINSERTION</b></h4> 
             <p className="center">"For women, by women..."</p> 

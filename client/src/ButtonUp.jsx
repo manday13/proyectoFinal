@@ -25,7 +25,7 @@ function ButtonUp (){
 
     return(
         <> 
-        {backToTopButton && (<button className="buttonup" onClick={scrollUp}><FontAwesomeIcon icon={faArrowUp} /></button>)}
+        {backToTopButton && (<button className="buttonup" onClick={scrollUp}><b><FontAwesomeIcon icon={faArrowUp} /></b></button>)}
         </>
 
 
