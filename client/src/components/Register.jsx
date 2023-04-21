@@ -63,12 +63,13 @@ function RegistrationForm() {
                 <br />
                 <span>
                     <button
-                        type='choice1'
+                        type='choice1' style={{backgroundColor: (registrationType === "volunteer") ? "grey" : "#f5d389" }}
                         onClick={handleVolunteerClick}
                     >
                         Volunteer
                     </button>
-                    <button type='choice' onClick={handleClientChange}>Client</button>
+                    <button type='choice' style={{backgroundColor: (registrationType === "client") ? "grey" : "#f5d389" }}
+                     onClick={handleClientChange}>Client</button>
                 </span>
             </div>
             {registrationType === 'volunteer' && (

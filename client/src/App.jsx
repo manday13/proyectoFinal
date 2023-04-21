@@ -5,16 +5,11 @@ import {Container} from "react-bootstrap"
 import Menu from './Menu';
 import Footer from './Footer';
 import ButtonUp from './ButtonUp';
-
 import Home from './components/Home';
-import About from './components/About';
-
 import Services from './components/Services';
 import Register from './components/Register';
 import Sign from './components/Sign';
-
 import Mission from './components/about/Mission';
-
 import Support from './components/about/Support';
 
 
@@ -27,8 +22,7 @@ function App() {
         <Menu />  
         
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/" element={<Home />} />           
             <Route path="/about/mission" element={<Mission />} />
             <Route path="/about/support" element={<Support />} />
             <Route path="/services" element={<Services />} />
