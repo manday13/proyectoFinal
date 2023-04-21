@@ -4,17 +4,37 @@
     bottom: 30px;
     border-radius: 50%;
     border: solid 2px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     color: #f6d365;
     background-color: #fda085;
     opacity: 0.8;
-    animation: bounce2 3s ease-in-out ;
+    animation: grow 1s ease-in-out ;
 }
 
 
-@keyframes bounce2 {
-	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-	40% {transform: translateY(-30px);}
-	60% {transform: translateY(-15px);}
+@keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% { transform: scale(.9); }
+    100% { transform: scale(1); }
+  }
+
+
+@keyframes bounce {
+    0% {transform: translateY(-30px); opacity: 1}
+    20%, 50%, 80%, 100% {transform: translateY(0);}	
+    40% {transform: translateY(-20px);}
+    70% {transform: translateY(-10px);}
+}
+
+@keyframes grow {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
 }
