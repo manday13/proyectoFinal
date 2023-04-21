@@ -56,3 +56,45 @@ select {
         margin: auto;
     }
 }
+
+.firstpart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 30px;
+    width: 100%;
+}
+
+button[type="choice"]{
+    margin-left: 60px;
+    background-color: #f5d389;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button[type="choice1"]{
+    background-color: #f5d389;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button[type="choice1"]:hover,
+button[type="choice"]:hover{
+    background-color: #dab25c;
+}
+
+hr{
+    width: 20%;
+}
+
+select{
+    height: 50px;
+}

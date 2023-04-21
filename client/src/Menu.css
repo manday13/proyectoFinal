@@ -39,3 +39,8 @@
   .dropdown-divider {
     border: none
   }
+
+  #navRegister,
+  #navLogin {
+    text-align: right;
+  }

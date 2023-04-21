@@ -1,0 +1,12 @@
+#filtraje {
+    flex-direction: row;
+    text-align: center;
+}
+
+#espacio {
+    height: 25px;
+}
+
+/* #dates {
+    max-width: 250px;
+} */

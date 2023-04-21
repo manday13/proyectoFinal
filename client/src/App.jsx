@@ -32,9 +32,9 @@ function App() {
             <Route path="/about/mission" element={<Mission />} />
             <Route path="/about/support" element={<Support />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/Register" element={<Register />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/sign" element={<Sign />} />
-            
+
           </Routes>
         </div>
 
