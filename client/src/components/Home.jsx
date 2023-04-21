@@ -20,7 +20,7 @@ function Home() {
                     </div>
                     <div className='col2'>
                         <h1>Our mission</h1>
-                        <p>our mission is to empower and support women who have been released from prison to successfully reintegrate into society</p>
+                        <p>Our mission is to empower and support women who have been released from prison to successfully reintegrate into society</p>
                         <a href="/about/Mission"><button className='homebutton'>Read more</button></a>
                     </div>
                 </div>
@@ -31,13 +31,13 @@ function Home() {
                         <a href="/about/Support"><button className='homebutton'>Read more</button></a>
                     </div>
                     <div className='col2'>
-                        <img src="../public/image2.jpg" />
+                        <img src="../public/image3.jpeg" />
                     </div>
                 </div>
                 <div className='row3'>
                     <div className='col1'>
                         <div className="imagehov"></div>
-                        <img src="../public/image3.jpeg" />
+                        <img src="../public/image2.jpg" />
                     </div>
                     <div className='col2'>
                         <h1>Join Us </h1>

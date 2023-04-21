@@ -98,3 +98,19 @@ button[type="choice"]:hover{
 select{
     height: 50px;
 }
+
+.titleAboutR {
+    flex: 100%;
+    background-image: url("../public/image2.jpg");    
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px 130px 60px 130px;
+    color: antiquewhite;
+    font-weight: bold;
+    font-size: 75px;
+    position: relative;    
+}
+
+
+
+

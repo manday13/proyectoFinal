@@ -48,16 +48,13 @@
 .bsend{
     border: solid white !important;
     border-radius: 20px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding-left: 0px 15px !important;    
     background-color: #3A5766 !important;  
     color:white; 
+    transition-duration: 0.4s;
 }
 .bsend:hover{
-    border: solid white ;
-    border-radius: 20px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    border: solid white ;    
     background-color: #3A5766;  
     color:white;
     opacity: 0.5; 
