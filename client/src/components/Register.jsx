@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Register.css'
 
 function RegistrationForm() {
     const [registrationType, setRegistrationType] = useState('');
@@ -71,7 +72,10 @@ function RegistrationForm() {
                             <option value="therapist">Mental health support</option>
                         </select>
                     </label>
+                    <br/>
                     <button type="submit">Register as Volunteer</button>
+                    <br/>
+                    <br/>
                 </form>
             )}
             {registrationType === ('client' || 'volunteer') && (
@@ -111,7 +115,10 @@ function RegistrationForm() {
                             <option value="1">No</option>
                         </select>
                     </label>
+                    <br/>
                     <button type="submit">Register as Participant</button>
+                    <br/>
+                    <br/>
                 </form>
             )}
         </div>
