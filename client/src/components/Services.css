@@ -2,11 +2,6 @@
     flex-direction: row;
     text-align: center;
 }
-
-#espacio {
-    height: 25px;
+#descript {
+    min-height: 155px;
 }
-
-/* #dates {
-    max-width: 250px;
-} */
