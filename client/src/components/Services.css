@@ -2,11 +2,16 @@
     flex-direction: row;
     text-align: center;
 }
-
-#espacio {
-    height: 25px;
+#descript {
+    min-height: 155px;
 }
-
-/* #dates {
-    max-width: 250px;
-} */
+#services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#works {
+    margin: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+}
