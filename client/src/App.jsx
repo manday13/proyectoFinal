@@ -1,6 +1,10 @@
 import './App.css'
 import { Routes, Route } from "react-router-dom";
-import {Container} from "react-bootstrap"
+import { Container, ToastContainer, Toast} from 'react-bootstrap';
+import jwt_decode from "jwt-decode";
+import {useState, useEffect} from 'react';
+import GlobalContext from './GlobalContext';
+import API_URL from './apiconfig';
 
 import Menu from './Menu';
 import Footer from './Footer';
@@ -15,10 +19,13 @@ import Support from './components/about/Support';
 
 
 
+
 function App() {
 
+  const [token, setToken] = useState();
+
   return (
-    <>  
+    <GlobalContext.Provider value={{token}}>  
     <div className="ContainerPage">
         <Menu />  
         
@@ -28,8 +35,9 @@ function App() {
             <Route path="/about/support" element={<Support />} />
             <Route path="/services" element={<Services />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/sign" element={<Sign />} />
+            <Route path="/sign/:position" element={<Sign />} />
             <Route path="/signselect" element={<Signselect />} />
+
 
           </Routes>
         </div>
@@ -39,7 +47,7 @@ function App() {
         <Footer />
 
         <ButtonUp />
-    </>
+    </GlobalContext.Provider>
   )
 }
 
