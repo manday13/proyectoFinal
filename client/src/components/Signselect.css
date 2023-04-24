@@ -1,0 +1,54 @@
+.titleAboutSS {
+    flex: 100%;
+    background-image: url("../public/image1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px 500px 150px 130px;
+    color: antiquewhite;
+    font-weight: bold;
+    font-size: 75px;
+}
+
+.sign_selection{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: larger;
+}
+
+img{
+    width: 300px;
+    height: 300px;
+    border-radius: 700px;
+}
+
+.sign_client{
+    padding: 60px 30px;
+    width: 320px;
+    height: 500px;
+}
+
+.sign_volunteer{
+    padding: 60px 30px;
+    margin-left: 20px;
+    width: 320px;
+    height: 500px;
+}
+
+.sign_tutor{
+    padding: 60px 30px;
+    margin-left: 20px;
+    width: 320px;
+    height: 500px;
+}
+
+.separator_par{
+    justify-content: center;
+    display: flex;
+}
+
+.separator{
+    width: 70%;
+    margin: auto;
+    height: 10px;
+}
