@@ -9,60 +9,64 @@
     font-size: 75px;
 }
 
-.servicesbutton{
+.servicesbutton {
     color: #ba158b;
-    background-color: #f5d389;
+    background-color: #e2bc6a;
     padding: 7px 17px;
-    text-align: center;   
+    text-align: center;
     font-size: 20px;
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 15px;
     border-color: antiquewhite;
+    transition: all 0.2s ease-in-out;
 }
 
 
 .servicesbutton:hover {
     background-color: black;
     color: antiquewhite;
+    padding: 13px 27px;
 }
 
-.infoAbout div{    
+.infoAbout div {
     width: fit-content;
     margin: auto;
-    position: relative; 
+    position: relative;
 }
 
-.trans{
+.trans {
     bottom: 0px;
     right: 350px;
     transform: rotate(100deg);
-    position: absolute;    
-}
-
-.minus1, .minus2, .minus3{
     position: absolute;
-    
+}
+
+
+.minus1,
+.minus2,
+.minus3 {
+    position: absolute;
+
 }
 
 
 
-.minus1{
+.minus1 {
     transform: rotate(40deg);
     right: -25px;
-    bottom: -10px;   
+    bottom: -10px;
 }
 
-.minus3{
+.minus3 {
     transform: rotate(140deg);
     right: -25px;
-    bottom: 50px;  
+    bottom: 50px;
 
 }
 
-.minus2{
+.minus2 {
     right: -30px;
     bottom: 20px;
 }
-
