@@ -27,7 +27,7 @@ function Menu() {
                         <Link id="navRegister" to="/Register" className="nav-link">
                             Register
                         </Link>
-                        <Link id="navLogin" to="/sign" className="nav-link">
+                        <Link id="navLogin" to="/Signselect" className="nav-link">
                             Login
                         </Link>
                     </Nav>

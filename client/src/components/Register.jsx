@@ -93,7 +93,7 @@ function RegistrationForm() {
                                 onClick={handleClientChange}>Client</button></a>
                         <br />
                         <br/>
-                        <p>Already have an account? <a href='./Sign'>Log in</a></p>
+                        <p>Already have an account? <a href='./Signselect'>Log in</a></p>
                         <br />
                         <br />
                     </span>
