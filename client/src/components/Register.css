@@ -27,7 +27,7 @@ select {
     border: none;
 }
 
-input[type="tel"]{
+input[type="tel"] {
     border: solid lightgray;
 }
 
@@ -57,15 +57,11 @@ select {
     }
 }
 
-.firstpart{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: 30px;
-    width: 100%;
+.firstpart {
+    margin: 25px 200px;
 }
 
-button[type="choice"]{
+button[type="choice"] {
     margin-left: 60px;
     background-color: #f5d389;
     color: white;
@@ -76,7 +72,7 @@ button[type="choice"]{
     font-size: 18px;
 }
 
-button[type="choice1"]{
+button[type="choice1"] {
     background-color: #f5d389;
     color: white;
     padding: 10px 20px;
@@ -87,30 +83,42 @@ button[type="choice1"]{
 }
 
 button[type="choice1"]:hover,
-button[type="choice"]:hover{
+button[type="choice"]:hover {
     background-color: #dab25c;
 }
 
-.firstpart hr{
-    width: 20%;
+.firstpart hr {
+    width: 100%;
 }
 
-select{
+select {
     height: 50px;
 }
 
 .titleAboutR {
     flex: 100%;
-    background-image: url("../public/image2.jpg");    
+    background-image: url("../public/image2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     padding: 10px 130px 60px 130px;
     color: antiquewhite;
     font-weight: bold;
     font-size: 75px;
-    position: relative;    
+    position: relative;
 }
 
+.joinquestion{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.symbol{
+    padding-left: 25px;
+    font-size: larger;
 
+}
 
+.parag{
+    margin: 25px 200px;
+    text-align: justify;}

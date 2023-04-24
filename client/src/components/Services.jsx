@@ -53,6 +53,7 @@ function Services() {
     return (
         <>
             <div id='espacio' />
+            <hr/>
             <Container fluid>
                 <Row>
                     <Form id='filtraje'>
@@ -98,6 +99,7 @@ function Services() {
                     </Form>
                 </Row>
             </Container>
+            <hr/>
         </>
     );
 }
