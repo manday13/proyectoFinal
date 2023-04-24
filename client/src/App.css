@@ -2,5 +2,7 @@
 
 .ContainerPage{
     min-height: 90vh;
-    font-family: 'Montserrat', sans-serif;    
+    font-family: 'Montserrat', sans-serif;  
+    scroll-behavior: smooth;  
+    
 }

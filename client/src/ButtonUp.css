@@ -6,9 +6,9 @@
     border: solid 2px;
     width: 40px;
     height: 40px;
-    color: brown;
-    background-color: antiquewhite;
-    opacity: 0.8;
+    color: white;
+    background-color: grey;
+    opacity: 0.4;
     animation: grow 0.5s ease-in-out ;
 }
 
