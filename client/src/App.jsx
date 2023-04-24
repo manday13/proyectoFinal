@@ -13,6 +13,7 @@ import Home from './components/Home';
 import Services from './components/Services';
 import Register from './components/Register';
 import Sign from './components/Sign';
+import Signselect from './components/Signselect';
 import Mission from './components/about/Mission';
 import Support from './components/about/Support';
 
@@ -34,8 +35,9 @@ function App() {
             <Route path="/about/support" element={<Support />} />
             <Route path="/services" element={<Services />} />
             <Route path="/register" element={<Register />} />
-           
             <Route path="/sign/:position" element={<Sign />} />
+            <Route path="/signselect" element={<Signselect />} />
+
 
           </Routes>
         </div>

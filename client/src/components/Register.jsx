@@ -37,10 +37,10 @@ function RegistrationForm() {
             <div>
                 <h5 onClick={handleToggle}>
                     {title}
-                    <span>{isOpen ? '-' : '+'}</span>
+                    <span className='symbol'>{isOpen ? '-' : '+'}</span>
                 </h5>
                 {isOpen && <div>{content}</div>}
-                <hr/>
+
             </div>
         );
     }
@@ -48,30 +48,56 @@ function RegistrationForm() {
     return (
         <div>
             <h3 className="titleAboutR">Join us today, and be part of the community!</h3>
+            <div className='parag'>
+                <p>
+                    Welcome to our community! We are dedicated to providing women who have been incarcerated with the resources and support they need to successfully reintegrate into society. Our services are designed to empower, inspire and encourage personal growth, while providing practical assistance for a smooth transition back into the community. Whether you're looking for job training, counseling, education or just a supportive network of individuals who understand your journey, we're here for you. Join us today and let us help you take the next step in your journey towards a brighter future. Together, we can break down barriers and create a more just and equitable society for all.
+                </p>
+            </div>
             <div className='firstpart'>
-                
-                
-                
                 <hr />
-                <div>
-                    <Collapsible title="Your role as a client" content = "this is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the clienthis is the contenhhhhhhhhhhhhhhhhhhhht of the client"></Collapsible>
-                    <Collapsible title="Your role as a volunteer" content = "this is the cotent"></Collapsible>
+                <div className='collapsible-div'>
+                    <Collapsible title="Your role as a client" content="Welcome to our client community, a safe and supportive space exclusively designed for women who have recently been released from incarceration. As a client, you'll have access to a wide range of services, including group therapy sessions and interactive workshops such as art sessions and many more, all aimed at fostering personal growth and facilitating a successful reintegration into society. Our client portal makes it easy for you to sign up, browse, and participate in the workshops that interest you the most. So don't hesitate, take the first step towards a brighter future and join our client community today."></Collapsible>
                 </div>
                 <hr />
-                <br />
-                <h5>What would you like to join as?</h5>
-                <br />
-                <span> <a href="#button1">
-                    <button id="button1"
-                        type='choice1' style={{backgroundColor: (registrationType === "volunteer") ? "grey" : "#f5d389" }}
-                        onClick={handleVolunteerClick}
-                    >
-                        Volunteer
-                    </button></a>
-                    <a href="#button2">
-                    <button id="button2" type='choice' style={{backgroundColor: (registrationType === "client") ? "grey" : "#f5d389" }}
-                     onClick={handleClientChange}>Client</button></a>
-                </span>
+
+                <div className='collapsible-div'>
+                    <Collapsible
+                        title="Your role as a volunteer"
+                        content={
+                            <>
+                                <p>Join our volunteer portal, a dynamic community of dedicated individuals committed to making a positive impact in the lives of women who have been incarcerated. As a volunteer, you'll have the opportunity to share your skills, knowledge, and experience with our clients, helping them develop new skills and discover new passions. There are three types of volunteering services available:</p>
+                                <ul>
+                                    <li><b>Community support:</b> You will be responsible for organizing and hosting workshops</li>
+                                    <li><b>Mentoring support:</b> Tutors. to find out more about the role of a tutor, check <a href='./about/Support'>Our Support</a> section</li>
+                                    <li><b>Mental health support:</b> You will be responsible for organizing and hosting group and/or individual thepary session, and other mental health services</li>
+                                </ul>
+                            </>
+                        }
+                    />
+                </div>
+                <hr />
+                <div className='joinquestion'>
+                    <br />
+                    <br />
+                    <h5>What would you like to join as?</h5>
+                    <br />
+                    <span> <a href="#button1">
+                        <button id="button1"
+                            type='choice1' style={{ backgroundColor: (registrationType === "volunteer") ? "#b79957" : "#f5d389" }}
+                            onClick={handleVolunteerClick}
+                        >
+                            Volunteer
+                        </button></a>
+                        <a href="#button2">
+                            <button id="button2" type='choice' style={{ backgroundColor: (registrationType === "client") ? "#b79957" : "#f5d389" }}
+                                onClick={handleClientChange}>Client</button></a>
+                        <br />
+                        <br/>
+                        <p>Already have an account? <a href='./Signselect'>Log in</a></p>
+                        <br />
+                        <br />
+                    </span>
+                </div>
             </div>
             {registrationType === 'volunteer' && (
                 <form onSubmit={handleSubmit}>
@@ -148,11 +174,7 @@ function RegistrationForm() {
                     </label>
                     <label>
                         Criminal record :
-                        <select value={criminal} onChange={handleCriminalChange} required>
-                            <option value="empty"></option>
-                            <option value="0">Yes</option>
-                            <option value="1">No</option>
-                        </select>
+                        <input type="text" name="record" required />
                     </label>
                     <br />
                     <button type="submit">Register as Participant</button>

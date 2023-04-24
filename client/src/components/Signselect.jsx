@@ -1,0 +1,52 @@
+import React from 'react'
+import './Signselect.css'
+import { Link } from 'react-router-dom';
+
+
+export default function Signselect() {
+  return (
+    <>
+        <h1 className='titleAboutSS'>Welcome Back</h1>
+        <div className='sign_selection'>
+          <div className='sign_client'>
+          <p><b>Log in as a client</b></p>
+          <br/>
+          <img src="../public/client.jpg" alt="client" />
+          <br/>
+          <br/>
+          <p>If you signed up as a client, you can access your profile from <Link to="/Sign">here</Link></p>
+          </div>
+          <div className='sign_volunteer'>
+            <p><b>Log in as a volunteer</b></p>
+            <br/>
+            <img src="../public/volunteer.jfif" alt="" />
+            <br/>
+          <br/>
+          <p>If you signed up as a volunteer, you can access your profile from <Link to="/Sign">here</Link></p>
+          </div>
+          <div className='sign_tutor'>
+            <p><b>Log in as a tutor</b></p>
+            <br/>
+            <img src="../public/tutor.jpg" alt="" />
+            <br/>
+          <br/>
+          <p>If you signed up as a tutor, you can access your profile from <Link to="/Sign">here</Link></p>
+          </div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <hr className='separator'/>
+        <br/>
+        <p className='separator_par'>You don't have an account? <a href="./Register"> Register here</a></p>
+        <br/>
+        <hr className='separator'/>
+        <br/>
+        <br/>
+        <br/>
+    </>
+  )
+}
