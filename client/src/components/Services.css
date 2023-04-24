@@ -5,3 +5,13 @@
 #descript {
     min-height: 155px;
 }
+#services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#works {
+    margin: 10px;
+    border-radius: 0;
+    border: 1px solid black;
+}

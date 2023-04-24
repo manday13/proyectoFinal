@@ -122,8 +122,8 @@ function Services() {
     };
 
     const handleWorkshops = workshops.map((el, i) => (
-        <Col md={3} key={i}>
-            <Card style={{ width: '18rem' }}>
+        // <Col key={i}>
+            <Card id='works' style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="https://placekitten.com/200/300" />
                 <Card.Body>
                     <Card.Title>{el.name}</Card.Title>
@@ -132,7 +132,7 @@ function Services() {
                     <Button variant="primary">Más información</Button>
                 </Card.Body>
             </Card>
-        </Col>
+        // </Col>
     ));
     return (
         <>
@@ -184,9 +184,10 @@ function Services() {
                 </Container>
             </div>
             <div id='services'>
-                <Container>
+            {handleWorkshops}
+                {/* <Container>
                     <Row>{handleWorkshops}</Row>
-                </Container>
+                </Container> */}
             </div>
         </>
     );
