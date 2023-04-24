@@ -1,7 +1,7 @@
 import './Home.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {Link} from 'react-scroll';
+// import {Link} from 'react-scroll';
 import { faChevronDown, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 
 
