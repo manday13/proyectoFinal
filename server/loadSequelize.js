@@ -3,8 +3,8 @@ import config from "./config/config.js"
 
 export const sequelize = new Sequelize (
     config.database,
-    config.password,
-    config.username,
+    config.username, //importa el orden? --> si importa
+    config.password,    
     {
         host: config.host,
         dialect: config.dialect

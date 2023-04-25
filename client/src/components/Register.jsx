@@ -1,31 +1,49 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
+import API_URL from '../apiconfig';
 import './Register.css'
 
 function RegistrationForm() {
+    const goTo = useNavigate();
     const [registrationType, setRegistrationType] = useState('');
-    const [pronouns, setPronouns] = useState('');
-    const [criminal, setCriminal] = useState('');
+    const [pronouns, setPronouns] = useState(0);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [role, setRole] = useState('');
+    const [record, setRecord] = useState('');
+    console.log(registrationType)
+    useEffect(()=>{
+        if(role === "tutor"){
+            setRegistrationType("tutor");
+        } else {setRegistrationType('volunteers')}
+    },[role])
 
     const handleVolunteerClick = () => {
-        setRegistrationType('volunteer');
+        setRegistrationType('volunteers');
     };
 
     const handleClientChange = () => {
-        setRegistrationType('client');
+        setRegistrationType('users');
     };
 
     const handlePronounsChange = (event) => {
         setPronouns(event.target.value);
-    };
-
-    const handleCriminalChange = (event) => {
-        setCriminal(event.target.value);
-    };
+    };    
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // handle form submission here
+        const options = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name, email, password, phone})
+        };
+        fetch(API_URL + registrationType , options)
+        goTo('/') //redirigimos a home
     };
+    console.log(name, email, password, phone, pronouns)
 
     function Collapsible({ title, content }) {
         const [isOpen, setIsOpen] = useState(false);
@@ -83,13 +101,13 @@ function RegistrationForm() {
                     <br />
                     <span> <a href="#button1">
                         <button id="button1"
-                            type='choice1' style={{ backgroundColor: (registrationType === "volunteer") ? "#b79957" : "#f5d389" }}
+                            type='choice1' style={{ backgroundColor: (registrationType === ('volunteers' || 'tutor')) ? "#b79957" : "#f5d389" }}
                             onClick={handleVolunteerClick}
                         >
                             Volunteer
                         </button></a>
                         <a href="#button2">
-                            <button id="button2" type='choice' style={{ backgroundColor: (registrationType === "client") ? "#b79957" : "#f5d389" }}
+                            <button id="button2" type='choice' style={{ backgroundColor: (registrationType === 'users') ? "#b79957" : "#f5d389" }}
                                 onClick={handleClientChange}>Client</button></a>
                         <br />
                         <br/>
@@ -99,25 +117,25 @@ function RegistrationForm() {
                     </span>
                 </div>
             </div>
-            {registrationType === 'volunteer' && (
+            {registrationType === ('volunteers' || 'tutor') && (
                 <form onSubmit={handleSubmit}>
                     <label>
                         Full Name :
-                        <input type="text" required />
+                        <input type="text" onInput={(e)=>setName(e.target.value)} required />
                     </label>
                     <label>
                         Email :
-                        <input type="email" required />
+                        <input type="email" onInput={(e)=>setEmail(e.target.value)} required />
                     </label>
                     <label>
                         Create Password :
-                        <input type="password" required />
+                        <input type="password" onInput={(e)=>setPassword(e.target.value)} required />
                     </label>
                     <label>
                         Phone number (optional) :
                         <br />
                         +34
-                        <input type="tel" maxlength="9" />
+                        <input type="tel" maxLength="9" onInput={(e)=>setPhone(e.target.value)} />
                     </label>
                     <label>
                         Pronouns :
@@ -130,7 +148,7 @@ function RegistrationForm() {
                     </label>
                     <label>
                         Role :
-                        <select required>
+                        <select required onChange={(e)=>setRole(e.target.value)}>
                             <option value="">Please select a role</option>
                             <option value="artist">Community support</option>
                             <option value="tutor">Mentoring support</option>
@@ -143,38 +161,38 @@ function RegistrationForm() {
                     <br />
                 </form>
             )}
-            {registrationType === 'client' && (
+            {registrationType === 'users' && (
                 <form onSubmit={handleSubmit}>
                     <label>
                         Full Name :
-                        <input type="text" name="name" required />
+                        <input type="text" name="name" onInput={(e)=>setName(e.target.value)} required />
                     </label>
                     <label>
                         Email :
-                        <input type="email" name="email" required />
+                        <input type="email" name="email" onInput={(e)=>setEmail(e.target.value)} required />
                     </label>
                     <label>
                         Create Password :
-                        <input type="password" name="password" required />
+                        <input type="password" name="password" onInput={(e)=>setPassword(e.target.value)} required />
                     </label>
                     <label>
                         Phone number (optional) :
                         <br />
                         +34
-                        <input type="tel" name="phone" maxlength="9" />
+                        <input type="tel" name="phone" maxLength="9" onInput={(e)=>setPhone(e.target.value)} />
                     </label>
                     <label>
                         Pronouns :
                         <select value={pronouns} onChange={handlePronounsChange} required>
-                            <option value="empty"></option>
-                            <option value="sheher">She/Her</option>
-                            <option value="theythem">They/Them</option>
-                            <option value="novalue">Prefer not to say</option>
+                            <option value="0"></option>
+                            <option value="1">She/Her</option>
+                            <option value="2">They/Them</option>
+                            <option value="3">Prefer not to say</option>
                         </select>
                     </label>
                     <label>
                         Criminal record :
-                        <input type="text" name="record" required />
+                        <input type="text" name="record" onInput={(e)=>setRecord(e.target.value)} required />
                     </label>
                     <br />
                     <button type="submit">Register as Participant</button>

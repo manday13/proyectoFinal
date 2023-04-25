@@ -7,6 +7,16 @@ export const Competencies = sequelize.define('Competencies', {
     description: dataTypes.TEXT
 }, { tableName: 'competencies', timestamps: false });
 
+export const Volunteers = sequelize.define('Volunteers', {
+    name: dataTypes.STRING,
+    email: dataTypes.STRING,
+    password: dataTypes.STRING,
+    foto: dataTypes.STRING,
+    role: dataTypes.STRING,
+    pronouns: dataTypes.TINYINT,
+    phone: dataTypes.STRING
+}, { tableName: 'volunteers', timestamps: false });
+
 export const Services = sequelize.define('Services', {
     name: dataTypes.STRING,
     description: dataTypes.TEXT('medium'), //MEDIUMTEXT EN SQL
@@ -63,15 +73,7 @@ export const Users = sequelize.define('Users', {
     }
 }, { tableName: 'users', timestamps: false });
 
-export const Volunteers = sequelize.define('Volunteers', {
-    name: dataTypes.STRING,
-    email: dataTypes.STRING,
-    password: dataTypes.STRING,
-    foto: dataTypes.STRING,
-    role: dataTypes.STRING,
-    pronouns: dataTypes.TINYINT,
-    phone: dataTypes.STRING
-}, { tableName: 'volunteers', timestamps: false });
+
 
 export const Users_services = sequelize.define('Users_services', {
 

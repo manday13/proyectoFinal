@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt'; //se utiliza para encriptar cosas, en nuestro caso 
 import {sequelize} from '../loadSequelize.js'; //para conectar con la base de datos
 import {autentica} from './authentication.js'; //para que cada vez que se intente hacer algo se compruebe si se ha caducado el token o no para hacerlo o no hacerlo
 
-//importar aqui modelo!!
+import {Users} from '../modelos/Models.js'
 
 const router = express.Router()
 
@@ -33,14 +33,14 @@ router.post('/login', (req,res) => {
     const response = {};
     const {email, password} = req.body;
     if(!email || !password) {
-        res.status(400).json({ok:false, msg: "email o password not received"})
+        res.status(400).json({ok:false, msg: "Email or password not received"})
     }
     Users.findOne({where: {email}})
         .then((user)=> {
             if (user && bcrypt.compareSync(password, user.password)){
                 return user;
             } else {
-                throw "client/password invalids"; //deja de hacer el resto
+                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como error
             }
         })
         .then(user => { //si todo ha ido bien, es decir coincide el user con su password, crea el token que es el que le permitira acceder a los sitios de la pagina
@@ -58,4 +58,6 @@ router.post('/login', (req,res) => {
         })
         .catch(err => res.status(400).json({ok: false, msg: err}))
 });
+
+export default router;
 
