@@ -52,6 +52,7 @@ router.post('/login', (req,res) => {
                     email,
                     name: vol.name,
                     id: vol.id,
+                    role: vol.role,
                 },
                 secretKey //finalmente ponemos una signature key que nos sirve para que el token sea unico
             ); //hasta aqui la creacion del token
@@ -59,6 +60,26 @@ router.post('/login', (req,res) => {
             res.json(response);
         })
         .catch(err => res.status(400).json({ok: false, msg: err}))
+});
+
+
+router.get('/:id', autentica, function(req,res,next){
+    sequelize.sync().then(()=>{
+        Volunteers.findOne({where: {id: req.params.id}})
+            .then(al => res.json({
+                ok: true,
+                data: al
+            }))
+            .catch(error => res.json({
+                ok: false,
+                error: error
+            }))
+    }).catch((error) => {
+        res.json({
+            ok: false,
+            error: error
+        })
+    });
 });
 
 export default router;

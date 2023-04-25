@@ -51,6 +51,7 @@ router.post('/login', (req,res) => {
                     email,
                     name: user.name,
                     id: user.id,
+                    record: user.record,
                 },
                 secretKey //finalmente ponemos una signature key que nos sirve para que el token sea unico
             ); //hasta aqui la creacion del token
