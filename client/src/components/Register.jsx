@@ -15,7 +15,7 @@ function RegistrationForm() {
     const [record, setRecord] = useState('');
     console.log(registrationType)
     useEffect(()=>{
-        if(role === "tutor"){
+        if(role === "2"){
             setRegistrationType("tutor");
         } else {setRegistrationType('volunteers')}
     },[role])
@@ -35,10 +35,23 @@ function RegistrationForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         // handle form submission here
+        const ob = {
+            name,
+            email,
+            password,
+            phone, 
+            pronouns,           
+        }
+       if(registrationType === "volunteers"){
+           ob.role = role;
+       }else if (registrationType === "users"){
+           ob.record = record;
+           ob.id_t = 1;
+       }
         const options = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name, email, password, phone})
+            body: JSON.stringify(ob)
         };
         fetch(API_URL + registrationType , options)
         goTo('/') //redirigimos a home
@@ -117,7 +130,7 @@ function RegistrationForm() {
                     </span>
                 </div>
             </div>
-            {registrationType === ('volunteers' || 'tutor') && (
+            {(registrationType === 'volunteers') || (registrationType === 'tutor') ? (
                 <form onSubmit={handleSubmit}>
                     <label>
                         Full Name :
@@ -140,19 +153,19 @@ function RegistrationForm() {
                     <label>
                         Pronouns :
                         <select value={pronouns} onChange={handlePronounsChange} required>
-                            <option value="empty"></option>
-                            <option value="sheher">She/Her</option>
-                            <option value="theythem">They/Them</option>
-                            <option value="novalue">Prefer not to say</option>
+                            <option value="0"></option>
+                            <option value="1">She/Her</option>
+                            <option value="2">They/Them</option>
+                            <option value="3">Prefer not to say</option>
                         </select>
                     </label>
                     <label>
                         Role :
                         <select required onChange={(e)=>setRole(e.target.value)}>
-                            <option value="">Please select a role</option>
-                            <option value="artist">Community support</option>
-                            <option value="tutor">Mentoring support</option>
-                            <option value="therapist">Mental health support</option>
+                            <option value="0">Please select a role</option>
+                            <option value="1">Community support</option>
+                            <option value="2">Mentoring support</option>
+                            <option value="3">Mental health support</option>
                         </select>
                     </label>
                     <br />
@@ -160,7 +173,7 @@ function RegistrationForm() {
                     <br />
                     <br />
                 </form>
-            )}
+            ) : <></>}
             {registrationType === 'users' && (
                 <form onSubmit={handleSubmit}>
                     <label>

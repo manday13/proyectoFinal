@@ -51,7 +51,7 @@ function App() {
   }
   console.log(token)
   //definimos aqui el handlelogin porque es el que me da el token en un primer momento y lo necesito pasar a toda la aplicacion como GlobalContext
-  const handlelogin = (email, password, position) => {
+  const handleLogin = (email, password, position) => {
     const requestedOptions = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -81,7 +81,7 @@ function App() {
             <Route path="/about/support" element={<Support />} />
             <Route path="/services" element={<Services />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/sign/:position" element={<Sign handlelogin={handlelogin} />} />
+            <Route path="/sign/:position" element={<Sign handleLogin={handleLogin} />} />
             <Route path="/signSelect" element={<SignSelect />} />
 
 
