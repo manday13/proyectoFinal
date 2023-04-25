@@ -1,7 +1,10 @@
-import express from 'express';//siempre importamos express que es la libreria que se encarga de recibir y enviar
-import jsonwebtoken from 'jsonwebtoken'; // para la creacion del token cuando se logeen
-import multer from 'multer'; //para poder trabajar con archivos (en nuestro caso imagenes)
-import {secretKey, expiredAfter} from './loginconfig.js' //importamos estos datos que usaremos en la creacion del token cuando se logeen
-import bcrypt from 'bcrypt'; //se utiliza para encriptar cosas, en nuestro caso la contraseña del usuario 
-import {sequelize} from '../loadSequelize.js'; //para conectar con la base de datos
-import {autentica} from './authentication.js';
+import express from 'express';
+
+//creo un objeto en el que se guardan las peticiones
+const router = express.Router();
+
+router.get('/', function(req,res,next){
+    res.send("<br>¡Bienvenido a la API de my_first_ecommerce! <br> <ul> Añada:  <b>/api/...</b> si quiere ver ... ");
+});
+
+export default router;

@@ -66,3 +66,8 @@ button[type="button"]:hover {
     display: inline-block;
     height: 500px;
 }
+
+.error-msg{
+    color: red;
+    text-align: center;
+}
