@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import API_URL from '../apiconfig';
 import './Register.css'
 
@@ -15,9 +15,9 @@ function RegistrationForm() {
     const [record, setRecord] = useState('');
     console.log(registrationType)
     useEffect(()=>{
-        if(role === "tutor"){
+        if(role === "2"){
             setRegistrationType("tutor");
-        } else {setRegistrationType('volunteers')}
+        } else if((role === '1')||(role === '3')){setRegistrationType('volunteers')}
     },[role])
 
     const handleVolunteerClick = () => {
@@ -35,15 +35,27 @@ function RegistrationForm() {
     const handleSubmit = (event) => {
         event.preventDefault();
         // handle form submission here
+        const ob = {
+            name,
+            email,
+            password,
+            phone, 
+            pronouns,           
+        }
+       if(registrationType === "volunteers"){
+           ob.role = role;
+       }else if (registrationType === "users"){
+           ob.record = record;
+           ob.id_t = 1; //se podria cambiar para que no sea estatico sino que vaya asignando un tutor en funcion de si otro tutor ya tiene muchos users asociados
+       }
         const options = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name, email, password, phone})
+            body: JSON.stringify(ob)
         };
         fetch(API_URL + registrationType , options)
         goTo('/') //redirigimos a home
-    };
-    console.log(name, email, password, phone, pronouns)
+    };  
 
     function Collapsible({ title, content }) {
         const [isOpen, setIsOpen] = useState(false);
@@ -111,12 +123,14 @@ function RegistrationForm() {
                                 onClick={handleClientChange}>Client</button></a>
                         <br />
                         <br/>
-                        <p>Already have an account? <a href='./Signselect'>Log in</a></p>
-                        
+
+                        <p>Already have an account? <Link to='/Signselect'>Log in</Link></p>
+                        <br />
+                        <br />
                     </span>
                 </div>
             </div>
-            {registrationType === ('volunteers' || 'tutor') && (
+            {(registrationType === 'volunteers') || (registrationType === 'tutor') ? (
                 <form onSubmit={handleSubmit}>
                     <label>
                         Full Name :
@@ -139,19 +153,19 @@ function RegistrationForm() {
                     <label>
                         Pronouns :
                         <select value={pronouns} onChange={handlePronounsChange} required>
-                            <option value="empty"></option>
-                            <option value="sheher">She/Her</option>
-                            <option value="theythem">They/Them</option>
-                            <option value="novalue">Prefer not to say</option>
+                            <option value="0"></option>
+                            <option value="1">She/Her</option>
+                            <option value="2">They/Them</option>
+                            <option value="3">Prefer not to say</option>
                         </select>
                     </label>
                     <label>
                         Role :
                         <select required onChange={(e)=>setRole(e.target.value)}>
-                            <option value="">Please select a role</option>
-                            <option value="artist">Community support</option>
-                            <option value="tutor">Mentoring support</option>
-                            <option value="therapist">Mental health support</option>
+                            <option value="0">Please select a role</option>
+                            <option value="1">Community support</option>
+                            <option value="2">Mentoring support</option>
+                            <option value="3">Mental health support</option>
                         </select>
                     </label>
                     <br />
@@ -159,7 +173,7 @@ function RegistrationForm() {
                     <br />
                     <br />
                 </form>
-            )}
+            ) : <></>}
             {registrationType === 'users' && (
                 <form onSubmit={handleSubmit}>
                     <label>

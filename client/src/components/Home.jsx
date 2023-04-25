@@ -1,14 +1,16 @@
 import './Home.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import {Link} from 'react-scroll';
+import GlobalContext from '../GlobalContext.js'
+import { useContext } from "react";
 import { faChevronDown, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 
 
 function Home() {
+    const {username} = useContext(GlobalContext);
     return (
         <>
-            <div className='one'>
+            <div className='one'>                
                 <h1>For women, by women ...</h1>
                 <p style={{marginBottom: "100px", fontSize:"large", color:"rgb(254,226,203)"}}>We support women who have been incarcerated, offering them psychological support through therapy and workshops. We also provide guidance on reintegration into the workforce, helping women to rebuild their lives and achieve their goals.</p>
                 <p><b>You want to know more about us, right?</b></p>                
