@@ -5,13 +5,20 @@
 #descript {
     min-height: 155px;
 }
+#filter-nav{
+    margin: 20px;
+}
 #services {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-#works {
+#worksCard {
+    min-width: 400px;
     margin: 10px;
     border-radius: 0;
     border: 1px solid black;
+}
+#imgCard {
+    border-radius: 0;
 }
