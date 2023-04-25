@@ -18,8 +18,6 @@ import Mission from './components/about/Mission';
 import Support from './components/about/Support';
 
 
-
-
 function App() {
 
   const [token, setToken] = useState();
