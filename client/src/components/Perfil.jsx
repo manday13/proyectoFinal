@@ -34,7 +34,7 @@ function Perfil(){
                 .finally(()=> setRefresh(!refresh))
         }
     }, [refresh])
-    console.log("user",user)
+    console.log(error)
     return(
         <>
         <h1>{user.name}</h1>

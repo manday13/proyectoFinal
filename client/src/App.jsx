@@ -54,7 +54,7 @@ function App() {
       const now = new Date().getTime()
       setShowToast(now > expired)
       setUsername('');
-      // goHome();
+      goHome();
     }
     
 
@@ -64,7 +64,7 @@ function App() {
     setToken('');
     goHome();
   }
-  console.log(token)
+  
   //definimos aqui el handlelogin porque es el que me da el token en un primer momento y lo necesito pasar a toda la aplicacion como GlobalContext
   const handleLogin = (email, password, position) => {
     const requestedOptions = {
@@ -86,7 +86,7 @@ function App() {
 
 
   return (
-    <GlobalContext.Provider value={{token, logout, error, username, id, type}}>  
+    <GlobalContext.Provider value={{token, logout, error, username, id, type, setToken}}>  
     <div className="ContainerPage">
         <Menu />  
         
