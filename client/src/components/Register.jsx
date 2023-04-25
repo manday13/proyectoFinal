@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import API_URL from '../apiconfig';
 import './Register.css'
 
@@ -17,7 +17,7 @@ function RegistrationForm() {
     useEffect(()=>{
         if(role === "2"){
             setRegistrationType("tutor");
-        } else {setRegistrationType('volunteers')}
+        } else if((role === '1')||(role === '3')){setRegistrationType('volunteers')}
     },[role])
 
     const handleVolunteerClick = () => {
@@ -46,7 +46,7 @@ function RegistrationForm() {
            ob.role = role;
        }else if (registrationType === "users"){
            ob.record = record;
-           ob.id_t = 1;
+           ob.id_t = 1; //se podria cambiar para que no sea estatico sino que vaya asignando un tutor en funcion de si otro tutor ya tiene muchos users asociados
        }
         const options = {
             method: 'POST',
@@ -55,8 +55,7 @@ function RegistrationForm() {
         };
         fetch(API_URL + registrationType , options)
         goTo('/') //redirigimos a home
-    };
-    console.log(name, email, password, phone, pronouns)
+    };  
 
     function Collapsible({ title, content }) {
         const [isOpen, setIsOpen] = useState(false);
@@ -124,7 +123,7 @@ function RegistrationForm() {
                                 onClick={handleClientChange}>Client</button></a>
                         <br />
                         <br/>
-                        <p>Already have an account? <a href='./Signselect'>Log in</a></p>
+                        <p>Already have an account? <Link to='/Signselect'>Log in</Link></p>
                         <br />
                         <br />
                     </span>

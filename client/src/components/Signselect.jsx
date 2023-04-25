@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default function Signselect() {
   return (
     <>
-        <h1 className='titleAboutSS'>Welcome Back</h1>
+        
         <div className='sign_selection'>
           <div className='sign_client'>
           <p><b>Log in as a client</b></p>
@@ -32,17 +32,13 @@ export default function Signselect() {
           <br/>
           <p>If you signed up as a tutor, you can access your profile from <Link to="/Sign/tutor">here</Link></p>
           </div>
-        </div>
+        </div>                
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
-        <br/>
-        <hr className='separator'/>
-        <br/>
-        <p className='separator_par'>You don't have an account? <a href="./Register"> Register here</a></p>
-        <br/>
+        <br/>        
+        <hr className='separator'/>        
+        <p className='separator_par'>You don't have an account?   <span style={{marginLeft:"5px"}}><Link to="/Register" > Register here</Link></span></p>        
         <hr className='separator'/>
         <br/>
         <br/>
