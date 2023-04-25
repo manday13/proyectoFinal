@@ -1,3 +1,13 @@
+.titleAboutSS {
+    flex: 100%;
+    background-image: url("../public/image1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px 500px 150px 130px;
+    color: antiquewhite;
+    font-weight: bold;
+    font-size: 75px;
+}
 form {
     display: flex;
     flex-direction: column;

@@ -34,12 +34,14 @@ router.post('/login', (req,res) => {
     const {email, password} = req.body;
     if(!email || !password) {
         res.status(400).json({ok:false, msg: "Email or password not received"})
+        return;
     }
     Volunteers.findOne({where: {email}})
         .then((vol)=> {
             if (vol && bcrypt.compareSync(password, vol.password)){
                 return vol;
             } else {
+
                 throw "Client/password invalids"; //deja de hacer el resto y pasa esto como error
             }
         })
@@ -48,8 +50,8 @@ router.post('/login', (req,res) => {
                 { //aqui ponemos la informacion que queremos meter dentro que se puede extraer
                     expiredAt: new Date().getTime() + expiredAfter, //para que caduque en el momento en el que pase el tiempo que hemos definido en expiredafter
                     email,
-                    name: vol.nombre,
-                    id,
+                    name: vol.name,
+                    id: vol.id,
                 },
                 secretKey //finalmente ponemos una signature key que nos sirve para que el token sea unico
             ); //hasta aqui la creacion del token

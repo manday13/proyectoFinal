@@ -9,6 +9,7 @@ import API_URL from './apiconfig';
 import Menu from './Menu';
 import Footer from './Footer';
 import ButtonUp from './ButtonUp';
+import Perfil from './components/Perfil'
 import Home from './components/Home';
 import Services from './components/Services';
 import Register from './components/Register';
@@ -23,7 +24,8 @@ import Support from './components/about/Support';
 function App() {
 
   const [token, setToken] = useState();
-  const [userName, setUserName] = useState('');
+  const [id, setId] = useState();
+  const [username, setUsername] = useState('');
   const [expired, setExpired] = useState();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState('');
@@ -31,23 +33,30 @@ function App() {
   const goHome = () => {
     navigateTo('/')
   }
+  const goServices = () => {
+    navigateTo('/services')
+  }
 
   useEffect(()=>{
     if(token) {
       const decoded = jwt_decode(token) //para poder extraer los datos del token
-      setUserName(decoded.name || decoded.email);
-      setExpired(decoded.expiredAt)
+      setUsername(decoded.name || decoded.email);
+      setExpired(decoded.expiredAt);
+      setId(decoded.id);
+      goServices();
     } else {
       const now = new Date().getTime()
       setShowToast(now > expired)
-      setUserName('');
+      setUsername('');
+      // goHome();
     }
-    goHome();
+    
 
   }, [token])
 
   const logout = () => {
     setToken('');
+    goHome();
   }
   console.log(token)
   //definimos aqui el handlelogin porque es el que me da el token en un primer momento y lo necesito pasar a toda la aplicacion como GlobalContext
@@ -71,7 +80,7 @@ function App() {
 
 
   return (
-    <GlobalContext.Provider value={{token, logout, error}}>  
+    <GlobalContext.Provider value={{token, logout, error, username, id}}>  
     <div className="ContainerPage">
         <Menu />  
         
@@ -83,6 +92,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/sign/:position" element={<Sign handleLogin={handleLogin} />} />
             <Route path="/signSelect" element={<SignSelect />} />
+            <Route path="/perfil" element={<Perfil />} />
 
 
           </Routes>

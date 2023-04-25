@@ -34,6 +34,7 @@ router.post('/login', (req,res) => {
     const {email, password} = req.body;
     if(!email || !password) {
         res.status(400).json({ok:false, msg: "Email or password not received"})
+        return;
     }
     Users.findOne({where: {email}})
         .then((user)=> {
@@ -48,8 +49,8 @@ router.post('/login', (req,res) => {
                 { //aqui ponemos la informacion que queremos meter dentro que se puede extraer
                     expiredAt: new Date().getTime() + expiredAfter, //para que caduque en el momento en el que pase el tiempo que hemos definido en expiredafter
                     email,
-                    name: user.nombre,
-                    id,
+                    name: user.name,
+                    id: user.id,
                 },
                 secretKey //finalmente ponemos una signature key que nos sirve para que el token sea unico
             ); //hasta aqui la creacion del token
@@ -58,6 +59,26 @@ router.post('/login', (req,res) => {
         })
         .catch(err => res.status(400).json({ok: false, msg: err}))
 });
+
+router.get('/:id', autentica, function(req,res,next){
+    sequelize.sync().then(()=>{
+        Users.findOne({where: {id: req.params.id}})
+            .then(al => res.json({
+                ok: true,
+                data: al
+            }))
+            .catch(error => res.json({
+                ok: false,
+                error: error
+            }))
+    }).catch((error) => {
+        res.json({
+            ok: false,
+            error: error
+        })
+    });
+});
+
 
 export default router;
 

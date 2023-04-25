@@ -48,8 +48,8 @@ router.post('/login', (req,res) => {
                 { //aqui ponemos la informacion que queremos meter dentro que se puede extraer
                     expiredAt: new Date().getTime() + expiredAfter, //para que caduque en el momento en el que pase el tiempo que hemos definido en expiredafter
                     email,
-                    name: tut.nombre,
-                    id,
+                    name: tut.name,
+                    id: tut.id,
                 },
                 secretKey //finalmente ponemos una signature key que nos sirve para que el token sea unico
             ); //hasta aqui la creacion del token
