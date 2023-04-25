@@ -4,7 +4,7 @@ import API_URL from '../apiconfig';
 
 
 function Perfil(){
-    const {id, setToken, token} = useContext(GlobalContext);
+    const {id, setToken, token, type} = useContext(GlobalContext);
     const [refresh, setRefresh] = useState(true);
     const [error, setError] = useState('');
     const [user, setUser] = useState({});
@@ -19,7 +19,7 @@ function Perfil(){
             headers: {'Content-Type': 'application/json', authorization: token}
         };
         if(refresh){
-            fetch(API_URL + "users/" + id, requestOptions)
+            fetch(API_URL + type + "/" + id, requestOptions)
                 .then(res => res.json())
                 .catch(error => error)
                 .then((res) => {
@@ -34,11 +34,12 @@ function Perfil(){
                 .finally(()=> setRefresh(!refresh))
         }
     }, [refresh])
-
+    console.log("user",user)
     return(
         <>
         <h1>{user.name}</h1>
         <h2>{user.email}</h2>
+        <h3>{type}</h3>
         </>
     )
 }

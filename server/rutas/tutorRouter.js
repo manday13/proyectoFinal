@@ -59,4 +59,24 @@ router.post('/login', (req,res) => {
         .catch(err => res.status(400).json({ok: false, msg: err}))
 });
 
+router.get('/:id', autentica, function(req,res,next){
+    sequelize.sync().then(()=>{
+        Tutor.findOne({where: {id: req.params.id}})
+            .then(al => res.json({
+                ok: true,
+                data: al
+            }))
+            .catch(error => res.json({
+                ok: false,
+                error: error
+            }))
+    }).catch((error) => {
+        res.json({
+            ok: false,
+            error: error
+        })
+    });
+});
+
+
 export default router;

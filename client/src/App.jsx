@@ -25,6 +25,7 @@ function App() {
 
   const [token, setToken] = useState();
   const [id, setId] = useState();
+  const [type, setType] = useState();
   const [username, setUsername] = useState('');
   const [expired, setExpired] = useState();
   const [showToast, setShowToast] = useState(false);
@@ -40,6 +41,11 @@ function App() {
   useEffect(()=>{
     if(token) {
       const decoded = jwt_decode(token) //para poder extraer los datos del token
+      if(decoded.role){
+        setType("volunteers")
+      } else if(decoded.record){
+        setType("users")
+      }else{setType("tutor")};
       setUsername(decoded.name || decoded.email);
       setExpired(decoded.expiredAt);
       setId(decoded.id);
@@ -80,7 +86,7 @@ function App() {
 
 
   return (
-    <GlobalContext.Provider value={{token, logout, error, username, id}}>  
+    <GlobalContext.Provider value={{token, logout, error, username, id, type}}>  
     <div className="ContainerPage">
         <Menu />  
         
