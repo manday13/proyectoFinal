@@ -68,7 +68,8 @@ function Menu() {
                     <Nav className="ml-auto">
                     <NavDropdown drop='down-centered' title={<FontAwesomeIcon icon={faUser}/>} >              
                         <NavDropdown.Item href="#action/3.1"><Link to="/perfil" className="linklogo nav-link">Personal information</Link></NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.1">Ahievements</NavDropdown.Item>                        
+                        <NavDropdown.Item href="#action/3.1">Ahievements</NavDropdown.Item>
+                        <NavDropdown.Item href="#action/3.1">Log Out</NavDropdown.Item>                        
                     </NavDropdown>  
                     </Nav>
                 </Navbar.Collapse>
