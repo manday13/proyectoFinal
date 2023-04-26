@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: larger;
+    font-size: large;
 }
 
 .signImg{
@@ -13,25 +13,13 @@
     border-radius: 700px;
 }
 
-.sign_client{
-    padding: 60px 30px;
+.sign_client, .sign_volunteer, .sign_tutor{
+    margin: 30px 30px;        
     width: 320px;
     height: 500px;
 }
 
-.sign_volunteer{
-    padding: 60px 30px;
-    margin-left: 20px;
-    width: 320px;
-    height: 500px;
-}
 
-.sign_tutor{
-    padding: 60px 30px;
-    margin-left: 20px;
-    width: 320px;
-    height: 500px;
-}
 
 .separator_par{
     justify-content: center;
