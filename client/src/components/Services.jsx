@@ -79,10 +79,7 @@ function Services() {
 
     // FUNCION PARA FILTRAR LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
     const handleFilter = () => {
-        if (dadesSeg !== dades) {
-            console.log("hola");
-            setDades(null);
-            console.log("adios");
+        if (dadesSeg !== dades) {            
             setDades(dadesSeg);
         }
         let datosFiltrados;

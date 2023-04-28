@@ -14,7 +14,8 @@ export const Volunteers = sequelize.define('Volunteers', {
     foto: dataTypes.STRING,
     role: dataTypes.STRING,
     pronouns: dataTypes.TINYINT,
-    phone: dataTypes.STRING
+    phone: dataTypes.STRING,
+    description: dataTypes.TEXT('medium')
 }, { tableName: 'volunteers', timestamps: false });
 
 export const Services = sequelize.define('Services', {

@@ -80,6 +80,54 @@ router.get('/:id', autentica, function(req,res,next){
     });
 });
 
+//ponemos las caracteristicas del sitio en el que se guardaran los archivos y con que nombre se guardaran (solo es necesario 1 vez)
+const storage = multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null, 'fotos')
+    },
+    filename: function(req,file,cb){
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+//la siguiente constante upload es la que define donde se guardaran (en storage, que tiene ciertas caracteristicas que hemos definido antes)
+//y ademas dice si se van a guardar 1 o mas cosas (single --> solo 1) y cual es el nombre de esa cosa (para que sepa que se tiene que guardar)
+const upload = multer({storage: storage}).single('file');
+
+//a continuacion hacemos la modificacion de un Users
+
+router.put('/', autentica, function(req,res,next){
+    upload(req,res, function (err){
+        sequelize.sync()
+        .then(()=>{
+            if(req.file){
+                req.body.newfoto = req.file.path.split("\\")[1]; //pongo el split porque realmente se guarda como fotos\\epoch-filenameoriginal
+            }
+            else {
+                req.body.newfoto = null;
+            }
+            Users.findOne({where: {id: req.body.id}})
+                .then(user =>{
+                    if(req.body.newfoto)
+                        req.body.foto = req.body.newfoto
+                    return user.update(req.body)                        
+                })
+                .then(newuser => res.json({
+                    ok: true,
+                    data: newuser
+                }))
+                .catch(error => res.json({
+                    ok: false,
+                    error: error
+                }));
+        }).catch((error) => {
+            res.json({
+                ok: false,
+                error: error
+            })
+        });
+    });
+});
+
 
 export default router;
 

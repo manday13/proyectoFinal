@@ -8,7 +8,7 @@
 
 .profile-image {
     width: 150px;
-    height: 150px;
+    height: 200px;
     border-radius: 50%;
     margin-right: 20px;
 }
@@ -21,6 +21,24 @@
 .profile-info {
     display: flex;
     flex-direction: column;
+}
+
+.profile-button {
+    display: flex;
+    flex: auto; /*el espacio sobrante se absorbe de manera igualitaria entre los hijos, en este caso al ser el único lo coge todo */
+    justify-content: flex-end;     
+}
+
+.formEditPerfil{
+    margin: 0 !important;
+}
+
+.buttondes{
+    font-size: 5px;
+    background-color: black !important;
+    border-radius: 100px !important;
+    padding: 5px 10px !important;
+    margin-bottom: 5px;
 }
 
 .profile-name {
@@ -56,4 +74,8 @@
 
 .add-workshop:hover {
     background-color: #e0e0e0;
+}
+
+.descritione{
+    margin: 20px;
 }

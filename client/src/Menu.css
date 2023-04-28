@@ -47,3 +47,12 @@
   #navLogin {
     text-align: right;
   }
+
+  .drops{
+    background-color: transparent !important;
+    color: black;
+  }
+
+  .logout{
+    color: red;
+  }

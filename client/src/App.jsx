@@ -50,18 +50,23 @@ function App() {
       goServices();
     } else {
       const now = new Date().getTime()
-      setShowToast(now > expired)
+      setShowToast(now > expired);      
       setUsername('');
       goHome();
-    }
-    
-
+    }    
   }, [token])
 
   const logout = () => {
+    localStorage.removeItem('women_access_token');
     setToken('');
     goHome();
   }
+
+  useEffect(()=>{
+    const localToken = localStorage.getItem('women_access_token')
+    if (localToken)
+      setToken(localToken)
+  },[])
   
   //definimos aqui el handlelogin porque es el que me da el token en un primer momento y lo necesito pasar a toda la aplicacion como GlobalContext
   const handleLogin = (email, password, position) => {
@@ -75,6 +80,7 @@ function App() {
       .then(res => {
         if(res.ok){
           setToken(res.token);
+          localStorage.setItem('women_access_token', res.token);
         } else {
           setError(res.msg);
         }
