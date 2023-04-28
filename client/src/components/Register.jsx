@@ -33,7 +33,7 @@ function RegistrationForm() {
     };    
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault();        
         // handle form submission here
         const ob = {
             name,

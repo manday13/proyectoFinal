@@ -1,15 +1,23 @@
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container, Modal, Button } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown'
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import GlobalContext from './GlobalContext.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import './Menu.css'
 
-function Menu() {
-    const {username, logout} = useContext(GlobalContext)
 
-    if(!username){
+function Menu() {
+    const { username, logout } = useContext(GlobalContext)
+    const [showModal, setShowModal] = useState(false);
+
+    const logoutside = () => {        
+        logout();
+        setShowModal(false);        
+    }
+
+    if (!username) {
         return (
             <Navbar bg="light" expand="lg">
                 <Container>
@@ -27,7 +35,7 @@ function Menu() {
                                 </NavDropdown.Item>
                             </NavDropdown>
                             <Link to="/services" className='nav-link'>Services</Link>
-                            
+
                         </Nav>
                         <Nav className="ml-auto">
                             <Link id="navRegister" to="/Register" className="nav-link">
@@ -47,9 +55,10 @@ function Menu() {
 
 
     return (
+        <>
         <Navbar bg="light" expand="lg">
             <Container>
-            <Link to="/" className="linklogo"><Navbar.Brand >LOGO</Navbar.Brand></Link>
+                <Link to="/" className="linklogo"><Navbar.Brand >LOGO</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -63,18 +72,37 @@ function Menu() {
                             </NavDropdown.Item>
                         </NavDropdown>
                         <Link to="/services" className='nav-link'>Services</Link>
-                        
+
                     </Nav>
                     <Nav className="ml-auto">
-                    <NavDropdown drop='down-centered' title={<FontAwesomeIcon icon={faUser}/>} >              
-                        <NavDropdown.Item href="#action/3.1"><Link to="/perfil" className="linklogo nav-link">Personal information</Link></NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.1">Ahievements</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.1">Log Out</NavDropdown.Item>                        
-                    </NavDropdown>  
+                        <Dropdown  drop='start'>
+                            <Dropdown.Toggle className='drops' id="dropdown-basic">
+                                <span style={{color: "black"}}>{<FontAwesomeIcon icon={faUser} />}</span>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1"><Link to="/perfil" className="linklogo nav-link">Personal information</Link></Dropdown.Item>
+                                <Dropdown.Item href="#/action-2"><span className="nav-link">My workshops</span></Dropdown.Item>
+                                <Dropdown.Item href="#/action-3"><span className="nav-link logout" onClick={()=>setShowModal(true)}>Log out</span></Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+
+        <Modal show={showModal} onHide={()=>setShowModal(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title><h3>Are you sure you want to log out?</h3></Modal.Title>
+            </Modal.Header>
+            <Modal.Footer>
+                <Button variant="secondary" size="m" onClick={()=>setShowModal(false)}>Cancel</Button>
+                <Button variant="danger" size="m" onClick={logoutside}>Logout</Button>
+            </Modal.Footer>
+
+
+        </Modal>
+
+        </>
     )
 }
 
