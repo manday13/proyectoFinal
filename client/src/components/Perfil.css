@@ -57,3 +57,20 @@
 .add-workshop:hover {
     background-color: #e0e0e0;
 }
+
+.form-control {
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid #ced4da;
+    width: 100%;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.modal-body form {
+    margin-bottom: 20px;
+}
