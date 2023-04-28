@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GlobalContext from '../GlobalContext.js'
 import { useContext } from "react";
+import {Link} from 'react-router-dom';
 import { faChevronDown, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -24,14 +25,14 @@ function Home() {
                     <div className='col2'>
                         <h1>Our mission</h1>
                         <p>Our mission is to empower and support women who have been released from prison to successfully reintegrate into society</p>
-                        <a href="/about/Mission"><button className='homebutton'>Read more</button></a>
+                        <Link to="/about/Mission"><button className='homebutton'>Read more</button></Link>
                     </div>
                 </div>
                 <div className='row2'>
                     <div className='col1'>
                         <h1>Our support</h1>
                         <p>Our personal touch is that in our workshops you can work different competencies. Moreover, we provide the figure of a tutor that can write for our clients a recommendation letter related to the competencies that have been achieved in the workshops.</p>
-                        <a href="/about/Support"><button className='homebutton'>Read more</button></a>
+                        <Link to="/about/Support"><button className='homebutton'>Read more</button></Link>
                     </div>
                     <div className='col2'>
                         <img src="../public/image3.jpeg" />
@@ -45,7 +46,7 @@ function Home() {
                     <div className='col2'>
                         <h1>Join Us </h1>
                         <p>Be part of the good change, and sign up/ volunteer</p>
-                        <a href="/Register"><button className='homebutton'>Read more</button></a>
+                        <Link to="/Register"><button className='homebutton'>Read more</button></Link>
                     </div>
                 </div>
             </div>
