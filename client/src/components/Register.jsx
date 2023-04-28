@@ -125,8 +125,7 @@ function RegistrationForm() {
                         <br/>
 
                         <p>Already have an account? <Link to='/Signselect'>Log in</Link></p>
-                        <br />
-                        <br />
+                        
                     </span>
                 </div>
             </div>

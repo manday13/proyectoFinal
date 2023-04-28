@@ -68,9 +68,9 @@ function Services() {
         </Card>
     ));
     
-    // FUNCION PARA FILTRAR LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
+    // FUNCION PARA LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
     const handleFilter = () => {
-
+        let datosFiltrados = dadesSeg;
         if (serviceType !== 0) {
             datosFiltrados = datosFiltrados.filter((dato) => dato.type === serviceType);
         }
@@ -89,6 +89,7 @@ function Services() {
         setDate("");
         setServiceType(0);
         setWorkshopType(0);
+        loadData();
     };
 
 
