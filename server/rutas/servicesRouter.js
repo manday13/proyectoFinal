@@ -1,8 +1,8 @@
 import express from 'express';
-import {sequelize} from '../loadSequelize.js';
-import {autentica} from './authentication.js';
+import { sequelize } from '../loadSequelize.js';
+import { autentica } from './authentication.js';
 
-import {Services} from '../modelos/Models.js'
+import { Services } from '../modelos/Models.js'
 
 //creo un objeto en el que se guardan las peticiones
 const router = express.Router();
@@ -49,6 +49,33 @@ router.get('/:id', autentica, function (req, res, next) {
             error: error
         })
     });
+});
+
+//to create a new workshop
+router.post('/', function (req, res, next) {
+  /*   upload(req, res, function (err) {
+        if (err) {
+            return res.status(500).json(err)
+        }
+ */
+        sequelize.sync().then(() => {
+/*             req.body.foto = req.file.filename;
+            
+ */         
+                console.log("hello", req.body)
+                Services.create(req.body)
+                .then((item) => res.json({ ok: true, data: item }))
+                .catch((error) => res.json({ ok: false, error: error.message }))
+            
+
+
+        /* }).catch((error) => {
+            res.json({
+                ok: false,
+                error: error.message
+            })
+        }); */
+    })
 });
 
 export default router;

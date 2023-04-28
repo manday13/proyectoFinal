@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Dropdown, Container, Row, Col, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import './Services.css'
 
@@ -62,11 +63,11 @@ function Services() {
                 <Card.Title>{el.name}</Card.Title>
                 <Card.Text id='descript'>{el.description}</Card.Text>
                 <Card.Text>Fecha: {el.date}</Card.Text>
-                <Button variant="primary">Más información</Button>
+                <Button variant="primary"><Link to="/IndService">Más información</Link></Button>
             </Card.Body>
         </Card>
     ));
-
+    
     // FUNCION PARA FILTRAR LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
     const handleFilter = () => {
         let datosFiltrados = dadesSeg;
