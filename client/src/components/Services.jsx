@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Dropdown, Container, Row, Col, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import './Services.css'
 
@@ -11,15 +12,21 @@ function Services() {
     const [dades, setDades] = useState([]);
     const [dadesSeg, setDadesSeg] = useState([]);
     const [error, setError] = useState("");
+    const [dis, setDis] = useState(false);
 
+    //carga los datos iniciales
     useEffect(() => {
         loadData();
-        // setDadesSeg(dades);
     }, [])
 
-    // useEffect(() => {
-    //     loadData();
-    // }, [date, serviceType, workshopType])
+    //para poder des/habilitar el workshopType
+    useEffect(() => {
+        if (serviceType === 1) {
+            setDis(true);
+        } else {
+            setDis(false);
+        }
+    }, [serviceType])
 
     // FUNCION PARA CARGAR LOS DATOS
     function loadData() {
@@ -36,20 +43,6 @@ function Services() {
             .catch(error => setError(error))
     }
 
-    // async function loadData() {
-    //     try {
-    //         const resultat = await fetch("http://localhost:5000/api/services");
-    //         const retornat = await resultat.json();
-    //         if (retornat.ok === true) {
-    //             setDades(retornat.data);
-    //         } else {
-    //             setError(retornat.error);
-    //         }
-    //     } catch (error) {
-    //         return setError(error);
-    //     }
-    // }
-
     // FUNCIONES PARA CAMBIAR LA INFO EN LOS SELECTORES DEL FILTER
     function EventTypeDisplay({ serviceType }) {
         const eventTypeOptions = ['Select Event Type', 'Group therapy', 'Workshop'];
@@ -64,48 +57,39 @@ function Services() {
 
     // FUNCION PARA MAPEAR Y MOSTRAR LAS CARDS DE LOS CURSOS
     const handleWorkshops = dades.map((el, i) => (
-        // <Col key={i}>
         <Card id='worksCard' key={i} style={{ width: '18rem' }}>
             <Card.Img id='imgCard' variant="top" src="https://placekitten.com/300/150" />
             <Card.Body>
                 <Card.Title>{el.name}</Card.Title>
                 <Card.Text id='descript'>{el.description}</Card.Text>
                 <Card.Text>Fecha: {el.date}</Card.Text>
-                <Button variant="primary">Más información</Button>
+                <Button variant="primary"><Link to="/IndService">Más información</Link></Button>
             </Card.Body>
         </Card>
-        // </Col>
     ));
-
+    
     // FUNCION PARA FILTRAR LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
     const handleFilter = () => {
-        if (dadesSeg !== dades) {            
-            setDades(dadesSeg);
-        }
-        let datosFiltrados;
+
         if (serviceType !== 0) {
-            datosFiltrados = dades.filter((dato) => dato.type === serviceType);
+            datosFiltrados = datosFiltrados.filter((dato) => dato.type === serviceType);
         }
         if (workshopType !== 0) {
-            datosFiltrados = dades.filter((dato) => dato.work_type === workshopType);
+            datosFiltrados = datosFiltrados.filter((dato) => dato.work_type === workshopType);
         }
         if (date !== "") {
-            datosFiltrados = dades.filter((dato) => dato.date === date);
+            datosFiltrados = datosFiltrados.filter((dato) => dato.date === date);
         }
 
         setDades(datosFiltrados);
     };
-    console.log(dades)
-    console.log(dadesSeg)
-    console.log(dades === dadesSeg)
-    const handleButtonClick = (event) => {
-        if (disabled) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        // para que funcione hay que generar otra propiedad en el dropdown.toggle que se llame disabled y luego esta onClick={handleButtonClick} para
-        //referenciar esta funcion
-    }
+
+    //resetea los filtros
+    const handleDeleteFilter = () => {
+        setDate("");
+        setServiceType(0);
+        setWorkshopType(0);
+    };
 
 
     return (
@@ -114,12 +98,12 @@ function Services() {
                 <Container fluid>
                     <Row>
                         <Form id='filtraje'>
-                            <Col md={3} id='filters'>
+                            <Col md={3} className='filters'>
                                 <Form.Group>
                                     <Form.Control id='dates' type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                                 </Form.Group>
                             </Col>
-                            <Col md={3} id='filters'>
+                            <Col md={3} className='filters'>
                                 <Form.Group>
                                     <Dropdown id='drop'>
                                         <Dropdown.Toggle variant="primary" id="dropdownEventType">
@@ -132,11 +116,10 @@ function Services() {
                                     </Dropdown>
                                 </Form.Group>
                             </Col>
-                            <Col md={3} id='filters'>
-                                {/* <fieldset disabled> */}
+                            <Col md={3} className='filters'>
                                 <Form.Group>
                                     <Dropdown id='drop'>
-                                        <Dropdown.Toggle variant="primary" id="dropdownEventType">
+                                        <Dropdown.Toggle variant="primary" id="dropdownEventType" disabled={dis}>
                                             <WorkshopTypeDisplay workshopType={workshopType} />
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
@@ -147,10 +130,10 @@ function Services() {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Form.Group>
-                                {/* </fieldset> */}
                             </Col>
-                            <Col md={3} id='filters'>
+                            <Col md={3} className='filters'>
                                 <Button variant="primary" onClick={handleFilter}>Filter</Button>
+                                <Button variant="danger" onClick={handleDeleteFilter}>Borrar filtros</Button>
                             </Col>
                         </Form>
                     </Row>
@@ -158,9 +141,6 @@ function Services() {
             </div>
             <div id='services'>
                 {handleWorkshops}
-                {/* <Container>
-                    <Row>{handleWorkshops}</Row>
-                </Container> */}
             </div>
         </>
     );

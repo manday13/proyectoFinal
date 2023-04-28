@@ -29,7 +29,7 @@ export const Services = sequelize.define('Services', {
     id_c: {
         name: "id_c",
         type: dataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: Competencies,
             key: 'id'
@@ -38,7 +38,7 @@ export const Services = sequelize.define('Services', {
     id_v: {
         name: "id_v",
         type: dataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: Volunteers,
             key: 'id'
@@ -67,7 +67,7 @@ export const Users = sequelize.define('Users', {
     id_t: {
         name: "id_t",
         type: dataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: Tutor,
             key: 'id'
@@ -83,7 +83,7 @@ export const Users_services = sequelize.define('Users_services', {
     id_u: {
         name: "id_u",
         type: dataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: Users,
             key: 'id'
@@ -92,7 +92,7 @@ export const Users_services = sequelize.define('Users_services', {
     id_s: {
         name: "id_s",
         type: dataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: Services,
             key: 'id'

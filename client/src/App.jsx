@@ -17,6 +17,7 @@ import Sign from './components/Sign';
 import SignSelect from './components/SignSelect';
 import Mission from './components/about/Mission';
 import Support from './components/about/Support';
+import IndService from './components/IndService';
 
 
 function App() {
@@ -103,6 +104,7 @@ function App() {
             <Route path="/sign/:position" element={<Sign handleLogin={handleLogin} />} />
             <Route path="/signSelect" element={<SignSelect />} />
             <Route path="/perfil" element={<Perfil />} />
+            <Route path="/indService" element={<IndService />} />
 
 
           </Routes>
