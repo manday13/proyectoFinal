@@ -9,7 +9,7 @@ import './Menu.css'
 
 
 function Menu() {
-    const { username, logout } = useContext(GlobalContext)
+    const { username, logout, type, id } = useContext(GlobalContext)
     const [showModal, setShowModal] = useState(false);
 
     const logoutside = () => {        
@@ -21,7 +21,7 @@ function Menu() {
         return (
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Link to="/" className="linklogo"><Navbar.Brand >LOGO</Navbar.Brand></Link>
+                    <Link to="/" className="linklogo"><Navbar.Brand >WOOP</Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -80,7 +80,7 @@ function Menu() {
                                 <span style={{color: "black"}}>{<FontAwesomeIcon icon={faUser} />}</span>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1"><Link to="/perfil" className="linklogo nav-link">Personal information</Link></Dropdown.Item>
+                                <Dropdown.Item href="#/action-1"><Link to={`/perfil/${type}/${id}`} className="linklogo nav-link">Personal information</Link></Dropdown.Item>
                                 <Dropdown.Item href="#/action-2"><span className="nav-link">My workshops</span></Dropdown.Item>
                                 <Dropdown.Item href="#/action-3"><span className="nav-link logout" onClick={()=>setShowModal(true)}>Log out</span></Dropdown.Item>
                             </Dropdown.Menu>
