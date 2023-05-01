@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import GlobalContext from "../GlobalContext";
-import API_URL from '../apiconfig';
+import { Modal, Button, Table } from 'react-bootstrap';
+import GlobalContext from "../../GlobalContext";
+import API_URL from '../../apiconfig';
 import './Perfil.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faEnvelope, faPen } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
+import { userTypes } from './constants';
+import { getUser } from './services';
 
 
 
@@ -14,14 +16,13 @@ import { Link } from 'react-router-dom';
 function Perfil() {
 
     const goTo = useNavigate();
-
-    const { id, setToken, token, type } = useContext(GlobalContext);
+    const {id, type} = useParams();
+    const { setToken, token, email, setEmail } = useContext(GlobalContext);
     const [refresh, setRefresh] = useState(true);
-    const [error, setError] = useState('');
-    const [user, setUser] = useState({});
-
+    const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
     const [showM, setShowM] = useState(false);
-    const [userEdit, setUserEdit] = useState({});
+    const [userEdit, setUserEdit] = useState(null); //si pongo null me peta cuando intento editar al hacer useredit.name
     const [changeDescription, setChangeDescription] = useState(false);
     const desc = () => {
         setShowM(false);
@@ -29,8 +30,7 @@ function Perfil() {
     }
 
     const [show, setShow] = useState(false);
-/*     const [foto, setFoto] = useState('');
- */ const [name, setName] = useState('');
+    const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
     const [time, setTime] = useState('');
@@ -39,28 +39,23 @@ function Perfil() {
 
 
     useEffect(() => {
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json', authorization: token }
-        };
-        if (refresh) {
-            fetch(API_URL + type + "/" + id, requestOptions)
-                .then(res => res.json())
-                .catch(error => error)
-                .then((res) => {
-                    if (res.ok === true) {
-                        setUser(res.data);
-                    } else {
-                        setToken(null)
-                        setError(res.error)
-                    }
-                })
-                .catch((err) => setError(err))
-                .finally(() => setRefresh(!refresh))
-        }
+        if(refresh)
+        getUser(token, type, id)
+            .then((res) => {
+                if (res.ok) {
+                    setUser(res.data);
+                } else {
+                    setToken(null)
+                    setError(res.error)
+                }
+            })
+            .catch((err) => setError(err))
+            .finally(() => setRefresh(!refresh))
     }, [refresh])
-    console.log(error)
 
+    useEffect(() =>{
+        setRefresh(true)
+    }, [id, type])
 
     const editUser = () => {        
         const fdata = new FormData() //para guardar una imagen se tiene que hacer en formato formData() en vez de JSON.stringify()
@@ -68,7 +63,7 @@ function Perfil() {
         fdata.append("email", userEdit.email);        
         fdata.append("file", userEdit.foto);
         fdata.append("id", userEdit.id); //mejor que id, cuanto menos globalcontext menos carga. por consistencia de codigo: userEdit en vez de user 
-        if((type === "volunteers") || (type === "tutor")){
+        if((userTypes[type] === userTypes.volunteers) || (userTypes[type] === userTypes.tutor)){
             fdata.append("description", userEdit.description)
         }
         const requested = {
@@ -76,12 +71,13 @@ function Perfil() {
             headers: {authorization: token},
             body: fdata 
         };
-        fetch(API_URL + type + "/", requested)
+        fetch( + type + "/", requested)
             .then(res=>res.json())
             .catch(err => err)
             .then((res)=>{
                 if(res.ok === true){
-                    setRefresh(true),
+                    setRefresh(true)
+                    setEmail(userEdit.email);
                     setShowM(false)
                 } else {
                     setShowM(false),
@@ -103,14 +99,24 @@ function Perfil() {
             body: JSON.stringify({ name, description, date, time, work_type,  })
         };
 
-        fetch(API_URL + 'services', options)
+        fetch( + 'services', options)
         handleClose();
         goTo('/Services')
     };
-
-
     
-
+     //ojo aqui, no me puede hacer un map de algo que no existe (objeto vacio)
+        let myClients = (type === "tutor" && user && user.Users) ? user.Users.map((el, index)=> {
+            return(
+                    <tr key={el.id}>
+                       <td><Link to={`/perfil/users/${el.id}`}> {el.name}</Link></td>
+                        <td>{el.email}</td>
+                    </tr>
+            )
+        }) : <>There is no users.</>
+    
+    
+    if(!user)
+        {return <h3>Cargando</h3>}
     return (
         <>
             <br />
@@ -123,19 +129,20 @@ function Perfil() {
                     <div className="profile-info">
                         <h1 className="profile-name">{user.name}</h1>
                         <h2 className="profile-email">{user.email}</h2>
-                        <h3 className="profile-type">{type}</h3>
+                        {(type === "users") ? <h3 className="profile-type"><b>My tutor: </b>{user.Tutor && user.Tutor.name}({user.Tutor && user.Tutor.email})</h3> : <></>}
+                        
                     </div>
+                {(email === user.email) ? 
                     <div className="profile-button">
-                        <div ><Button onClick={() => { setShowM(true); setUserEdit({...user}) }}>Edit information</Button></div>
+                        <div ><Button onClick={() => { setShowM(true); setUserEdit({...user}) }}>Edit <FontAwesomeIcon icon={faPen}></FontAwesomeIcon></Button></div>
                     </div>
+                :  <div className="profile-button"><div><a href={`mailto:${user.email}`}><Button>Send email <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></Button></a></div></div>}
 
                 </div>
                 {((type === "volunteers") || (type === "tutor"))
                     ? <div className="descritione">
                         {user.description && <> <p><b>My description:</b></p><p>{user.description}</p> </>}
-
                     </div>
-
                     : <></>}
 
                 <br />
@@ -212,7 +219,13 @@ function Perfil() {
                         case 'tutor':
                             return (
                                 <div className='main-workshops'>
-
+                                <h3>My clients</h3>
+                                <Table>
+                                    <thead><tr><th>Name</th><th>Email</th></tr></thead>
+                                    <tbody>
+                                    {myClients}
+                                    </tbody>
+                                </Table>
                                 </div>
                             );
                         default:
@@ -232,7 +245,7 @@ function Perfil() {
                     }
                 })()}
             </div>
-            <Modal show={showM} onHide={() => desc()}>
+            {userEdit && <Modal show={showM} onHide={() => desc()}>
                 <Modal.Header closeButton>
                     <Modal.Title>Personal information</Modal.Title>
                 </Modal.Header>
@@ -250,9 +263,9 @@ function Perfil() {
                         {((type === "volunteers") || (type === "tutor"))
                             ? <>
                                 {(user.description || changeDescription)
-                                    ? <label>
+                                    ? <label >
                                         Description:
-                            <input type="text" value={userEdit.description} onChange={e => setUserEdit({...userEdit, description: e.target.value})} />
+                            <textarea className="form-control-textarea" type="text" value={userEdit.description} onChange={e => setUserEdit({...userEdit, description: e.target.value})} />
                                     </label>
                                     :  <>
                                     <button className="buttondes" type="button" onClick={() => setChangeDescription(true)}>+ Add description</button>
@@ -264,7 +277,7 @@ function Perfil() {
 
                         <label>
                             <p>Image:</p>
-                            <input type="file" onChange={e => setUserEdit({...userEdit, foto: e.target.files[0]})} />
+                            <input type="file" accept="image/png, image/gif, image/jpeg" onChange={e => setUserEdit({...userEdit, foto: e.target.files[0]})} />
                         </label>
                     </div>
                 </Modal.Body>
@@ -273,7 +286,7 @@ function Perfil() {
                     <Button variant="secondary" size="m" onClick={() => setShowM(false)}>Cancel</Button>
                 </Modal.Footer>
 
-            </Modal>
+            </Modal>}
 
         </>
     );
