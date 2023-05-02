@@ -104,7 +104,7 @@ function App() {
             <Route path="/sign/:position" element={<Sign handleLogin={handleLogin} />} />
             <Route path="/signSelect" element={<SignSelect />} />
             <Route path="/perfil" element={<Perfil />} />
-            <Route path="/indService" element={<IndService />} />
+            <Route path="/IndService/:id" element={<IndService/>} />
 
 
           </Routes>

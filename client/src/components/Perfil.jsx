@@ -30,7 +30,7 @@ function Perfil() {
 
     const [show, setShow] = useState(false);
 /*     const [foto, setFoto] = useState('');
- */ const [name, setName] = useState('');
+ */    const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
     const [time, setTime] = useState('');
@@ -62,34 +62,34 @@ function Perfil() {
     console.log(error)
 
 
-    const editUser = () => {        
+    const editUser = () => {
         const fdata = new FormData() //para guardar una imagen se tiene que hacer en formato formData() en vez de JSON.stringify()
         fdata.append("name", userEdit.name);
-        fdata.append("email", userEdit.email);        
+        fdata.append("email", userEdit.email);
         fdata.append("file", userEdit.foto);
         fdata.append("id", userEdit.id); //mejor que id, cuanto menos globalcontext menos carga. por consistencia de codigo: userEdit en vez de user 
-        if((type === "volunteers") || (type === "tutor")){
+        if ((type === "volunteers") || (type === "tutor")) {
             fdata.append("description", userEdit.description)
         }
         const requested = {
             method: 'PUT',
-            headers: {authorization: token},
-            body: fdata 
+            headers: { authorization: token },
+            body: fdata
         };
         fetch(API_URL + type + "/", requested)
-            .then(res=>res.json())
+            .then(res => res.json())
             .catch(err => err)
-            .then((res)=>{
-                if(res.ok === true){
+            .then((res) => {
+                if (res.ok === true) {
                     setRefresh(true),
-                    setShowM(false)
+                        setShowM(false)
                 } else {
                     setShowM(false),
-                    setToken(null),
-                    setError(res.error)
+                        setToken(null),
+                        setError(res.error)
                 }
             })
-            .catch((err)=>setError(err))
+            .catch((err) => setError(err))
     }
 
     const handleShow = () => setShow(true);
@@ -100,7 +100,7 @@ function Perfil() {
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, description, date, time, work_type,  })
+            body: JSON.stringify({ name, description, date, time, work_type, })
         };
 
         fetch(API_URL + 'services', options)
@@ -109,7 +109,7 @@ function Perfil() {
     };
 
 
-    
+
 
     return (
         <>
@@ -126,7 +126,7 @@ function Perfil() {
                         <h3 className="profile-type">{type}</h3>
                     </div>
                     <div className="profile-button">
-                        <div ><Button onClick={() => { setShowM(true); setUserEdit({...user}) }}>Edit information</Button></div>
+                        <div ><Button onClick={() => { setShowM(true); setUserEdit({ ...user }) }}>Edit information</Button></div>
                     </div>
 
                 </div>
@@ -149,10 +149,10 @@ function Perfil() {
                                         <h2>My workshops</h2>
                                         <br />
                                         <div className='workshops'>
-                                            <div className='add-workshop'>
+                                            <div className='add-workshop' onClick={handleShow}>
                                                 <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1", }} />
                                                 <br />
-                                                <p onClick={handleShow}>Create a workshop</p>
+                                                <p>Create a workshop</p>
                                             </div>
                                         </div>
                                     </div>
@@ -168,20 +168,18 @@ function Perfil() {
                                                 </div>
                                                 <div className="form-group">
                                                     <label >Description</label>
-                                                    <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                                    <textarea type="text" className="form-control-textarea" value={description} onChange={(e) => setDescription(e.target.value)} />
                                                 </div>
-                                                <div className="form-group">
-                                                    <label >Date</label>
-                                                    <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
+                                                <div className='datetime'>
+                                                    <div className="form-group">
+                                                        <label >Date</label>
+                                                        <input type="date" className="form-control-datetime" value={date} onChange={(e) => setDate(e.target.value)} />
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label >Time</label>
+                                                        <input type="time" className="form-control-datetime" value={time} onChange={(e) => setTime(e.target.value)} />
+                                                    </div>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label >Time</label>
-                                                    <input type="time" className="form-control" value={time} onChange={(e) => setTime(e.target.value)} />
-                                                </div>
-                                                {/* <div className="form-group">
-                                                    <label >Image:</label>
-                                                    <input type="file" className="form-control-file" onChange={(e) => setFoto(e.target.files[0])} />
-                                                </div> */}
                                                 {/* <div className="form-group">
                                                     <label >Type</label>
                                                     <select className="form-control" onChange={(e) => setTipo(e.target.value)}>
@@ -191,7 +189,7 @@ function Perfil() {
                                                     </select>
                                                 </div> */}
                                                 <div className="form-group">
-                                                    <label >Subtype</label>
+                                                    <label>Subtype</label>
                                                     <select className="form-control" onChange={(e) => setWorktype(e.target.value)}>
                                                         <option value="0">--Select Type--</option>
                                                         <option value="1">Painting</option>
@@ -200,6 +198,10 @@ function Perfil() {
                                                         <option value="4">Ceramic</option>
                                                     </select>
                                                 </div>
+                                                {/* <div className="form-group">
+                                                    <label >Image:</label>
+                                                    <input type="file" className="form-control-file" onChange={(e) => setFoto(e.target.files[0])} />
+                                                </div> */}
                                             </form>
                                         </Modal.Body>
                                         <Modal.Footer>
@@ -240,11 +242,11 @@ function Perfil() {
                     <div className="formEditPerfil">
                         <label>
                             Name:
-                            <input type="text" value={userEdit.name} onChange={e => setUserEdit({...userEdit,name: e.target.value})} required/>
+                            <input type="text" value={userEdit.name} onChange={e => setUserEdit({ ...userEdit, name: e.target.value })} required />
                         </label>
                         <label>
                             Email:
-                            <input type="text" value={userEdit.email} onChange={e => setUserEdit({...userEdit,email: e.target.value.trim()})} />
+                            <input type="text" value={userEdit.email} onChange={e => setUserEdit({ ...userEdit, email: e.target.value.trim() })} />
                         </label>
 
                         {((type === "volunteers") || (type === "tutor"))
@@ -252,19 +254,19 @@ function Perfil() {
                                 {(user.description || changeDescription)
                                     ? <label>
                                         Description:
-                            <input type="text" value={userEdit.description} onChange={e => setUserEdit({...userEdit, description: e.target.value})} />
+                                        <input type="text" value={userEdit.description} onChange={e => setUserEdit({ ...userEdit, description: e.target.value })} />
                                     </label>
-                                    :  <>
-                                    <button className="buttondes" type="button" onClick={() => setChangeDescription(true)}>+ Add description</button>
-                                    <p ><i>Think that it's going to be very useful for the users to know a little bit more about you.</i></p>
-                                </>
+                                    : <>
+                                        <button className="buttondes" type="button" onClick={() => setChangeDescription(true)}>+ Add description</button>
+                                        <p ><i>Think that it's going to be very useful for the users to know a little bit more about you.</i></p>
+                                    </>
                                 }
                             </>
                             : <></>}
 
                         <label>
                             <p>Image:</p>
-                            <input type="file" onChange={e => setUserEdit({...userEdit, foto: e.target.files[0]})} />
+                            <input type="file" onChange={e => setUserEdit({ ...userEdit, foto: e.target.files[0] })} />
                         </label>
                     </div>
                 </Modal.Body>
