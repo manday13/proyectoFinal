@@ -98,7 +98,7 @@ function Perfil() {
             body: JSON.stringify({ name, description, date, time, work_type,  })
         };
 
-        fetch( + 'services', options)
+        fetch(API_URL + 'services', options)
         handleClose();
         goTo('/Services')
     };
