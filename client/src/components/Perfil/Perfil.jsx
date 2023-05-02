@@ -74,7 +74,7 @@ function Perfil() {
             .then(res=>res.json())
             .catch(err => err)
             .then((res)=>{
-                if(res.ok === true){
+                if(res.ok === true){ //es redundante? con (res.ok) ya valdria?
                     setRefresh(true)
                     setEmail(userEdit.email);
                     setShowM(false)

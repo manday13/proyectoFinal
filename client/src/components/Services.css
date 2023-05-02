@@ -1,3 +1,6 @@
+.cuerpo-services {
+    background-color: aliceblue;
+}
 #filtraje {
     flex-direction: row;
     text-align: center;
@@ -9,7 +12,7 @@
     min-height: 155px;
 }
 #filter-nav{
-    margin: 20px;
+    padding: 20px;
 }
 #services {
     display: flex;
@@ -17,10 +20,19 @@
     justify-content: center;
 }
 #worksCard {
+    transition: box-shadow 0.3s ease;
+    cursor: pointer; /*esto es lo que cambia el cursor al ponerte sobre un card de curso*/
     min-width: 400px;
     margin: 10px;
-    border-radius: 0;
-    border: 1px solid black;
+    border-radius: 0.5rem;
+    border: 0px solid rgb(173, 173, 173);
+}
+#worksCard:hover {
+    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.3);
+}
+#titleCard {
+    font-size: 27px;
+    font-weight: bold;
 }
 #imgCard {
     border-radius: 0;

@@ -25,6 +25,7 @@ function Services() {
     useEffect(() => {
         if (serviceType === 1) {
             setDis(true);
+            setWorkshopType(0);
         } else {
             setDis(false);
         }
@@ -58,11 +59,25 @@ function Services() {
     }
 
     // FUNCION PARA MAPEAR Y MOSTRAR LAS CARDS DE LOS CURSOS
+    // const handleWorkshops = dades.map((el, i) => (
+    //     <Card id='worksCard' key={i} style={{ width: '18rem' }}>
+    //         <Card.Img id='imgCard' variant="top" src="https://placekitten.com/300/150" />
+    //         <Card.Body>
+    //             <Card.Title>{el.name}</Card.Title>
+    //             <Card.Text id='descript'>{el.description}</Card.Text>
+    //             <Card.Text>Fecha: {el.date}</Card.Text>
+    //             <Button variant="primary"><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
+    //         </Card.Body>
+    //     </Card >
+    // ));
+
     const handleWorkshops = dades.map((el, i) => (
         <Card id='worksCard' key={i} style={{ width: '18rem' }}>
+            <Card.Body>
+                <Card.Title id='titleCard'>{el.name}</Card.Title>
+            </Card.Body>
             <Card.Img id='imgCard' variant="top" src="https://placekitten.com/300/150" />
             <Card.Body>
-                <Card.Title>{el.name}</Card.Title>
                 <Card.Text id='descript'>{el.description}</Card.Text>
                 <Card.Text>Fecha: {el.date}</Card.Text>
                 <Button variant="primary"><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
@@ -98,7 +113,7 @@ function Services() {
     
 
     return (        
-        <>                  
+        <div className='cuerpo-services'>                  
             <div id='filter-nav' >
                 <Container fluid>
                     <Row>
@@ -152,7 +167,7 @@ function Services() {
              : <h3 className= "noWorkshop">Sorry, there are no workshops that match your criteria right now.</h3>}
             
         
-        </>
+        </div>
     );
 }
 

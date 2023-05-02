@@ -25,6 +25,10 @@
   margin-top: 100px;
 }
 
+#caritem {
+    max-width: 500px;
+}
+
 .leftright{
     display: flex;
     width: 100%;
