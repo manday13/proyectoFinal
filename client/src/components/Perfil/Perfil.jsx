@@ -22,7 +22,7 @@ function Perfil() {
     const [error, setError] = useState(null);
     const [user, setUser] = useState(null);
     const [showM, setShowM] = useState(false);
-    const [userEdit, setUserEdit] = useState(null); //si pongo null me peta cuando intento editar al hacer useredit.name
+    const [userEdit, setUserEdit] = useState(null); 
     const [changeDescription, setChangeDescription] = useState(false);
     const desc = () => {
         setShowM(false);
@@ -34,7 +34,6 @@ function Perfil() {
     const [date, setDate] = useState('');
     const [description, setDescription] = useState('');
     const [time, setTime] = useState('');
-    const [tipo, setTipo] = useState('');
     const [work_type, setWorktype] = useState('');
 
 
@@ -63,7 +62,7 @@ function Perfil() {
         fdata.append("email", userEdit.email);        
         fdata.append("file", userEdit.foto);
         fdata.append("id", userEdit.id); //mejor que id, cuanto menos globalcontext menos carga. por consistencia de codigo: userEdit en vez de user 
-        if((userTypes[type] === userTypes.volunteers) || (userTypes[type] === userTypes.tutor)){
+        if(userTypes[type] !== userTypes.users){
             fdata.append("description", userEdit.description)
         }
         const requested = {
@@ -71,7 +70,7 @@ function Perfil() {
             headers: {authorization: token},
             body: fdata 
         };
-        fetch( + type + "/", requested)
+        fetch(API_URL + type + "/", requested)
             .then(res=>res.json())
             .catch(err => err)
             .then((res)=>{
@@ -105,14 +104,14 @@ function Perfil() {
     };
     
      //ojo aqui, no me puede hacer un map de algo que no existe (objeto vacio)
-        let myClients = (type === "tutor" && user && user.Users) ? user.Users.map((el, index)=> {
+        let myClients = (userTypes[type] === userTypes.tutor && user && user.Users) ? user.Users.map((el, index)=> {
             return(
                     <tr key={el.id}>
                        <td><Link to={`/perfil/users/${el.id}`}> {el.name}</Link></td>
                         <td>{el.email}</td>
                     </tr>
             )
-        }) : <>There is no users.</>
+        }) : <>There are no users under your responsability at the moment.</>
     
     
     if(!user)
@@ -129,7 +128,7 @@ function Perfil() {
                     <div className="profile-info">
                         <h1 className="profile-name">{user.name}</h1>
                         <h2 className="profile-email">{user.email}</h2>
-                        {(type === "users") ? <h3 className="profile-type"><b>My tutor: </b>{user.Tutor && user.Tutor.name}({user.Tutor && user.Tutor.email})</h3> : <></>}
+                        {(userTypes[type] === userTypes.users) ? <h3 className="profile-type"><b>My tutor: </b>{user.Tutor && <Link to={`/perfil/tutor/${user.Tutor.id}`}>{user.Tutor.name}</Link>}({user.Tutor && user.Tutor.email})</h3> : <></>}
                         
                     </div>
                 {(email === user.email) ? 
@@ -139,7 +138,7 @@ function Perfil() {
                 :  <div className="profile-button"><div><a href={`mailto:${user.email}`}><Button>Send email <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></Button></a></div></div>}
 
                 </div>
-                {((type === "volunteers") || (type === "tutor"))
+                {(userTypes[type] !== userTypes.users)
                     ? <div className="descritione">
                         {user.description && <> <p><b>My description:</b></p><p>{user.description}</p> </>}
                     </div>
@@ -260,7 +259,7 @@ function Perfil() {
                             <input type="text" value={userEdit.email} onChange={e => setUserEdit({...userEdit,email: e.target.value.trim()})} />
                         </label>
 
-                        {((type === "volunteers") || (type === "tutor"))
+                        {(userTypes[type] !== userTypes.users)
                             ? <>
                                 {(user.description || changeDescription)
                                     ? <label >
@@ -277,7 +276,7 @@ function Perfil() {
 
                         <label>
                             <p>Image:</p>
-                            <input type="file" accept="image/png, image/gif, image/jpeg" onChange={e => setUserEdit({...userEdit, foto: e.target.files[0]})} />
+                            <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg" onChange={e => setUserEdit({...userEdit, foto: e.target.files[0]})} />
                         </label>
                     </div>
                 </Modal.Body>
