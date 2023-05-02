@@ -113,9 +113,9 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/sign/:position" element={<Sign handleLogin={handleLogin} />} />
             <Route path="/signSelect" element={<SignSelect />} />
+            <Route path="/IndService/:id" element={<IndService/>} />
             <Route path="/perfil/:type/:id" element={<Perfil />} />
             <Route path="/indService" element={<IndService />} />
-
 
           </Routes>
         <ToastContainer className="p-3" position={'top-center'}>
