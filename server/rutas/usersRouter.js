@@ -7,7 +7,10 @@ import bcrypt from 'bcrypt'; //se utiliza para encriptar cosas, en nuestro caso 
 import {sequelize} from '../loadSequelize.js'; //para conectar con la base de datos
 import {autentica} from './authentication.js'; //para que cada vez que se intente hacer algo se compruebe si se ha caducado el token o no para hacerlo o no hacerlo
 
-import {Users} from '../modelos/Models.js'
+import {Users, Tutor} from '../modelos/Models.js'
+
+Tutor.hasMany(Users, {foreignKey: "id_t"})
+Users.belongsTo(Tutor, {foreignKey: "id_t"})
 
 const router = express.Router()
 
@@ -63,7 +66,8 @@ router.post('/login', (req,res) => {
 
 router.get('/:id', autentica, function(req,res,next){
     sequelize.sync().then(()=>{
-        Users.findOne({where: {id: req.params.id}})
+        Users.findOne({where: {id: req.params.id},
+        include: [{model: Tutor}]})
             .then(al => res.json({
                 ok: true,
                 data: al
@@ -98,17 +102,11 @@ const upload = multer({storage: storage}).single('file');
 router.put('/', autentica, function(req,res,next){
     upload(req,res, function (err){
         sequelize.sync()
-        .then(()=>{
-            if(req.file){
-                req.body.newfoto = req.file.path.split("\\")[1]; //pongo el split porque realmente se guarda como fotos\\epoch-filenameoriginal
-            }
-            else {
-                req.body.newfoto = null;
-            }
+        .then(()=>{            
             Users.findOne({where: {id: req.body.id}})
                 .then(user =>{
-                    if(req.body.newfoto)
-                        req.body.foto = req.body.newfoto
+                    if(req.file)
+                        req.body.foto = req.file.path.split("\\")[1];
                     return user.update(req.body)                        
                 })
                 .then(newuser => res.json({

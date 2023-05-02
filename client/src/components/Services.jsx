@@ -95,9 +95,10 @@ function Services() {
         loadData();
     };
 
+    
 
-    return (
-        <>
+    return (        
+        <>                  
             <div id='filter-nav' >
                 <Container fluid>
                     <Row>
@@ -143,9 +144,14 @@ function Services() {
                     </Row>
                 </Container>
             </div>
+            { dades.length ?
             <div id='services'>
                 {handleWorkshops}
             </div>
+
+             : <h3 className= "noWorkshop">Sorry, there are no workshops that match your criteria right now.</h3>}
+            
+        
         </>
     );
 }

@@ -100,17 +100,11 @@ const upload = multer({storage: storage}).single('file');
 router.put('/', autentica, function(req,res,next){
     upload(req,res, function (err){
         sequelize.sync()
-        .then(()=>{
-            if(req.file){
-                req.body.newfoto = req.file.path.split("\\")[1]; //pongo el split porque realmente se guarda como fotos\\epoch-filenameoriginal
-            }
-            else {
-                req.body.newfoto = null;
-            }
+        .then(()=>{            
             Volunteers.findOne({where: {id: req.body.id}})
                 .then(vol =>{
-                    if(req.body.newfoto)
-                        req.body.foto = req.body.newfoto
+                    if(req.file)
+                        req.body.foto = req.file.path.split("\\")[1];
                     return vol.update(req.body)                        
                 })
                 .then(newvol => res.json({

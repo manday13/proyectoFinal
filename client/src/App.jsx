@@ -9,7 +9,6 @@ import API_URL from './apiconfig';
 import Menu from './Menu';
 import Footer from './Footer';
 import ButtonUp from './ButtonUp';
-import Perfil from './components/Perfil'
 import Home from './components/Home';
 import Services from './components/Services';
 import Register from './components/Register';
@@ -18,7 +17,7 @@ import SignSelect from './components/SignSelect';
 import Mission from './components/about/Mission';
 import Support from './components/about/Support';
 import IndService from './components/IndService';
-
+import Perfil from './components/Perfil/Perfil';
 
 function App() {
 
@@ -29,6 +28,7 @@ function App() {
   const [expired, setExpired] = useState();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
   const navigateTo = useNavigate();
   const goHome = () => {
     navigateTo('/')
@@ -45,13 +45,16 @@ function App() {
       } else if(decoded.record){
         setType("users")
       }else{setType("tutor")};
+      setEmail(decoded.email);
       setUsername(decoded.name || decoded.email);
       setExpired(decoded.expiredAt);
       setId(decoded.id);
       goServices();
     } else {
       const now = new Date().getTime()
-      setShowToast(now > expired);      
+      setShowToast(now > expired);
+      if(now > expired)
+        localStorage.removeItem('women_access_token');      
       setUsername('');
       goHome();
     }    
@@ -65,8 +68,15 @@ function App() {
 
   useEffect(()=>{
     const localToken = localStorage.getItem('women_access_token')
-    if (localToken)
+    if (localToken){
+      const decoded = jwt_decode(localToken)
+      const now = new Date().getTime()
+      if(now > decoded.expiredAt){
+        localStorage.removeItem('women_access_token');
+        logout() 
+      }
       setToken(localToken)
+    }
   },[])
   
   //definimos aqui el handlelogin porque es el que me da el token en un primer momento y lo necesito pasar a toda la aplicacion como GlobalContext
@@ -91,7 +101,7 @@ function App() {
 
 
   return (
-    <GlobalContext.Provider value={{token, logout, error, username, id, type, setToken}}>  
+    <GlobalContext.Provider value={{token, logout, error, username, email, setEmail, id, type, setToken}}>  
     <div className="ContainerPage">
         <Menu />  
         
@@ -103,9 +113,9 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/sign/:position" element={<Sign handleLogin={handleLogin} />} />
             <Route path="/signSelect" element={<SignSelect />} />
-            <Route path="/perfil" element={<Perfil />} />
             <Route path="/IndService/:id" element={<IndService/>} />
-
+            <Route path="/perfil/:type/:id" element={<Perfil />} />
+            <Route path="/indService" element={<IndService />} />
 
           </Routes>
         <ToastContainer className="p-3" position={'top-center'}>
