@@ -19,7 +19,6 @@ import Support from './components/about/Support';
 import IndService from './components/IndService';
 import Perfil from './components/Perfil/Perfil';
 
-
 function App() {
 
   const [token, setToken] = useState();
