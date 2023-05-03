@@ -7,8 +7,7 @@ import {Link} from 'react-router-dom';
 import { faChevronDown, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 
 
-function Home() {
-    const {username} = useContext(GlobalContext);
+function Home() {    
     return (
         <>
             <div className='one'>                
