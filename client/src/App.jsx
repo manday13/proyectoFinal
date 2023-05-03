@@ -18,6 +18,7 @@ import Mission from './components/about/Mission';
 import Support from './components/about/Support';
 import IndService from './components/IndService';
 import Perfil from './components/Perfil/Perfil';
+import MyWork from './components/MyWork';
 
 function App() {
 
@@ -117,6 +118,7 @@ function App() {
             <Route path="/IndService/:id" element={<IndService/>} />
             <Route path="/perfil/:type/:id" element={<Perfil />} />
             <Route path="/indService" element={<IndService />} />
+            <Route path="/myWork" element={<MyWork />} />
 
           </Routes>
         <ToastContainer className="p-3" position={'top-center'}>

@@ -24,6 +24,7 @@ export const Services = sequelize.define('Services', {
     date: dataTypes.DATE,
     time: dataTypes.TIME,
     serviceType: dataTypes.TINYINT,
+    limit: dataTypes.TINYINT,
     work_type: dataTypes.TINYINT,
     address: dataTypes.STRING,
     id_c: {
