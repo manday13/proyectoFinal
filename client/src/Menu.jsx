@@ -21,7 +21,7 @@ function Menu() {
         return (
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Link to="/" className="linklogo"><Navbar.Brand >WOOP</Navbar.Brand></Link>
+                    <Link to="/" className="linklogo"><Navbar.Brand ><img src="./logo.png" alt="logo" /></Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -58,7 +58,7 @@ function Menu() {
         <>
         <Navbar bg="light" expand="lg">
             <Container>
-                <Link to="/" className="linklogo"><Navbar.Brand >LOGO</Navbar.Brand></Link>
+                <Link to="/" className="linklogo"><Navbar.Brand ><img src="./logo2.png" alt="logo" /></Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -81,7 +81,7 @@ function Menu() {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item href="#/action-1"><Link to={`/perfil/${type}/${id}`} className="linklogo nav-link">Personal information</Link></Dropdown.Item>
-                                <Dropdown.Item href="#/action-2"><span className="nav-link">My workshops</span></Dropdown.Item>
+                                {(type !== "tutor") && <Dropdown.Item href="#/action-2"><Link to="/myWork" className="nav-link">My workshops</Link></Dropdown.Item>}
                                 <Dropdown.Item href="#/action-3"><span className="nav-link logout" onClick={()=>setShowModal(true)}>Log out</span></Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
