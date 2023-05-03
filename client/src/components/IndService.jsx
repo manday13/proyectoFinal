@@ -28,11 +28,11 @@ function IndService() {
             <div className='wholepage'>
                 <div className='infoservice'>
                     <img className='wsimg' src="https://placekitten.com/300/150" />
-                    <h1 className='wsname'>{data.data.name}</h1>
-                    <p className='wsdesc'>description: {data.data.description}</p>
-                    <p className='wsdata'>date: {data.data.date}</p>
-                    <p>At: {data.data.time} h</p>
-                    <p>Address: {data.data.address}</p>
+                    <h1 className='wsname'>{data.data && data.data.name}</h1>
+                    <p className='wsdesc'>description: {data.data && data.data.description}</p>
+                    <p className='wsdata'>date: {data.data && data.data.date}</p>
+                    <p>At: {data.data && data.data.time} h</p>
+                    <p>Address: {data.data && data.data.address}</p>
                     <Link to="/services" >Back to browse workshops</Link>
                     <br />
                 </div>
