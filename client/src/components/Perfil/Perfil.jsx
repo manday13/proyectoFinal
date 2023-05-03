@@ -155,10 +155,10 @@ function Perfil() {
                                         <h2>My workshops</h2>
                                         <br />
                                         <div className='workshops'>
-                                            <div className='add-workshop'>
+                                            <div className='add-workshop' onClick={handleShow}>
                                                 <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1", }} />
                                                 <br />
-                                                <p onClick={handleShow}>Create a workshop</p>
+                                                <p>Create a workshop</p>
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@ function Perfil() {
                                                 </div>
                                                 <div className="form-group">
                                                     <label >Description</label>
-                                                    <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                                    <textarea type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} />
                                                 </div>
                                                 <div className="form-group">
                                                     <label >Date</label>
