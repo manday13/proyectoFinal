@@ -63,6 +63,7 @@ function App() {
   const logout = () => {
     localStorage.removeItem('women_access_token');
     setToken('');
+    setUsername('');
     goHome();
   }
 
