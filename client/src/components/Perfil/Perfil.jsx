@@ -122,6 +122,7 @@ function Perfil() {
                 <br />
                 <hr />
 
+
                 {(userTypes[type] === userTypes.tutor)
                     ? <div className='main-workshops'>
                         <h3>My clients</h3>
@@ -134,7 +135,6 @@ function Perfil() {
                     </div>
                     : <></>}
 
-                
             </div>
             {userEdit && <Modal show={showM} onHide={() => desc()}>
                 <Modal.Header closeButton>

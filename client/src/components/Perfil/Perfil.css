@@ -7,8 +7,8 @@
 }
 
 .profile-image {
-    width: 150px;
-    height: 200px;
+    width: 170px;
+    height: 170px;
     border-radius: 50%;
     margin-right: 20px;
 }
@@ -82,19 +82,34 @@
 }
 
 .form-control {
-    border-radius: 0;
-    border: none;
-    border-bottom: 2px solid #ced4da;
+    margin-bottom: 30px !important;
     width: 100%;
 }
 
-.form-group label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
+.form-control-textarea{
+    border: 2px solid #ccc !important;
+    border-radius: 4px !important;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
 .modal-body form {
     margin-bottom: 20px;
 }
 
+.datetime{
+    display: flex;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.form-control-datetime{
+    border-radius: 0;
+    border: none ;
+    width: 100%;
+    border-bottom: 2px solid #ced4da;
+    margin-bottom: 30px;
+}
+
+.form-group{
+    width: 100%;
+}
