@@ -113,7 +113,7 @@ function RegistrationForm() {
                     <br />
                     <span> <a href="#button1">
                         <button id="button1"
-                            type='choice1' style={{ backgroundColor: (registrationType !== 'users') ? "#b79957" : "#f5d389" }}
+                            type='choice1' style={{ backgroundColor: ((registrationType === 'volunteers') || (registrationType === 'tutor')) ? "#b79957" : "#f5d389" }}
                             onClick={handleVolunteerClick}
                         >
                             Volunteer
