@@ -3,7 +3,15 @@ import { sequelize } from '../loadSequelize.js';
 import { autentica } from './authentication.js';
 import multer from 'multer'; //para poder trabajar con archivos (en nuestro caso imagenes)
 
-import { Services } from '../modelos/Models.js'
+import { Services, Competencies, Users_services, Users } from '../modelos/Models.js'
+
+//establecemos relaciones
+Competencies.hasMany(Services, {foreignKey: "id_c"})
+Services.belongsTo(Competencies, {foreignKey: "id_c"})
+Services.belongsToMany(Users, {through: Users_services, foreignKey: "id_s"})
+Users.belongsToMany(Services, {through: Users_services, foreignKey: "id_u"})
+// Services.hasMany(Users_services, {foreignKey: "id_s"})
+// Users_services.belongsTo(Users, {foreignKey: "id_u"})
 
 //creo un objeto en el que se guardan las peticiones
 const router = express.Router();
@@ -31,10 +39,12 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.get('/:id', autentica, function (req, res, next) {
+router.get('/:id', function (req, res, next) {
     sequelize.sync().then(() => {
 
-        Services.findOne({ where: { id: req.params.id } })
+        Services.findOne({ where: { id: req.params.id },
+        include: [{model: Competencies},
+        {model: Users}] })
             .then(al => res.json({
                 ok: true,
                 data: al
