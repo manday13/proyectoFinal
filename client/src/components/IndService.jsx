@@ -1,25 +1,27 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import API_URL from '../apiconfig';
 import GlobalContext from '../GlobalContext';
+
 import {Button} from 'react-bootstrap'
 import './IndService.css'
 
 function IndService() {
-    const {token} = useContext(GlobalContext);
-    const { id } = useParams();
+    const { id, token} = useContext(GlobalContext);
+    const { ids } = useParams();
     const [data, setData] = useState(null);    
     const [refresh, setRefresh] = useState(true);
+    const [ableButton, setAbleButton] = useState(false);
+    
     useEffect(() => {
         if(refresh){
-        fetch(API_URL + `services/` + id, {
+        fetch(API_URL + `services/` + ids, {
             headers: { 'Content-Type': 'application/json'}
         })
             .then((response) => response.json())
             .then((data) => setData(data))
             .then(()=>setRefresh(!refresh))
-        }}, [id, refresh]);
+        }}, [ids, refresh]);
 
     if (!data) {
         return <div>Loading...</div>;
@@ -33,6 +35,36 @@ function IndService() {
     })
     : <>There are no users participating at the moment.</>
 
+    const participate = () => {
+        const id_u = id;
+        const id_s = ids;
+        const verification = 0;
+
+        const data = {
+            id_u,
+            id_s,
+            verification
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        };
+
+        fetch(API_URL+'usersServices', requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al crear la entrada en la base de datos');
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            // .finally(()=>setRefresh(true))
+    }
+
     return (
         <>
             <div className='wholepage'>
@@ -45,6 +77,7 @@ function IndService() {
                     <p><b>Address:</b> {data.data && data.data.address}</p>
                     <Link to="/services" >Back to browse workshops</Link>
                     <br />
+                    <Button variant="primary" disabled={ableButton} onClick={()=>{participate; setAbleButton(true)}}>Participate</Button>
                 </div>
                 <div className='side'>
                     <div className='wsbadges'>
