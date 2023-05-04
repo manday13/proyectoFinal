@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import {useNavigate, Link} from 'react-router-dom';
+import GlobalContext from '../GlobalContext';
 import API_URL from '../apiconfig';
 import './Register.css'
 
@@ -11,7 +12,7 @@ function RegistrationForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
-    const [role, setRole] = useState('');
+    const { role, setRole } = useContext(GlobalContext);
     const [record, setRecord] = useState('');
     console.log(registrationType)
     useEffect(()=>{
@@ -40,7 +41,7 @@ function RegistrationForm() {
             email,
             password,
             phone, 
-            pronouns,           
+            pronouns,         
         }
        if(registrationType === "volunteers"){
            ob.role = role;
