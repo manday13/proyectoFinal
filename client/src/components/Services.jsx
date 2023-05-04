@@ -90,7 +90,7 @@ function Services() {
     const handleFilter = () => {
         let datosFiltrados = dadesSeg;
         if (serviceType !== 0) {
-            datosFiltrados = datosFiltrados.filter((dato) => dato.type === serviceType);
+            datosFiltrados = datosFiltrados.filter((dato) => dato.serviceType === serviceType);
         }
         if (workshopType !== 0) {
             datosFiltrados = datosFiltrados.filter((dato) => dato.work_type === workshopType);

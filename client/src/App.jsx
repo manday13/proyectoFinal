@@ -29,6 +29,7 @@ function App() {
   const [expired, setExpired] = useState();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState('');
+  const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const navigateTo = useNavigate();
   const goHome = () => {
@@ -47,6 +48,7 @@ function App() {
         setType("users")
       }else{setType("tutor")};
       setEmail(decoded.email);
+      setRole(decoded.role);
       setUsername(decoded.name || decoded.email);
       setExpired(decoded.expiredAt);
       setId(decoded.id);
@@ -102,7 +104,7 @@ function App() {
 
 
   return (
-    <GlobalContext.Provider value={{token, logout, error, username, email, setEmail, id, type, setToken}}>  
+    <GlobalContext.Provider value={{token, logout, error, username, email, setEmail, id, type, setToken, role, setRole }}>  
     <div className="ContainerPage">
         <Menu />  
         

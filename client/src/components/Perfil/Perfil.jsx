@@ -23,6 +23,7 @@ function Perfil() {
     const [showM, setShowM] = useState(false);
     const [userEdit, setUserEdit] = useState(null);
     const [changeDescription, setChangeDescription] = useState(false);
+
     const desc = () => {
         setShowM(false);
         setChangeDescription(false);
@@ -46,7 +47,8 @@ function Perfil() {
 
     useEffect(() => {
         setRefresh(true)
-    }, [id, type])
+/*              localStorage.setItem('userId', id);
+ */    }, [id, type])
 
     const editUser = () => {
         const fdata = new FormData() //para guardar una imagen se tiene que hacer en formato formData() en vez de JSON.stringify()
