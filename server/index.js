@@ -8,6 +8,7 @@ import volunteersRouter from './rutas/volunteersRouter.js'
 import tutorRouter from './rutas/tutorRouter.js'
 import competenciesRouter from './rutas/competenciesRouter.js'
 import servicesRouter from './rutas/servicesRouter.js'
+import usersServicesRouter from './rutas/usersServicesRouter.js'
 
 //instanciamos nueva aplicación express
 const app = express()
@@ -26,6 +27,7 @@ app.use('/api/volunteers', volunteersRouter);
 app.use('/api/services', servicesRouter);
 app.use('/api/competencies', competenciesRouter);
 app.use('/api/tutor', tutorRouter);
+app.use('/api/usersServices', usersServicesRouter);
 
 
 //para cuando se le pida algo y no lo encuentre que busque en la carpeta fotos:
