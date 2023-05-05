@@ -124,7 +124,28 @@ router.put('/', autentica, function(req,res,next){
     });
 });
 
+// endpoint para eliminar un tutor
+router.delete('/', autentica,  function (req, res, next) {
 
+    const { userId } = req.body;
 
+    sequelize.sync().then(() => {
+
+        Tutor.destroy({ 
+            where: { 
+                id: userId
+            } 
+        })
+            .then((data) => res.json({ ok: true, data }))
+            .catch((error) => res.json({ ok: false, error: error.message }))
+
+    }).catch((error) => {
+        res.json({
+            ok: false,
+            error: error
+        })
+    });
+
+});
 
 export default router;
