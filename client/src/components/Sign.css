@@ -42,8 +42,9 @@ select {
     font-size: 18px;
 }
 
-button[type="submit"],
-button[type="button"] {
+/* button[type="submit"],
+button[type="button"] */ 
+.sign-button{
     background-color: #f5d389;
     color: white;
     padding: 10px 20px;
@@ -53,8 +54,9 @@ button[type="button"] {
     font-size: 18px;
 }
 
-button[type="submit"]:hover,
-button[type="button"]:hover {
+/* button[type="submit"]:hover,
+button[type="button"]:hover */
+.sign-button:hover {
     background-color: #dab25c;
 }
 

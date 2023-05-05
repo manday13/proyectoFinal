@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import GlobalContext from '../GlobalContext';
 import API_URL from '../apiconfig';
@@ -169,7 +169,7 @@ function RegistrationForm() {
                         </select>
                     </label>
                     <br />
-                    <button type="submit">Register as Volunteer</button>
+                    <button type="submit" className='register-button'>Register as Volunteer</button>
                     <br />
                     <br />
                 </form>
@@ -208,7 +208,7 @@ function RegistrationForm() {
                         <input type="text" name="record" onInput={(e)=>setRecord(e.target.value)} required />
                     </label>
                     <br />
-                    <button type="submit">Register as Participant</button>
+                    <button type="submit" className='register-button'>Register as Participant</button>
                     <br />
                     <br />
                 </form>
