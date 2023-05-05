@@ -129,8 +129,9 @@ function Perfil() {
 
     let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services) && user.Services.map(el => {
         return (
-            <>
-                {el.Users_services.verification && <li>{el.Competency.name}</li>}
+            <>    
+            
+                {!!el.Users_services.verification && <li>{el.Competency.name}</li>}
             </>
         )
     })
