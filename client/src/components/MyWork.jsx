@@ -18,7 +18,6 @@ function MyWork() {
     const [serviceType, setServicetype] = useState('');
     const [address, setAddress] = useState('');
     const [id_c, setId_c] = useState('');
-    const [id_v, setId_v] = useState('');
     const [myServices, setMyServices] = useState(null);
     const [refresh, setRefresh] = useState(true);
     const goTo = useNavigate();
@@ -81,28 +80,27 @@ function MyWork() {
         }
     }, [refresh])
 
-    console.log(myServices)
 
-
-    let date2 = new Date(Date.parse('2012-01-26T13:51:50'));
-    console.log(date2)
-
-    let myWorkshopstodo = (myServices && myServices.filter(el => new Date(Date.parse(`${el.date}T${el.time}`)) > new Date()).map(el => {
-        return (
+    const myWorkshopstodo = (isDone) =>
+        myServices && myServices.filter(el =>
+            isDone ?
+             new Date(Date.parse(`${el.date}T${el.time}`)) < new Date() :
+             new Date(Date.parse(`${el.date}T${el.time}`)) > new Date()
+            ).map(el =>
             <div key={el.id} className="workshops">
                 <Link to={`/IndService/${el.id}`}>
                     <div className="add-workshop-dif">
                         <h5 style={{ textAlign: "center" }}><b>{el.name}</b></h5>
                         <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
-                        <div className="text-muted">
+                        <div className="text-muted" style={{marginTop:"20px"}}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
                         </div>
                     </div>
                 </Link>
-            </div>
-        )
-    }))
+            </div> ) || <></>
+    
+
 
     let returnItem = (
         <>
@@ -119,14 +117,19 @@ function MyWork() {
                             </div>
                         </Link>
                     </div>
-                    {myWorkshopstodo}
+                    {myWorkshopstodo(true)}
                 </div>
             </div>
             <hr />
+            <div className='main-workshops'>                
+                <div className="allmyworkshops">                    
+                    {myWorkshopstodo(false)}
+                </div>
+            </div>
         </>
     )
 
-    if (userTypes[type] === userTypes.volunteers && (role == roleType.artist)) {
+    if (userTypes[type] === userTypes.volunteers && (role === roleType.artist)) {
 
         returnItem = (
             <>
@@ -216,7 +219,7 @@ function MyWork() {
             </>
         )
     }
-    else if (userTypes[type] === userTypes.volunteers && role == roleType.therapist) {
+    else if (userTypes[type] === userTypes.volunteers && role === roleType.therapist) {
         returnItem = (
             <>
                 <div className='main-workshops'>

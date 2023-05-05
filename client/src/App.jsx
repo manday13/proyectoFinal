@@ -24,8 +24,7 @@ function App() {
 
   const [token, setToken] = useState();
   const [id, setId] = useState();
-  const [type, setType] = useState();
-  const [username, setUsername] = useState('');
+  const [type, setType] = useState(); 
   const [expired, setExpired] = useState();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState('');
@@ -48,25 +47,22 @@ function App() {
         setType("users")
       }else{setType("tutor")};
       setEmail(decoded.email);
-      setRole(decoded.role);
-      setUsername(decoded.name || decoded.email);
+      setRole(decoded.role);      
       setExpired(decoded.expiredAt);
       setId(decoded.id);      
     } else {
       const now = new Date().getTime()
       setShowToast(now > expired);
-      if(now > expired){
+      if(expired && now > expired){
         localStorage.removeItem('women_access_token');
-        goHome();      
-        setUsername('');
+        goHome();              
       }
     }    
   }, [token])
 
   const logout = () => {
     localStorage.removeItem('women_access_token');
-    setToken('');
-    setUsername('');
+    setToken('');    
     goHome();
   }
 
@@ -93,21 +89,21 @@ function App() {
     };
     fetch(API_URL + position + "/login", requestedOptions)
       .then(res => res.json())
-      .then(res => {
-        if(res.ok){
-          setToken(res.token);
-          localStorage.setItem('women_access_token', res.token);
-        } else {
-          setError(res.msg);
+      .then(res => {        
+        if(res.ok){          
+          setToken(res.token)
+          localStorage.setItem('women_access_token', res.token)
+          goServices()
+        } else {          
+          setError(res.msg)
         }
       })
-      .catch(error => setError(error))
-      .finally(()=>goServices())
+      .catch(error => setError(error))     
   };
 
 
   return (
-    <GlobalContext.Provider value={{token, logout, error, username, email, setEmail, id, type, setToken, role, setRole }}>  
+    <GlobalContext.Provider value={{token, logout, error, setError, email, setEmail, id, type, setToken, role, setRole }}>  
     <div className="ContainerPage">
         <Menu />  
         
@@ -122,7 +118,7 @@ function App() {
             <Route path="/signSelect" element={<SignSelect />} />
             <Route path="/IndService/:ids" element={<IndService/>} />
             <Route path="/perfil/:type/:id" element={<Perfil />} />           
-            <Route path="/myWork" element={<MyWork />} />
+            {token && id && type && <Route path="/myWork" element={<MyWork />} />}
           
           </Routes>
         <ToastContainer className="p-3" position={'top-center'}>

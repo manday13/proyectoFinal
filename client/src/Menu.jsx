@@ -9,7 +9,7 @@ import './Menu.css'
 
 
 function Menu() {
-    const { username, logout, type, id } = useContext(GlobalContext)
+    const { token, logout, type, id } = useContext(GlobalContext)
     const [showModal, setShowModal] = useState(false);
 
     const logoutside = () => {        
@@ -17,7 +17,7 @@ function Menu() {
         setShowModal(false);        
     }
 
-    if (!username) {
+    if (!token) {
         return (
             <Navbar bg="light" expand="lg">
                 <Container>
