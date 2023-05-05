@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Dropdown, Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+
 import { Route } from 'react-router-dom';
 
 
@@ -8,13 +12,14 @@ import './Services.css'
 
 function Services() {
 
-    const [date, setDate] = useState('');
     const [serviceType, setServiceType] = useState(0);
     const [workshopType, setWorkshopType] = useState(0);
     const [dades, setDades] = useState([]);
     const [dadesSeg, setDadesSeg] = useState([]);
     const [error, setError] = useState("");
     const [dis, setDis] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
     //carga los datos iniciales
     useEffect(() => {
@@ -80,12 +85,21 @@ function Services() {
             <Card.Body>
                 <Card.Text id='descript'>{el.description}</Card.Text>
                 <Card.Text>Fecha: {el.date}</Card.Text>
-                <Button variant="primary"><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
+                <Button variant="primary" className='mas-info-service-button'><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
             </Card.Body>
         </Card >
     ));
 
-
+    const handleSelect = (dato) => {
+        setStartDate(dato.selection.startDate);
+        setEndDate(dato.selection.endDate);
+/*         setShowCalendar(false);
+ */    };
+    const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: 'selection',
+    }
     // FUNCION PARA LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
     const handleFilter = () => {
         let datosFiltrados = dadesSeg;
@@ -95,38 +109,52 @@ function Services() {
         if (workshopType !== 0) {
             datosFiltrados = datosFiltrados.filter((dato) => dato.work_type === workshopType);
         }
-        if (date !== "") {
-            datosFiltrados = datosFiltrados.filter((dato) => dato.date === date);
+        if (startDate !== "" && endDate !== "") {
+            datosFiltrados = datosFiltrados.filter((dato) => (new Date(dato.date) >= startDate && new Date(dato.date) <= endDate));
         }
 
         setDades(datosFiltrados);
     };
 
+
+
+
     //resetea los filtros
     const handleDeleteFilter = () => {
-        setDate("");
+        setStartDate(new Date());
+        setEndDate(new Date());
         setServiceType(0);
         setWorkshopType(0);
         loadData();
     };
 
-    
 
-    return (        
-        <div className='cuerpo-services'>                  
+
+    return (
+        <div className='cuerpo-services'>
             <div id='filter-nav' >
+            <br/>
+            <br/>
                 <Container fluid>
                     <Row>
                         <Form id='filtraje'>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    <Form.Control id='dates' type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                                    <br/>
+                                <h3 className='filter-p'>Filter by</h3>
+                                <br/>
+                                <p>Date:</p>
+                                    <DateRangePicker
+                                        ranges={[selectionRange]}
+                                        staticRanges={[]}
+                                        onChange={handleSelect} />
                                 </Form.Group>
                             </Col>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    <Dropdown id='drop'>
-                                        <Dropdown.Toggle variant="primary" id="dropdownEventType">
+                                    <p>Event type:</p>
+                                    <Dropdown id='drop' >
+                                        <Dropdown.Toggle className='filter-components' id="dropdownEventType">
                                             <EventTypeDisplay serviceType={serviceType} />
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
@@ -138,8 +166,9 @@ function Services() {
                             </Col>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    <Dropdown id='drop'>
-                                        <Dropdown.Toggle variant="primary" id="dropdownEventType" disabled={dis}>
+                                    <p>Workshop type:</p>
+                                    <Dropdown id='drop' >
+                                        <Dropdown.Toggle className='filter-components' id="dropdownEventType" disabled={dis}>
                                             <WorkshopTypeDisplay workshopType={workshopType} />
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
@@ -152,21 +181,22 @@ function Services() {
                                 </Form.Group>
                             </Col>
                             <Col md={3} className='filters'>
-                                <Button variant="primary" onClick={handleFilter}>Filter</Button>
-                                <Button variant="danger" onClick={handleDeleteFilter}>Borrar filtros</Button>
+                                <Button  className='filter-button' onClick={handleFilter}>Filter</Button>
+                                <Button  className='delete-filter-button' onClick={handleDeleteFilter}>Borrar filtros</Button>
                             </Col>
                         </Form>
                     </Row>
                 </Container>
             </div>
-            { dades.length ?
-            <div id='services'>
-                {handleWorkshops}
-            </div>
+            <div className='card-shower'>
+                {dades.length ?
+                    <div id='services'>
+                        {handleWorkshops}
+                    </div>
 
-             : <h3 className= "noWorkshop">Sorry, there are no workshops that match your criteria right now.</h3>}
-            
-        
+                    : <h3 className="noWorkshop">Sorry, there are no workshops that match your criteria right now.</h3>}
+
+            </div>
         </div>
     );
 }
