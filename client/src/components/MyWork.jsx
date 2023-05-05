@@ -1,6 +1,6 @@
 import './MyWork.css'
 import GlobalContext from "../GlobalContext";
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -19,10 +19,10 @@ function MyWork() {
     const [address, setAddress] = useState('');
     const [id_c, setId_c] = useState('');
     const [id_v, setId_v] = useState('');
+    const [myServices, setMyServices] = useState(null);
+    const [refresh, setRefresh] = useState(true);
     const goTo = useNavigate();
-/*     const id_v = localStorage.getItem('userId');
- */
-    const { type, role, id } = useContext(GlobalContext);
+    const { type, role, id, setToken, token } = useContext(GlobalContext);
     const userTypes = {
         tutor: 'tutor',
         volunteers: 'volunteers',
@@ -41,15 +41,45 @@ function MyWork() {
         e.preventDefault()
         const options = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', authorization: token },
             body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v" : id })
         };
 
         fetch(API_URL + 'services', options)
-        handleClose();
-        goTo('/Services')
+            .then(res => res.json())
+            .catch(err => err)
+            .then((res)=>{
+                if(res.ok){
+                    setRefresh(true)
+                    handleClose()
+                }else{
+                    setToken(null)
+                    handleClose()                    
+                }
+            })
+            .catch((err)=> console.log(err))        
+        // goTo('/Services')
     };
-
+    useEffect(()=>{if(userTypes[type] === userTypes.volunteers && refresh){
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', authorization: token }
+        };
+        fetch(API_URL + type + "/" + id, requestOptions)
+            .then(res => res.json())
+            .catch(err => err)
+            .then((res)=>{
+                if (res.ok){
+                    setMyServices(res.data.Services);
+                }else{
+                    setToken(null)
+                }                
+            })
+            .catch((err)=> console.log(err))
+            .finally(()=> setRefresh(!refresh))            
+    }},[refresh])
+    
+    console.log(myServices)
     let returnItem = (
         <div className='main-workshops'>
             <h2>My workshops</h2>
@@ -70,8 +100,7 @@ function MyWork() {
 
         returnItem = (
             <>
-                <div className='main-workshops'>
-                    <h2>My workshops</h2>
+                <div className='main-workshops'>                    
                     <br />
                     <div className='workshops'>
                         <div onClick={handleShow} className='add-workshop'>
@@ -81,6 +110,13 @@ function MyWork() {
                         </div>
                     </div>
                 </div>
+                <hr/>
+                <h2>My workshops</h2>
+                <ul>{myServices && myServices.map(el => {
+                    return(
+                        <li key={el.id}>{el.name}</li>
+                    )
+                })}</ul>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create a Workshop</Modal.Title>
@@ -155,8 +191,7 @@ function MyWork() {
     else if (userTypes[type] === userTypes.volunteers && role == roleType.therapist) {
         returnItem = (
             <>
-                <div className='main-workshops'>
-                    <h2>My therapy sessions</h2>
+                <div className='main-workshops'>                    
                     <br />
                     <div className='workshops'>
                         <div onClick={handleShow} className='add-workshop'>
@@ -166,6 +201,13 @@ function MyWork() {
                         </div>
                     </div>
                 </div>
+                <hr />
+                <h2>My therapy sessions</h2>
+                <ul>{myServices && myServices.map(el => {
+                    return(
+                        <li key={el.id}>{el.name}</li>
+                    )
+                })}</ul>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create a Workshop</Modal.Title>

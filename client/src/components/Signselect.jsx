@@ -1,7 +1,7 @@
 import React from 'react'
 import './Signselect.css'
 import { Link } from 'react-router-dom';
-
+import Avatar from 'react-avatar';
 
 export default function Signselect() {
   return (
@@ -11,7 +11,7 @@ export default function Signselect() {
           <div className='sign_client'>
           <h4><b>Log in as a client</b></h4>
           <br/>
-          <Link to="/Sign/users"><img className='signImg' src="../public/client.jpg" alt="client" /></Link>
+          <Link to="/Sign/users"><Avatar src="../public/client.jpg" round={true} size="300"/></Link>
           <br/>
           <br/>
           <p>If you signed up as a client, you can access your profile from <Link to="/Sign/users">here</Link></p>
@@ -19,7 +19,7 @@ export default function Signselect() {
           <div className='sign_volunteer'>
             <h4><b>Log in as a volunteer</b></h4>
             <br/>
-            <Link to="/Sign/volunteers"><img className='signImg' src="../public/volunteer.jfif" alt="" /></Link>
+            <Link to="/Sign/volunteers"><Avatar src="../public/volunteer.jfif" round={true} size="300"/></Link>
             <br/>
           <br/>
           <p>If you signed up as a volunteer, you can access your profile from <Link to="/Sign/volunteers">here</Link></p>
@@ -27,7 +27,7 @@ export default function Signselect() {
           <div className='sign_tutor'>
             <h4><b>Log in as a tutor</b></h4>
             <br/>
-            <Link to="/Sign/tutor"><img className='signImg' src="../public/tutor.jpg" alt="" /></Link>
+            <Link to="/Sign/tutor"><Avatar src="../public/tutor.jpg" round={true} size="300"/></Link>
             <br/>
           <br/>
           <p>If you signed up as a tutor, you can access your profile from <Link to="/Sign/tutor">here</Link></p>

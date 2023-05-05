@@ -133,8 +133,7 @@ function Services() {
     return (
         <div className='cuerpo-services'>
             <div id='filter-nav' >
-            <br/>
-            <br/>
+            
                 <Container fluid>
                     <Row>
                         <Form id='filtraje'>
@@ -143,7 +142,7 @@ function Services() {
                                     <br/>
                                 <h3 className='filter-p'>Filter by</h3>
                                 <br/>
-                                <p>Date:</p>
+                                {/* <p>Date:</p> */}
                                     <DateRangePicker
                                         ranges={[selectionRange]}
                                         staticRanges={[]}
@@ -152,7 +151,7 @@ function Services() {
                             </Col>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    <p>Event type:</p>
+                                    {/* <p>Event type:</p> */}
                                     <Dropdown id='drop' >
                                         <Dropdown.Toggle className='filter-components' id="dropdownEventType">
                                             <EventTypeDisplay serviceType={serviceType} />
@@ -166,7 +165,7 @@ function Services() {
                             </Col>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    <p>Workshop type:</p>
+                                    {/* <p>Workshop type:</p> */}
                                     <Dropdown id='drop' >
                                         <Dropdown.Toggle className='filter-components' id="dropdownEventType" disabled={dis}>
                                             <WorkshopTypeDisplay workshopType={workshopType} />

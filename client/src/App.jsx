@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, BrowserRouter } from "react-router-dom";
 import { Container, ToastContainer, Toast} from 'react-bootstrap';
 import jwt_decode from "jwt-decode";
 import {useState, useEffect} from 'react';
@@ -51,15 +51,15 @@ function App() {
       setRole(decoded.role);
       setUsername(decoded.name || decoded.email);
       setExpired(decoded.expiredAt);
-      setId(decoded.id);
-      goServices();
+      setId(decoded.id);      
     } else {
       const now = new Date().getTime()
       setShowToast(now > expired);
-      if(now > expired)
-        localStorage.removeItem('women_access_token');      
-      setUsername('');
-      goHome();
+      if(now > expired){
+        localStorage.removeItem('women_access_token');
+        goHome();      
+        setUsername('');
+      }
     }    
   }, [token])
 
@@ -72,6 +72,7 @@ function App() {
 
   useEffect(()=>{
     const localToken = localStorage.getItem('women_access_token')
+    console.log(localToken)
     if (localToken){
       const decoded = jwt_decode(localToken)
       const now = new Date().getTime()
@@ -101,6 +102,7 @@ function App() {
         }
       })
       .catch(error => setError(error))
+      .finally(()=>goServices())
   };
 
 
@@ -110,6 +112,7 @@ function App() {
         <Menu />  
         
           <Routes>
+         
             <Route path="/" element={<Home />} />           
             <Route path="/about/mission" element={<Mission />} />
             <Route path="/about/support" element={<Support />} />
@@ -119,9 +122,9 @@ function App() {
             <Route path="/signSelect" element={<SignSelect />} />
             <Route path="/IndService/:ids" element={<IndService/>} />
             <Route path="/perfil/:type/:id" element={<Perfil />} />
-            <Route path="/indService" element={<IndService />} />
+           
             <Route path="/myWork" element={<MyWork />} />
-
+          
           </Routes>
         <ToastContainer className="p-3" position={'top-center'}>
           <Toast show={showToast} onClose={()=> setShowToast(false)}>

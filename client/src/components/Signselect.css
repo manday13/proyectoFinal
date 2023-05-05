@@ -7,11 +7,6 @@
     font-size: large;
 }
 
-.signImg{
-    width: 300px;
-    height: 300px;
-    border-radius: 700px;
-}
 
 .sign_client, .sign_volunteer, .sign_tutor{
     margin: 30px 30px;        

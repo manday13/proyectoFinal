@@ -9,7 +9,7 @@ import { faPlus, faEnvelope, faPen } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { userTypes } from './constants';
 import { getUser } from './services';
-
+import Avatar from 'react-avatar';
 
 
 
@@ -31,7 +31,7 @@ function Perfil() {
 
 
     useEffect(() => {
-        if (refresh)
+        if (refresh && token)
             getUser(token, type, id)
                 .then((res) => {
                     if (res.ok) {
@@ -43,7 +43,7 @@ function Perfil() {
                 })
                 .catch((err) => setError(err))
                 .finally(() => setRefresh(!refresh))
-    }, [refresh])
+    }, [refresh, token])
 
     useEffect(() => {
         setRefresh(true)
@@ -68,7 +68,7 @@ function Perfil() {
             .then(res => res.json())
             .catch(err => err)
             .then((res) => {
-                if (res.ok === true) { //es redundante? con (res.ok) ya valdria?
+                if (res.ok) {
                     setRefresh(true)
                     setEmail(userEdit.email);
                     setShowM(false)
@@ -82,9 +82,10 @@ function Perfil() {
     }
 
     //ojo aqui, no me puede hacer un map de algo que no existe (objeto vacio)
-    let myClients = (userTypes[type] === userTypes.tutor && user && user.Users) ? user.Users.map((el, index) => {
+    let myClients = (userTypes[type] === userTypes.tutor && user && user.Users) ? user.Users.map((el) => {
         return (
             <tr key={el.id}>
+               <td> <Avatar src={"http://localhost:5000/" + (el.foto)} name={el.name} round={true} size="50"/></td>
                 <td><Link to={`/perfil/users/${el.id}`}> {el.name}</Link></td>
                 <td>{el.email}</td>
             </tr>
@@ -92,6 +93,15 @@ function Perfil() {
     }) : <>There are no users under your responsability at the moment.</>
 
 
+    let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services) && user.Services.map(el => {
+        return(
+            <>
+            {el.Users_services.verification && <li>{el.Competency.name}</li>}
+            </>
+        )
+    }) 
+    console.log(myCompetencies)
+    console.log(user)
     if (!user) { return <h3>Cargando</h3> }
     return (
         <>
@@ -129,13 +139,24 @@ function Perfil() {
                     ? <div className='main-workshops'>
                         <h3>My clients</h3>
                         <Table>
-                            <thead><tr><th>Name</th><th>Email</th></tr></thead>
+                            <thead><tr><th></th><th>Name</th><th>Email</th></tr></thead>
                             <tbody>
                                 {myClients}
                             </tbody>
                         </Table>
                     </div>
                     : <></>}
+
+                {(userTypes[type] === userTypes.users) &&
+                <>
+                <h3>My competencies</h3>
+                {(user && user.Services) && user.Services.some((compe)=> compe.Users_services.verification) ?
+                <div className='main-workshops'>
+                
+                <ul>{myCompetencies}</ul>
+                </div> : <p>You haven't achieved any competencies at the moment.</p>}
+                </>
+            }
 
             </div>
             {userEdit && <Modal show={showM} onHide={() => desc()}>

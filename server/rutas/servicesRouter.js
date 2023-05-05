@@ -3,15 +3,15 @@ import { sequelize } from '../loadSequelize.js';
 import { autentica } from './authentication.js';
 import multer from 'multer'; //para poder trabajar con archivos (en nuestro caso imagenes)
 
-import { Services, Competencies, Users_services, Users } from '../modelos/Models.js'
+import { Services, Competencies, Users_services, Users, Volunteers } from '../modelos/Models.js'
 
 //establecemos relaciones
 Competencies.hasMany(Services, {foreignKey: "id_c"})
 Services.belongsTo(Competencies, {foreignKey: "id_c"})
 Services.belongsToMany(Users, {through: Users_services, foreignKey: "id_s"})
 Users.belongsToMany(Services, {through: Users_services, foreignKey: "id_u"})
-// Services.hasMany(Users_services, {foreignKey: "id_s"})
-// Users_services.belongsTo(Users, {foreignKey: "id_u"})
+Volunteers.hasMany(Services, {foreignKey:"id_v"})
+Services.belongsTo(Volunteers, {foreignKey: "id_v"})
 
 //creo un objeto en el que se guardan las peticiones
 const router = express.Router();
@@ -44,7 +44,7 @@ router.get('/:id', function (req, res, next) {
 
         Services.findOne({ where: { id: req.params.id },
         include: [{model: Competencies},
-        {model: Users}] })
+        {model: Users}, {model: Volunteers}] })
             .then(al => res.json({
                 ok: true,
                 data: al
@@ -75,7 +75,7 @@ router.get('/:id', function (req, res, next) {
 const upload = multer({ storage: storage }).single('file'); */
 
 //to create a new workshop
-router.post('/', function (req, res, next) {
+router.post('/', autentica, function (req, res, next) {
     /* upload(req, res, function (err) {
         if (err) {
             return res.status(500).json(err)
