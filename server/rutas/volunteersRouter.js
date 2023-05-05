@@ -127,5 +127,28 @@ router.put('/', autentica, function(req,res,next){
     });
 });
 
+//enpoint para eliminar a un volunteer
+router.delete('/', autentica,  function (req, res, next) {
+
+    const { userId } = req.body;
+
+    sequelize.sync().then(() => {
+
+        Volunteers.destroy({ 
+            where: { 
+                id: userId
+            } 
+        })
+            .then((data) => res.json({ ok: true, data }))
+            .catch((error) => res.json({ ok: false, error: error.message }))
+
+    }).catch((error) => {
+        res.json({
+            ok: false,
+            error: error
+        })
+    });
+
+});
 
 export default router;
