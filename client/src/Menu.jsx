@@ -17,7 +17,6 @@ function Menu() {
         setShowModal(false);        
     }
 
-    if (!username) {
     if (!token) {
         return (
             <Navbar bg="light" expand="lg">
