@@ -26,7 +26,7 @@ function Sign({handleLogin}) {
                     </label>
                     {error ? <span className="error-msg">{error}</span> : <></>}
                     <br/>
-                    <button type="button" onClick={()=>handleLogin(email, password, position)}>Sign In</button>
+                    <button type="button" className="sign-button" onClick={()=>handleLogin(email, password, position)}>Sign In</button>
                     
                     <br/>
                     <p className="sign">
