@@ -1,6 +1,10 @@
 .wholewscontainer{
     padding: 20px 50px;
 }
+
+.workshops{
+    width: fit-content; 
+}
 .add-workshop {
     display: flex;
     flex-direction: column;
