@@ -77,6 +77,7 @@ function Services() {
     // ));
 
     const handleWorkshops = dades.map((el, i) => (
+        <Link className="card-ind-service" to={`/IndService/${el.id}`}>
         <Card id='worksCard' key={i} style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title id='titleCard'>{el.name}</Card.Title>
@@ -88,6 +89,7 @@ function Services() {
                 <Button variant="primary" className='mas-info-service-button'><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
             </Card.Body>
         </Card >
+        </Link>
     ));
 
     const handleSelect = (dato) => {

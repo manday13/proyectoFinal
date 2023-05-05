@@ -95,6 +95,13 @@
 .rdrNextPrevButton{
     height: 30px;
 }
+.card-ind-service{
+    text-decoration: none;
+    color: black;
+}
+.card-ind-service:hover{
+    color: black !important;
+}
 
 .mas-info-service-button a{
     color: white;
