@@ -15,6 +15,7 @@ router.post('/', autentica,  function (req, res, next) {
     })
 });
 
+//endpoitn para borrar un campo de la tabla
 router.delete('/', function (req, res, next) {
 
     const { userId, serviceId } = req.body;

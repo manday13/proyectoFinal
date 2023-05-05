@@ -16,7 +16,7 @@ import Avatar from 'react-avatar';
 function Perfil() {
 
     const { id, type } = useParams();
-    const { setToken, token, email, setEmail } = useContext(GlobalContext);
+    const { setToken, token, email, setEmail, logout } = useContext(GlobalContext);
     const [refresh, setRefresh] = useState(true);
     const [error, setError] = useState(null);
     const [user, setUser] = useState(null);
@@ -73,19 +73,53 @@ function Perfil() {
                     setEmail(userEdit.email);
                     setShowM(false)
                 } else {
-                    setShowM(false),
-                        setToken(null),
-                        setError(res.error)
+                    setShowM(false)
+                    setToken(null)
+                    setError(res.error)
                 }
             })
             .catch((err) => setError(err))
+    }
+
+    //función para borrar cuenta
+    const deleteAccount = () => {
+        const userId = id;
+
+        const data = {
+            userId
+        };
+
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', authorization: token },
+            body: JSON.stringify(data)
+        };
+
+        fetch(API_URL + type, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al crear la entrada en la base de datos');
+                } else {
+                    return response.json();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .then((res) => {
+                if (res.ok) {
+                    setShowM(false)
+                    setToken(null)
+                    logout()
+                }
+            })
     }
 
     //ojo aqui, no me puede hacer un map de algo que no existe (objeto vacio)
     let myClients = (userTypes[type] === userTypes.tutor && user && user.Users) ? user.Users.map((el) => {
         return (
             <tr key={el.id}>
-               <td> <Avatar src={"http://localhost:5000/" + (el.foto)} name={el.name} round={true} size="50"/></td>
+                <td> <Avatar src={"http://localhost:5000/" + (el.foto)} name={el.name} round={true} size="50" /></td>
                 <td><Link to={`/perfil/users/${el.id}`}> {el.name}</Link></td>
                 <td>{el.email}</td>
             </tr>
@@ -94,15 +128,17 @@ function Perfil() {
 
 
     let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services) && user.Services.map(el => {
-        return(
+        return (
             <>
-            {el.Users_services.verification && <li>{el.Competency.name}</li>}
+                {el.Users_services.verification && <li>{el.Competency.name}</li>}
             </>
         )
-    }) 
+    })
     console.log(myCompetencies)
     console.log(user)
     if (!user) { return <h3>Cargando</h3> }
+
+
     return (
         <>
             <br />
@@ -148,15 +184,15 @@ function Perfil() {
                     : <></>}
 
                 {(userTypes[type] === userTypes.users) &&
-                <>
-                <h3>My competencies</h3>
-                {(user && user.Services) && user.Services.some((compe)=> compe.Users_services.verification) ?
-                <div className='main-workshops'>
-                
-                <ul>{myCompetencies}</ul>
-                </div> : <p>You haven't achieved any competencies at the moment.</p>}
-                </>
-            }
+                    <>
+                        <h3>My competencies</h3>
+                        {(user && user.Services) && user.Services.some((compe) => compe.Users_services.verification) ?
+                            <div className='main-workshops'>
+
+                                <ul>{myCompetencies}</ul>
+                            </div> : <p>You haven't achieved any competencies at the moment.</p>}
+                    </>
+                }
 
             </div>
             {userEdit && <Modal show={showM} onHide={() => desc()}>
@@ -194,6 +230,8 @@ function Perfil() {
                             <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg" onChange={e => setUserEdit({ ...userEdit, foto: e.target.files[0] })} />
                         </label>
                     </div>
+                    <p>Want to delete your account?</p>
+                    <Button variant="danger" size="m" onClick={deleteAccount} >Delete Account</Button>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" size="m" onClick={editUser} >Edit</Button>
