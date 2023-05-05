@@ -9,12 +9,12 @@
 }
 
 #filter-nav {
-    padding: 20px;
+    padding: 0px 20px;
 }
 
 .card-shower {
     flex-basis: 70%;
-    margin-top: 130px;
+    margin-top: 30px;
 }
 
 #services {
