@@ -3,10 +3,10 @@ import GlobalContext from "../GlobalContext";
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faClock, faCalendar } from '@fortawesome/free-solid-svg-icons'
 import { Modal } from 'react-bootstrap';
 import API_URL from '../apiconfig';
-
+import Avatar from 'react-avatar';
 
 function MyWork() {
     const [show, setShow] = useState(false);
@@ -42,81 +42,109 @@ function MyWork() {
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', authorization: token },
-            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v" : id })
+            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id })
         };
 
         fetch(API_URL + 'services', options)
             .then(res => res.json())
             .catch(err => err)
-            .then((res)=>{
-                if(res.ok){
+            .then((res) => {
+                if (res.ok) {
                     setRefresh(true)
                     handleClose()
-                }else{
+                } else {
                     setToken(null)
-                    handleClose()                    
+                    handleClose()
                 }
             })
-            .catch((err)=> console.log(err))        
+            .catch((err) => console.log(err))
         // goTo('/Services')
     };
-    useEffect(()=>{if(userTypes[type] === userTypes.volunteers && refresh){
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json', authorization: token }
-        };
-        fetch(API_URL + type + "/" + id, requestOptions)
-            .then(res => res.json())
-            .catch(err => err)
-            .then((res)=>{
-                if (res.ok){
-                    setMyServices(res.data.Services);
-                }else{
-                    setToken(null)
-                }                
-            })
-            .catch((err)=> console.log(err))
-            .finally(()=> setRefresh(!refresh))            
-    }},[refresh])
-    
+    useEffect(() => {
+        if (refresh) {
+            const requestOptions = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', authorization: token }
+            };
+            fetch(API_URL + type + "/" + id, requestOptions)
+                .then(res => res.json())
+                .catch(err => err)
+                .then((res) => {
+                    if (res.ok) {
+                        setMyServices(res.data.Services);
+                    } else {
+                        setToken(null)
+                    }
+                })
+                .catch((err) => console.log(err))
+                .finally(() => setRefresh(!refresh))
+        }
+    }, [refresh])
+
     console.log(myServices)
-    let returnItem = (
-        <div className='main-workshops'>
-            <h2>My workshops</h2>
-            <br />
-            <div className='workshops'>
-                <Link to='/Services'>
-                    <div className='add-workshop'>
-                        <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1" }} />
-                        <br />
-                        <p>Browse Workshops</p>
+
+
+    let date2 = new Date(Date.parse('2012-01-26T13:51:50'));
+    console.log(date2)
+
+    let myWorkshopstodo = (myServices && myServices.filter(el => new Date(Date.parse(`${el.date}T${el.time}`)) > new Date()).map(el => {
+        return (
+            <div key={el.id} className="workshops">
+                <Link to={`/IndService/${el.id}`}>
+                    <div className="add-workshop-dif">
+                        <h5 style={{ textAlign: "center" }}><b>{el.name}</b></h5>
+                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
+                        <div className="text-muted">
+                            <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
+                            <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
+                        </div>
                     </div>
                 </Link>
             </div>
-        </div>
+        )
+    }))
+
+    let returnItem = (
+        <>
+            <div className='main-workshops'>
+                <h2 style={{ margin: "0" }}><b>My workshops</b></h2>
+                <br />
+                <div className="allmyworkshops">
+                    <div className='workshops'>
+                        <Link to='/Services'>
+                            <div className='add-workshop'>
+                                <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1" }} />
+                                <br />
+                                <p>Browse Workshops</p>
+                            </div>
+                        </Link>
+                    </div>
+                    {myWorkshopstodo}
+                </div>
+            </div>
+            <hr />
+        </>
     )
 
     if (userTypes[type] === userTypes.volunteers && (role == roleType.artist)) {
 
         returnItem = (
             <>
-                <div className='main-workshops'>                    
+                <div className='main-workshops'>
+                    <h2 style={{ margin: "0" }}><b>My workshops</b></h2>
                     <br />
-                    <div className='workshops'>
-                        <div onClick={handleShow} className='add-workshop'>
-                            <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1", }} />
-                            <br />
-                            <p>Create a workshop</p>
+                    <div className="allmyworkshops">
+                        <div className='workshops'>
+                            <div onClick={handleShow} className='add-workshop'>
+                                <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1" }} />
+                                <br />
+                                <p>Create a workshop</p>
+                            </div>
                         </div>
+                        {myWorkshopstodo}
                     </div>
                 </div>
-                <hr/>
-                <h2>My workshops</h2>
-                <ul>{myServices && myServices.map(el => {
-                    return(
-                        <li key={el.id}>{el.name}</li>
-                    )
-                })}</ul>
+                <hr />
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create a Workshop</Modal.Title>
@@ -163,7 +191,7 @@ function MyWork() {
                                     <option value="2">Sculpture</option>
                                     <option value="3">Kungfu</option>
                                     <option value="4">Ceramic</option>
-                                    <option  value="5" disabled> Group THerapy</option>
+                                    <option value="5" disabled> Group THerapy</option>
                                 </select>
                             </div>
                             <div>
@@ -191,23 +219,21 @@ function MyWork() {
     else if (userTypes[type] === userTypes.volunteers && role == roleType.therapist) {
         returnItem = (
             <>
-                <div className='main-workshops'>                    
+                <div className='main-workshops'>
+                    <h2 style={{ margin: "0" }}><b>My workshops</b></h2>
                     <br />
-                    <div className='workshops'>
-                        <div onClick={handleShow} className='add-workshop'>
-                            <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1", }} />
-                            <br />
-                            <p>Create a therapy session</p>
+                    <div className="allmyworkshops">
+                        <div className='workshops'>
+                            <div onClick={handleShow} className='add-workshop'>
+                                <FontAwesomeIcon icon={faPlus} size="2xl" style={{ color: "#a1a1a1" }} />
+                                <br />
+                                <p>Create a therapy session</p>
+                            </div>
                         </div>
+                        {myWorkshopstodo}
                     </div>
                 </div>
                 <hr />
-                <h2>My therapy sessions</h2>
-                <ul>{myServices && myServices.map(el => {
-                    return(
-                        <li key={el.id}>{el.name}</li>
-                    )
-                })}</ul>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create a Workshop</Modal.Title>
@@ -254,7 +280,7 @@ function MyWork() {
                                     <option value="2" disabled>Sculpture</option>
                                     <option value="3" disabled>Kungfu</option>
                                     <option value="4" disabled>Ceramic</option>
-                                    <option  value="5"> Group THerapy</option>
+                                    <option value="5"> Group THerapy</option>
                                 </select>
                             </div>
                             <div>

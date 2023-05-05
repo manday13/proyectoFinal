@@ -5,7 +5,7 @@ import API_URL from '../../apiconfig';
 import './Perfil.css';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faEnvelope, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPen } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { userTypes } from './constants';
 import { getUser } from './services';
@@ -234,8 +234,8 @@ function Perfil() {
                     <Button variant="danger" size="m" onClick={deleteAccount} >Delete Account</Button>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" size="m" onClick={editUser} >Edit</Button>
-                    <Button variant="secondary" size="m" onClick={() => setShowM(false)}>Cancel</Button>
+                    <Button variant="primary" size="m" onClick={editUser} >Edit</Button>
+                    <Button variant="secondary" size="m" onClick={desc}>Cancel</Button>
                 </Modal.Footer>
 
             </Modal>}
