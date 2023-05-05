@@ -7,7 +7,10 @@ import bcrypt from 'bcrypt'; //se utiliza para encriptar cosas, en nuestro caso 
 import {sequelize} from '../loadSequelize.js'; //para conectar con la base de datos
 import {autentica} from './authentication.js'; //para que cada vez que se intente hacer algo se compruebe si se ha caducado el token o no para hacerlo o no hacerlo
 
-import {Volunteers} from '../modelos/Models.js'
+import {Volunteers, Services} from '../modelos/Models.js'
+
+Volunteers.hasMany(Services, {foreignKey: "id_v"})
+Services.belongsTo(Volunteers, {foreignKey: "id_v"})
 
 const router = express.Router()
 
@@ -65,7 +68,7 @@ router.post('/login', (req,res) => {
 
 router.get('/:id', autentica, function(req,res,next){
     sequelize.sync().then(()=>{
-        Volunteers.findOne({where: {id: req.params.id}})
+        Volunteers.findOne({where: {id: req.params.id}, include: [{model: Services}]})
             .then(al => res.json({
                 ok: true,
                 data: al
@@ -104,7 +107,7 @@ router.put('/', autentica, function(req,res,next){
             Volunteers.findOne({where: {id: req.body.id}})
                 .then(vol =>{
                     if(req.file)
-                        req.body.foto = req.file.path.split("\\")[1];
+                        req.body.foto = req.file.filename;
                     return vol.update(req.body)                        
                 })
                 .then(newvol => res.json({

@@ -3,20 +3,42 @@
     width: 100%;
 }
 
-.infoservice {
-    margin: 32px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.infoservice {       
     width: 60%;
+    margin: 32px;
 }
 
-.infoservice h1 {
+.volunteerthings{
+    display: flex;
+}
+.infovolunteer{
+    padding: 0px 20px;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+
+
+.infoserv{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+   margin-bottom: 10px;
+    padding: 20px; 
+}
+
+.servicesAgain{
+    text-decoration: none;
+}
+
+.infoserv h1 {
     font-size: 32px;
     margin-bottom: 16px;
 }
 
-.infoservice p {
+.infoserv p {
     font-size: 19px;
     margin-bottom: 16px;
 }
@@ -31,11 +53,16 @@
     width: 40%;
 }
 
-.wsclients {
+.wsclients {    
     margin: 32px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.avatarsv{
+    width: fit-content;
+    margin: auto;
 }
 
 .wsbadges {

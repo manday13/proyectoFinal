@@ -7,10 +7,15 @@ import bcrypt from 'bcrypt'; //se utiliza para encriptar cosas, en nuestro caso 
 import {sequelize} from '../loadSequelize.js'; //para conectar con la base de datos
 import {autentica} from './authentication.js'; //para que cada vez que se intente hacer algo se compruebe si se ha caducado el token o no para hacerlo o no hacerlo
 
-import {Users, Tutor} from '../modelos/Models.js'
+import {Users, Tutor, Services, Users_services, Competencies} from '../modelos/Models.js'
 
 Tutor.hasMany(Users, {foreignKey: "id_t"})
 Users.belongsTo(Tutor, {foreignKey: "id_t"})
+Users.belongsToMany(Services, {through: Users_services, foreignKey: "id_u"})
+Services.belongsToMany(Users, {through: Users_services, foreignKey: "id_s"})
+Competencies.hasMany(Services, {foreignKey: "id_c"})
+Services.belongsTo(Competencies, {foreignKey: "id_c"})
+
 
 const router = express.Router()
 
@@ -67,7 +72,9 @@ router.post('/login', (req,res) => {
 router.get('/:id', autentica, function(req,res,next){
     sequelize.sync().then(()=>{
         Users.findOne({where: {id: req.params.id},
-        include: [{model: Tutor}]})
+        include: [{model: Tutor}, 
+            {model: Services,
+            include: {model: Competencies}}]})
             .then(al => res.json({
                 ok: true,
                 data: al
@@ -106,7 +113,7 @@ router.put('/', autentica, function(req,res,next){
             Users.findOne({where: {id: req.body.id}})
                 .then(user =>{
                     if(req.file)
-                        req.body.foto = req.file.path.split("\\")[1];
+                        req.body.foto = req.file.filename;
                     return user.update(req.body)                        
                 })
                 .then(newuser => res.json({

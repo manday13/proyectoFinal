@@ -104,7 +104,7 @@ router.put('/', autentica, function(req,res,next){
             Tutor.findOne({where: {id: req.body.id}})
                 .then(tutor =>{
                     if(req.file)
-                        req.body.foto = req.file.path.split("\\")[1];
+                        req.body.foto = req.file.filename;
                     return tutor.update(req.body)                        
                 })
                 .then(newtutor => res.json({
