@@ -19,8 +19,10 @@ function Perfil() {
     const { setToken, token, email, setEmail, logout } = useContext(GlobalContext);
     const [refresh, setRefresh] = useState(true);
     const [error, setError] = useState(null);
+    const [idc, setIdc] = useState(null);
     const [user, setUser] = useState(null);
     const [showM, setShowM] = useState(false);
+    const [showCompetency, setShowCompetency] = useState(false);
     const [userEdit, setUserEdit] = useState(null);
     const [changeDescription, setChangeDescription] = useState(false);
 
@@ -47,8 +49,7 @@ function Perfil() {
 
     useEffect(() => {
         setRefresh(true)
-/*              localStorage.setItem('userId', id);
- */    }, [id, type])
+  }, [id, type])
 
     const editUser = () => {
         const fdata = new FormData() //para guardar una imagen se tiene que hacer en formato formData() en vez de JSON.stringify()
@@ -127,16 +128,16 @@ function Perfil() {
     }) : <>There are no users under your responsability at the moment.</>
 
 
-    let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services) && user.Services.map(el => {
+    let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services) && user.Services.map((el, index) => {
         return (
-            <>    
-            
-                {!!el.Users_services.verification && <li>{el.Competency.name}</li>}
+            <>                
+                {!!el.Users_services.verification && 
+                <li>{el.Competency.name} <button className="buttonCompetencies" onClick={()=>{setIdc(index + 1); setShowCompetency(true)}}>i</button></li>}
             </>
         )
-    })
-    console.log(myCompetencies)
-    console.log(user)
+    })           
+   
+   
     if (!user) { return <h3>Cargando</h3> }
 
 
@@ -191,7 +192,7 @@ function Perfil() {
                             <div className='main-workshops'>
 
                                 <ul>{myCompetencies}</ul>
-                            </div> : <p>You haven't achieved any competencies at the moment.</p>}
+                            </div> : (email === user.email) ? <p>You haven't achieved any competencies at the moment.</p> : <p>There are no competencies achieved at the moment.</p>}
                     </>
                 }
 
@@ -239,6 +240,18 @@ function Perfil() {
                     <Button variant="secondary" size="m" onClick={desc}>Cancel</Button>
                 </Modal.Footer>
 
+            </Modal>}
+            {user.Services && idc && 
+            <Modal show={showCompetency} onHide={()=>setShowCompetency(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{user.Services[idc - 1].Competency.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>{user.Services[idc - 1].Competency.description}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Link to="/about/support"><Button variant="primary" size="m" >Know more</Button></Link>                    
+                </Modal.Footer>
             </Modal>}
 
         </>

@@ -15,7 +15,12 @@
 
 .workshops{
     width: fit-content;
-    margin-right: 10px; 
+    margin-right: 10px;     
+}
+
+.filterw{
+    filter: brightness(0.6);
+    background-color: rgb(236, 236, 236);
 }
 .allmyworkshops{
     display:flex;
@@ -36,6 +41,7 @@
     border-radius: 10px;
     cursor: pointer;
     border: 1px solid #ccc;
+    
 }
 .add-workshop {
     display: flex;

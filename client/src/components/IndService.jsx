@@ -20,7 +20,7 @@ function IndService() {
     const [ableButton2, setAbleButton2] = useState(true);
 
     useEffect(() => {
-        if (refresh) {
+        if (refresh && ids) {
             fetch(API_URL + `services/` + ids, {
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -159,7 +159,9 @@ function IndService() {
                 </div>
 
                 <div className='side'>
-                    <Link style={{ textDecoration: "none", color: "black" }} to={token ? `/perfil/volunteers/${data.data.Volunteer.id}` : "/signselect"}><div className='wsbadges'>
+                    <Link style={{ textDecoration: "none", color: "black" }} to={token ? `/perfil/volunteers/${data.data.Volunteer.id}` : "#"}>
+                    <Tooltip  title={token ? "" : "Log in or register to know more"} placement="top">
+                    <div className={token ? 'wsbadges' : "wsbadges LoginToSeeMore"}>                    
                         <h2><b>Organised by:</b></h2>
                         {(data.data && data.data.Volunteer) &&
                             <div className="volunteerthings">
@@ -173,7 +175,9 @@ function IndService() {
                                 </div>
                             </div>
                         }
-                    </div></Link>
+                    </div>
+                    </Tooltip> 
+                    </Link>
                     <Link style={{ textDecoration: "none", color: "black" }} to="/about/support"><div className='wsbadges'>
                         <h2><b>Competency you will get:</b></h2>
                         {(data.data && data.data.Competency) &&

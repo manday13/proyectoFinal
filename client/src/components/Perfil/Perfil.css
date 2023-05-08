@@ -33,6 +33,15 @@
     margin: 0 !important;
 }
 
+.buttonCompetencies{
+    font-size: 10px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 10px;
+    border: solid black 1px; 
+    
+}
+
 .buttondes{   
     color: white;
     background-color: black !important;
