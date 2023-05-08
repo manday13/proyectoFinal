@@ -7,6 +7,7 @@ import { faPlus, faClock, faCalendar } from '@fortawesome/free-solid-svg-icons'
 import { Modal } from 'react-bootstrap';
 import API_URL from '../apiconfig';
 import Avatar from 'react-avatar';
+import SerVerification from "./SerVerification";
 
 function MyWork() {
     const [show, setShow] = useState(false);
@@ -18,9 +19,10 @@ function MyWork() {
     const [serviceType, setServicetype] = useState('');
     const [address, setAddress] = useState('');
     const [id_c, setId_c] = useState('');
+    const [serviceControl, setServiceControl] = useState(null);
     const [myServices, setMyServices] = useState(null);
-    const [refresh, setRefresh] = useState(true);
-    const goTo = useNavigate();
+    const [refresh, setRefresh] = useState(true);  
+    const [data, setData] = useState(null); 
     const { type, role, id, setToken, token } = useContext(GlobalContext);
     const userTypes = {
         tutor: 'tutor',
@@ -35,6 +37,7 @@ function MyWork() {
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
+    const closeVerification = () => setServiceControl(null);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -56,9 +59,9 @@ function MyWork() {
                     handleClose()
                 }
             })
-            .catch((err) => console.log(err))
-        // goTo('/Services')
+            .catch((err) => console.log(err))        
     };
+
     useEffect(() => {
         if (refresh) {
             const requestOptions = {
@@ -71,6 +74,7 @@ function MyWork() {
                 .then((res) => {
                     if (res.ok) {
                         setMyServices(res.data.Services);
+                        setData(res.data); 
                     } else {
                         setToken(null)
                     }
@@ -80,27 +84,26 @@ function MyWork() {
         }
     }, [refresh])
 
-
+    console.log(data)
     const myWorkshopstodo = (isDone) =>
         myServices && myServices.filter(el =>
             isDone ?
-             new Date(Date.parse(`${el.date}T${el.time}`)) < new Date() :
-             new Date(Date.parse(`${el.date}T${el.time}`)) > new Date()
-            ).map(el =>
+                new Date(Date.parse(`${el.date}T${el.time}`)) > new Date() :
+                new Date(Date.parse(`${el.date}T${el.time}`)) < new Date()
+        ).map(el =>
             <div key={el.id} className="workshops">
-                <Link to={`/IndService/${el.id}`}>
-                    <div className="add-workshop-dif">
+                <Link to={isDone ? `/IndService/${el.id}` : "#"}>              
+                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el.id)}>
                         <h5 style={{ textAlign: "center" }}><b>{el.name}</b></h5>
                         <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
-                        <div className="text-muted" style={{marginTop:"20px"}}>
+                        <div className="text-muted" style={{ marginTop: "20px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
                         </div>
-                    </div>
+                    </div>                   
                 </Link>
-            </div> ) || <></>
-    
-
+            </div>) || <></>
+   
 
     let returnItem = (
         <>
@@ -120,9 +123,9 @@ function MyWork() {
                     {myWorkshopstodo(true)}
                 </div>
             </div>
-            <hr />
-            <div className='main-workshops'>                
-                <div className="allmyworkshops">                    
+            <hr style={{ margin: "3rem 0" }} />
+            <div className='main-workshops '>
+                <div className="allmyworkshops">
                     {myWorkshopstodo(false)}
                 </div>
             </div>
@@ -144,10 +147,15 @@ function MyWork() {
                                 <p>Create a workshop</p>
                             </div>
                         </div>
-                        {myWorkshopstodo}
+                        {myWorkshopstodo(true)}
                     </div>
                 </div>
-                <hr />
+                <hr style={{ margin: "3rem 0" }} />
+                <div className='main-workshops '>
+                    <div className="allmyworkshops">
+                        {myWorkshopstodo(false)}
+                    </div>
+                </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create a Workshop</Modal.Title>
@@ -233,10 +241,15 @@ function MyWork() {
                                 <p>Create a therapy session</p>
                             </div>
                         </div>
-                        {myWorkshopstodo}
+                        {myWorkshopstodo(true)}
                     </div>
                 </div>
-                <hr />
+                <hr style={{ margin: "3rem 0" }} />
+                <div className='main-workshops '>
+                    <div className="allmyworkshops">
+                        {myWorkshopstodo(false)}
+                    </div>
+                </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create a Workshop</Modal.Title>
@@ -313,6 +326,7 @@ function MyWork() {
             <div className='wholewscontainer'>
                 {returnItem}
             </div>
+            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification}/>}
         </>
     )
 }

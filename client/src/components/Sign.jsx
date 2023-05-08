@@ -5,10 +5,10 @@ import "./Sign.css";
 
 function Sign({handleLogin}) {
     const {position} = useParams() //useParams me devuelve un objeto tal que {position (esto lo sabe porque se lo hemos indicado en las routes del App): valor}, asi que hacemos una desestructurizacion
-    const {error} = useContext(GlobalContext);
+    const {error, setError} = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');       
-
+    
     return (
         <>
         <h1 className='titleAboutSS'>Welcome Back</h1>

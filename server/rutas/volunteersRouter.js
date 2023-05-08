@@ -7,10 +7,12 @@ import bcrypt from 'bcrypt'; //se utiliza para encriptar cosas, en nuestro caso 
 import {sequelize} from '../loadSequelize.js'; //para conectar con la base de datos
 import {autentica} from './authentication.js'; //para que cada vez que se intente hacer algo se compruebe si se ha caducado el token o no para hacerlo o no hacerlo
 
-import {Volunteers, Services} from '../modelos/Models.js'
+import {Volunteers, Services, Users, Users_services} from '../modelos/Models.js'
 
 Volunteers.hasMany(Services, {foreignKey: "id_v"})
 Services.belongsTo(Volunteers, {foreignKey: "id_v"})
+Users.belongsToMany(Services, {through: Users_services, foreignKey: "id_u"})
+Services.belongsToMany(Users, {through: Users_services, foreignKey: "id_s"})
 
 const router = express.Router()
 
@@ -68,7 +70,7 @@ router.post('/login', (req,res) => {
 
 router.get('/:id', autentica, function(req,res,next){
     sequelize.sync().then(()=>{
-        Volunteers.findOne({where: {id: req.params.id}, include: [{model: Services}]})
+        Volunteers.findOne({where: {id: req.params.id}, include: [{model: Services, include: {model: Users}}]})
             .then(al => res.json({
                 ok: true,
                 data: al

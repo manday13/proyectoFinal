@@ -8,6 +8,9 @@
     margin: 32px;
 }
 
+.LoginToSeeMore{
+    cursor: not-allowed;
+}
 .volunteerthings{
     display: flex;
 }
@@ -27,7 +30,7 @@
     border-radius: 5px;
    margin-bottom: 10px;
     padding: 20px; 
-    height: 654px;
+    /* height: 654px; */
 }
 
 .servicesAgain{
