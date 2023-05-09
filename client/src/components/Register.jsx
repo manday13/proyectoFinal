@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import {useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import GlobalContext from '../GlobalContext';
 import API_URL from '../apiconfig';
 import './Register.css'
@@ -11,15 +11,27 @@ function RegistrationForm() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [phone, setPhone] = useState('');
     const { role, setRole } = useContext(GlobalContext);
     const [record, setRecord] = useState('');
-    console.log(registrationType)
-    useEffect(()=>{
-        if(role === "2"){
+    const [errorPass, setErrorPass] = useState('');
+
+    console.log(registrationType)// chivatos abandonas de la mano de Dios
+    useEffect(() => {
+        if (role === "2") {
             setRegistrationType("tutor");
-        } else if((role === '1')||(role === '3')){setRegistrationType('volunteers')}
-    },[role])
+        } else if ((role === '1') || (role === '3')) { setRegistrationType('volunteers') }
+    }, [role])
+
+    useEffect(() => {
+        if (password !== confirmPassword) {
+            setErrorPass(true);
+        }
+        if (password === confirmPassword) {
+            setErrorPass(false);
+        }
+    }, [password, confirmPassword])
 
     const handleVolunteerClick = () => {
         setRegistrationType('volunteers');
@@ -31,32 +43,32 @@ function RegistrationForm() {
 
     const handlePronounsChange = (event) => {
         setPronouns(event.target.value);
-    };    
+    };
 
     const handleSubmit = (event) => {
-        event.preventDefault();        
+        event.preventDefault();
         // handle form submission here
         const ob = {
             name,
             email,
             password,
-            phone, 
-            pronouns,         
+            phone,
+            pronouns,
         }
-       if(registrationType === "volunteers"){
-           ob.role = role;
-       }else if (registrationType === "users"){
-           ob.record = record;
-           ob.id_t = 1; //se podria cambiar para que no sea estatico sino que vaya asignando un tutor en funcion de si otro tutor ya tiene muchos users asociados
-       }
+        if (registrationType === "volunteers") {
+            ob.role = role;
+        } else if (registrationType === "users") {
+            ob.record = record;
+            ob.id_t = 1; //se podria cambiar para que no sea estatico sino que vaya asignando un tutor en funcion de si otro tutor ya tiene muchos users asociados
+        }
         const options = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(ob)
         };
-        fetch(API_URL + registrationType , options)
+        fetch(API_URL + registrationType, options)
         goTo('/') //redirigimos a home
-    };  
+    };
 
     function Collapsible({ title, content }) {
         const [isOpen, setIsOpen] = useState(false);
@@ -123,10 +135,10 @@ function RegistrationForm() {
                             <button id="button2" type='choice' style={{ backgroundColor: (registrationType === 'users') ? "#b79957" : "#f5d389" }}
                                 onClick={handleClientChange}>Client</button></a>
                         <br />
-                        <br/>
+                        <br />
 
                         <p>Already have an account? <Link to='/Signselect'>Log in</Link></p>
-                        
+
                     </span>
                 </div>
             </div>
@@ -134,21 +146,31 @@ function RegistrationForm() {
                 <form onSubmit={handleSubmit}>
                     <label>
                         Full Name :
-                        <input type="text" onInput={(e)=>setName(e.target.value)} required />
+                        <input type="text" onInput={(e) => setName(e.target.value)} required />
                     </label>
                     <label>
                         Email :
-                        <input type="email" onInput={(e)=>setEmail(e.target.value)} required />
+                        <input type="email" onInput={(e) => setEmail(e.target.value)} required />
                     </label>
                     <label>
                         Create Password :
-                        <input type="password" onInput={(e)=>setPassword(e.target.value)} required />
+                        <input type="password" onInput={(e) => setPassword(e.target.value)} required />
+                    </label>
+                    <label>
+                        Repeat the password :
+                        {errorPass ?
+                        <>
+                            <b className='passEr'>     Password is not the same</b>
+                        </>
+                        :
+                        <></>}
+                        <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
                     </label>
                     <label>
                         Phone number (optional) :
                         <br />
                         +34
-                        <input type="tel" maxLength="9" onInput={(e)=>setPhone(e.target.value)} />
+                        <input type="tel" maxLength="9" onInput={(e) => setPhone(e.target.value)} />
                     </label>
                     <label>
                         Pronouns :
@@ -161,7 +183,7 @@ function RegistrationForm() {
                     </label>
                     <label>
                         Role :
-                        <select required onChange={(e)=>setRole(e.target.value)}>
+                        <select required onChange={(e) => setRole(e.target.value)}>
                             <option value="0">Please select a role</option>
                             <option value="1">Community support</option>
                             <option value="2">Mentoring support</option>
@@ -177,22 +199,32 @@ function RegistrationForm() {
             {registrationType === 'users' && (
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Full Name :
-                        <input type="text" name="name" onInput={(e)=>setName(e.target.value)} required />
+                        Full name :
+                        <input type="text" name="name" onInput={(e) => setName(e.target.value)} required />
                     </label>
                     <label>
                         Email :
-                        <input type="email" name="email" onInput={(e)=>setEmail(e.target.value)} required />
+                        <input type="email" name="email" onInput={(e) => setEmail(e.target.value)} required />
                     </label>
                     <label>
-                        Create Password :
-                        <input type="password" name="password" onInput={(e)=>setPassword(e.target.value)} required />
+                        Create password :
+                        <input type="password" name="password" onInput={(e) => setPassword(e.target.value)} required />
+                    </label>
+                    <label>
+                        Repeat the password :
+                        {errorPass ?
+                        <>
+                            <b className='passEr'>     Password is not the same</b>
+                        </>
+                        :
+                        <></>}
+                        <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
                     </label>
                     <label>
                         Phone number (optional) :
                         <br />
                         +34
-                        <input type="tel" name="phone" maxLength="9" onInput={(e)=>setPhone(e.target.value)} />
+                        <input type="tel" name="phone" maxLength="9" onInput={(e) => setPhone(e.target.value)} />
                     </label>
                     <label>
                         Pronouns :
@@ -205,7 +237,7 @@ function RegistrationForm() {
                     </label>
                     <label>
                         Criminal record :
-                        <input type="text" name="record" onInput={(e)=>setRecord(e.target.value)} required />
+                        <input type="text" name="record" onInput={(e) => setRecord(e.target.value)} required />
                     </label>
                     <br />
                     <button type="submit" className='register-button'>Register as Participant</button>
