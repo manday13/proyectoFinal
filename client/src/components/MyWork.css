@@ -41,7 +41,7 @@
     border-radius: 10px;
     cursor: pointer;
     border: 1px solid #ccc;
-    
+    margin-bottom: 25px ;
 }
 .add-workshop {
     display: flex;

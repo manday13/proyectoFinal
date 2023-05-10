@@ -16,7 +16,8 @@ const app = express()
 //necesario para poder recibir datos en json
 app.use(express.json());
 app.use(cors());
-
+/* app.use(bodyParser.urlencoded({ extended:true }))
+app.use(bodyParser.json()) */
 
 //las llamadas que se hagan a ciertas rutas las derivamos a componentes especificos donde pondrá qué es lo que se tendrá que hacer segun el metodo que se pida
 

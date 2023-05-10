@@ -84,3 +84,15 @@
     width: 50%;
     justify-content: space-around;
 }
+
+.participateornot{
+    margin-left: 25px;
+}
+
+.workshopended{
+    color: darkgray;
+    cursor: not-allowed;
+}
+.delete-button-for-edit{
+    margin-left: 15px;
+}
