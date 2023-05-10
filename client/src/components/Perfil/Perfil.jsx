@@ -25,6 +25,7 @@ function Perfil() {
     const [showCompetency, setShowCompetency] = useState(false);
     const [userEdit, setUserEdit] = useState(null);
     const [changeDescription, setChangeDescription] = useState(false);
+    const [askDel, setAskDel] = useState(false);
 
     const desc = () => {
         setShowM(false);
@@ -116,6 +117,13 @@ function Perfil() {
             })
     }
 
+    const askDelAccount = () => {
+        setAskDel(true);
+    }
+    const askNo = () => {
+        setAskDel(false);
+    }
+
     //ojo aqui, no me puede hacer un map de algo que no existe (objeto vacio)
     let myClients = (userTypes[type] === userTypes.tutor && user && user.Users) ? user.Users.map((el) => {
         return (
@@ -148,7 +156,7 @@ function Perfil() {
             <div className='main-container'>
                 <div className="container">
                     <div className="profile-image">
-                        <img src={"http://localhost:5000/" + (user.foto)} alt={user.name} />
+                        <Avatar src={"http://localhost:5000/" + (user.foto)} name={user.name} round={true} size="180" />
                     </div>
                     <div className="profile-info">
                         <h1 className="profile-name">{user.name}</h1>
@@ -158,7 +166,7 @@ function Perfil() {
                     </div>
                     {(email === user.email) ?
                         <div className="profile-button">
-                            <div ><Button onClick={() => { setShowM(true); setUserEdit({ ...user }) }}>Edit <FontAwesomeIcon icon={faPen}></FontAwesomeIcon></Button></div>
+                            <div ><Button onClick={() => { setShowM(true); setAskDel(false); setUserEdit({ ...user }) }}>Edit <FontAwesomeIcon icon={faPen}></FontAwesomeIcon></Button></div>
                         </div>
                         : <div className="profile-button"><div><a href={`mailto:${user.email}`}><Button>Send email <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon></Button></a></div></div>}
 
@@ -233,7 +241,18 @@ function Perfil() {
                         </label>
                     </div>
                     <p>Want to delete your account?</p>
-                    <Button variant="danger" size="m" onClick={deleteAccount} >Delete Account</Button>
+                    <Button variant="danger" size="m" onClick={askDelAccount} >Delete Account</Button>
+                    {askDel ?
+                    <>
+                    <div>
+                        <br />
+                        <b>Are you sure?   </b>
+                        <Button variant="danger" size="m" onClick={deleteAccount} >YES</Button>
+                        <Button variant="primary" size="m" onClick={askNo} >NO</Button>
+                    </div>
+                    </>
+                    :
+                    <></>}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" size="m" onClick={editUser} >Edit</Button>

@@ -31,12 +31,13 @@ router.post('/', function(req,res,next){
     })
 })
 
-//login de un cliente
+//login de un tutor
 router.post('/login', (req,res) => {
     const response = {};
     const {email, password} = req.body;
     if(!email || !password) {
         res.status(400).json({ok:false, msg: "Email or password not received"})
+        return;
     }
     Tutor.findOne({where: {email}})
         .then((tut)=> {
@@ -57,7 +58,7 @@ router.post('/login', (req,res) => {
                 secretKey //finalmente ponemos una signature key que nos sirve para que el token sea unico
             ); //hasta aqui la creacion del token
             response.ok = true;
-            res.json(response);
+            return res.json(response);
         })
         .catch(err => res.status(400).json({ok: false, msg: err}))
 });

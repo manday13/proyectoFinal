@@ -30,6 +30,7 @@ function App() {
   const [error, setError] = useState('');
   const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
+  const [localToken, setLocalToken] = useState(null);
   const navigateTo = useNavigate();
   const goHome = () => {
     navigateTo('/')
@@ -37,6 +38,21 @@ function App() {
   const goServices = () => {
     navigateTo('/services')
   }
+
+  useEffect(()=>{
+    const localToken = localStorage.getItem('women_access_token')
+    console.log(localToken)
+    if (localToken){
+      const decoded = jwt_decode(localToken)
+      const now = new Date().getTime()
+      if(now > decoded.expiredAt){
+        localStorage.removeItem('women_access_token');
+        logout() 
+        return
+      }
+      setToken(localToken)
+    }
+  },[])
 
   useEffect(()=>{
     if(token) {
@@ -51,8 +67,12 @@ function App() {
       setExpired(decoded.expiredAt);
       setId(decoded.id);      
     } else {
-      const now = new Date().getTime()
-      setShowToast(now > expired);
+      console.log(localToken)
+      const now = new Date().getTime()     
+      if ( localStorage.getItem('women_access_token')){
+        setShowToast(now > expired);
+      }
+      
       if(expired && now > expired){
         localStorage.removeItem('women_access_token');
         goHome();              
@@ -66,19 +86,7 @@ function App() {
     goHome();
   }
 
-  useEffect(()=>{
-    const localToken = localStorage.getItem('women_access_token')
-    console.log(localToken)
-    if (localToken){
-      const decoded = jwt_decode(localToken)
-      const now = new Date().getTime()
-      if(now > decoded.expiredAt){
-        localStorage.removeItem('women_access_token');
-        logout() 
-      }
-      setToken(localToken)
-    }
-  },[])
+  
   
   //definimos aqui el handlelogin porque es el que me da el token en un primer momento y lo necesito pasar a toda la aplicacion como GlobalContext
   const handleLogin = (email, password, position) => {
