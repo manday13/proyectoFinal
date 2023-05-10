@@ -49,7 +49,7 @@ router.post('/login', (req,res) => {
             if (user && bcrypt.compareSync(password, user.password)){
                 return user;
             } else {
-                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como error
+                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como el error del catch del final!!
             }
         })
         .then(user => { //si todo ha ido bien, es decir coincide el user con su password, crea el token que es el que le permitira acceder a los sitios de la pagina

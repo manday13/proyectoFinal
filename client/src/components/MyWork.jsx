@@ -31,13 +31,17 @@ function MyWork() {
     }
 
     const roleType = {
-        artist: '1',
-        therapist: '3'
+        artist: 1,
+        therapist: 3
     }
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
     const closeVerification = () => setServiceControl(null);
+    const closeAndRefresh = () => {
+        setServiceControl(null)
+        setRefresh(true)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -84,16 +88,16 @@ function MyWork() {
         }
     }, [refresh])
 
-    console.log(data)
+  
     const myWorkshopstodo = (isDone) =>
         myServices && myServices.filter(el =>
             isDone ?
-                new Date(Date.parse(`${el.date}T${el.time}`)) > new Date() :
-                new Date(Date.parse(`${el.date}T${el.time}`)) < new Date()
+                new Date(`${el.date}T${el.time}`).getTime() > new Date().getTime() :
+                new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
         ).map(el =>
             <div key={el.id} className="workshops">
-                <Link to={isDone ? `/IndService/${el.id}` : "#"}>              
-                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el.id)}>
+                <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` :  "#"}>              
+                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
                         <h5 style={{ textAlign: "center" }}><b>{el.name}</b></h5>
                         <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
                         <div className="text-muted" style={{ marginTop: "20px" }}>
@@ -326,7 +330,7 @@ function MyWork() {
             <div className='wholewscontainer'>
                 {returnItem}
             </div>
-            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification}/>}
+            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification} closeAndRefresh={closeAndRefresh}/>}
         </>
     )
 }

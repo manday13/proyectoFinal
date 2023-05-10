@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import GlobalContext from "../GlobalContext";
 import "./Sign.css";
@@ -8,7 +8,7 @@ function Sign({handleLogin}) {
     const {error, setError} = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');       
-    
+    useEffect(()=>setError(null),[])
     return (
         <>
         <h1 className='titleAboutSS'>Welcome Back</h1>
