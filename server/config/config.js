@@ -1,6 +1,6 @@
 export default{
     "username": "root",
-    "password": "ASDqwe.13",
+    "password": "123456789",
     "database": "finalproject",
     "dialect": "mysql",
     "host": "127.0.0.1"
