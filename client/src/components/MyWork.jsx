@@ -31,8 +31,8 @@ function MyWork() {
     }
 
     const roleType = {
-        artist: '1',
-        therapist: '3'
+        artist: 1,
+        therapist: 3
     }
 
     const handleShow = () => setShow(true);
@@ -131,8 +131,9 @@ function MyWork() {
             </div>
         </>
     )
-
-    if (userTypes[type] === userTypes.volunteers && (role === roleType.artist)) {
+    console.log(role)
+    if (userTypes[type] === userTypes.volunteers && (role == roleType.artist)) {
+        
 
         returnItem = (
             <>
@@ -227,7 +228,7 @@ function MyWork() {
             </>
         )
     }
-    else if (userTypes[type] === userTypes.volunteers && role === roleType.therapist) {
+    else if (userTypes[type] === userTypes.volunteers && role == roleType.therapist) {
         returnItem = (
             <>
                 <div className='main-workshops'>

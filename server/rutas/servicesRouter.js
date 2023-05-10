@@ -6,12 +6,12 @@ import multer from 'multer'; //para poder trabajar con archivos (en nuestro caso
 import { Services, Competencies, Users_services, Users, Volunteers } from '../modelos/Models.js'
 
 //establecemos relaciones
-Competencies.hasMany(Services, {foreignKey: "id_c"})
-Services.belongsTo(Competencies, {foreignKey: "id_c"})
-Services.belongsToMany(Users, {through: Users_services, foreignKey: "id_s"})
-Users.belongsToMany(Services, {through: Users_services, foreignKey: "id_u"})
-Volunteers.hasMany(Services, {foreignKey:"id_v"})
-Services.belongsTo(Volunteers, {foreignKey: "id_v"})
+Competencies.hasMany(Services, { foreignKey: "id_c" })
+Services.belongsTo(Competencies, { foreignKey: "id_c" })
+Services.belongsToMany(Users, { through: Users_services, foreignKey: "id_s" })
+Users.belongsToMany(Services, { through: Users_services, foreignKey: "id_u" })
+Volunteers.hasMany(Services, { foreignKey: "id_v" })
+Services.belongsTo(Volunteers, { foreignKey: "id_v" })
 
 //creo un objeto en el que se guardan las peticiones
 const router = express.Router();
@@ -42,9 +42,11 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
     sequelize.sync().then(() => {
 
-        Services.findOne({ where: { id: req.params.id },
-        include: [{model: Competencies},
-        {model: Users}, {model: Volunteers}] })
+        Services.findOne({
+            where: { id: req.params.id },
+            include: [{ model: Competencies },
+            { model: Users }, { model: Volunteers }]
+        })
             .then(al => res.json({
                 ok: true,
                 data: al
@@ -81,14 +83,14 @@ router.post('/', autentica, function (req, res, next) {
             return res.status(500).json(err)
         } */
 
-        sequelize.sync().then(() => {
-/*             req.body.foto = req.file.filename;
- */
+    sequelize.sync().then(() => {
+        /*             req.body.foto = req.file.filename;
+         */
 
-            console.log("hello", req.body)
-            Services.create(req.body)
-                .then((item) => res.json({ ok: true, data: item }))
-                .catch((error) => res.json({ ok: false, error: error.message }))
+        console.log("hello", req.body)
+        Services.create(req.body)
+            .then((item) => res.json({ ok: true, data: item }))
+            .catch((error) => res.json({ ok: false, error: error.message }))
 
 
 
@@ -99,6 +101,63 @@ router.post('/', autentica, function (req, res, next) {
             })
         }); */
     })
+});
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'fotos')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+const upload = multer({ storage: storage }).single('file');
+
+
+router.put('/', autentica, function (req, res, next) {
+    upload(req, res, function (err) {
+        console.log('body', req.body.id)
+        sequelize.sync()
+            .then(() => {
+                Services.findOne({ where: { id: req.body.id } })
+                    .then(item => {
+                        if (req.file)
+                            req.body.foto = req.file.filename;
+                        return item.update(req.body)
+                    })
+                    .then(item => res.json({
+                        ok: true,
+                        data: item
+                    }))
+                    .catch(error => res.json({
+                        ok: false,
+                        error: error + 'error1'
+                    }));
+            }).catch((error) => {
+                res.json({
+                    ok: false,
+                    error: error + 'error2'
+                })
+            });
+    });
+});
+
+router.delete('/:id', autentica, function (req, res, next) {
+
+    sequelize.sync().then(() => {
+
+        Services.destroy({ where: { id: req.params.id } })
+            .then((data) => res.json({ ok: true, data }))
+            .catch((error) => res.json({ ok: false, error }))
+
+    }).catch((error) => {
+        res.json({
+            ok: false,
+            error: error
+        })
+    });
+
 });
 
 export default router;
