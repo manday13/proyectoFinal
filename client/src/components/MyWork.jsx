@@ -136,7 +136,7 @@ function MyWork() {
         </>
     )
 
-    if (userTypes[type] === userTypes.volunteers && (role === roleType.artist)) {
+    if (userTypes[type] === userTypes.volunteers && (role == roleType.artist)) {
 
         returnItem = (
             <>
@@ -231,7 +231,7 @@ function MyWork() {
             </>
         )
     }
-    else if (userTypes[type] === userTypes.volunteers && role === roleType.therapist) {
+    else if (userTypes[type] === userTypes.volunteers && role == roleType.therapist) {
         returnItem = (
             <>
                 <div className='main-workshops'>

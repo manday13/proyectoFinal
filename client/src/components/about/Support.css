@@ -1,3 +1,6 @@
+.fondoSup {
+    background-color: #f0f8ff;
+}
 .titleAboutS {
     flex: 100%;
     background-image: url("../public/image6.jpg");
@@ -52,4 +55,8 @@
 
 .activeIndex{
     background-color: black;
+}
+
+.divCaru {
+    background-image: linear-gradient(to bottom, #f0f8ff, #3A5766)
 }

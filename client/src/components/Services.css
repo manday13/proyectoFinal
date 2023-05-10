@@ -26,7 +26,7 @@
 
 #worksCard {
     transition: box-shadow 0.3s ease;
-    cursor: pointer;
+    /* cursor: pointer; */
     /*esto es lo que cambia el cursor al ponerte sobre un card de curso*/
     min-width: 400px;
     margin: 10px;

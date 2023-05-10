@@ -13,7 +13,7 @@ function Mission() {
                 <p>We offer different workshops and group therapies done by volunteers in order to evolve your mental health and give you some distraction for the daily life. If you want to see the different events that are available at the moment, please click here to have more information:</p>
                 <br /><br /><br /><br /><br />
                 
-                <div><img className="trans" width="100px" src="../public/arrow.png" /><a href="/services"><button className="servicesbutton">Discover our available events</button></a><FontAwesomeIcon className="minus1"  icon={faMinus} /><FontAwesomeIcon className="minus2"  icon={faMinus} /><FontAwesomeIcon className="minus3"  icon={faMinus} /></div>
+                {/* <div><img className="trans" width="100px" src="../public/arrow.png" /><a href="/services"><button className="servicesbutton">Discover our available events</button></a><FontAwesomeIcon className="minus1"  icon={faMinus} /><FontAwesomeIcon className="minus2"  icon={faMinus} /><FontAwesomeIcon className="minus3"  icon={faMinus} /></div> */}
                 
             </div>
             
