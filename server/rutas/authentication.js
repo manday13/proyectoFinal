@@ -11,7 +11,8 @@ export const autentica = (req,res,next) => {
 
     //si el token está ausente, responde con un error (hay errores correspondientes para cada caso, en este es el 401: unauthorized) y un mensaje
     if(!token){
-        res.status(401).json({ok: false, error: 'token absent'});
+        res.status(401).json({ok: false, error: 'token absent'})
+        // return;
     }
 
     //ahora tenemos el caso de que sí que haya token, por lo que nos toca verificarlo

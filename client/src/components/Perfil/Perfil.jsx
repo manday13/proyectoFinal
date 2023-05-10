@@ -156,7 +156,7 @@ function Perfil() {
             <div className='main-container'>
                 <div className="container">
                     <div className="profile-image">
-                        <img src={"http://localhost:5000/" + (user.foto)} alt={user.name} />
+                        <Avatar src={"http://localhost:5000/" + (user.foto)} name={user.name} round={true} size="180" />
                     </div>
                     <div className="profile-info">
                         <h1 className="profile-name">{user.name}</h1>

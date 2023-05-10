@@ -1,7 +1,6 @@
 import express from 'express';
 import { sequelize } from '../loadSequelize.js';
 import { autentica } from './authentication.js';
-
 import { Users_services } from '../modelos/Models.js'
 
 //creo un objeto en el que se guardan las peticiones
@@ -39,5 +38,32 @@ router.delete('/', function (req, res, next) {
     });
 
 });
+
+router.put('/',function(req, res, next){
+    const participants = req.body;
+
+    function updateUser(participant){
+        return Users_services.update(
+            {verification: participant.verification},
+            { 
+                where: { 
+                    id_u: participant.idUser,
+                    id_s: participant.idService
+                } 
+            });
+    }
+    const promises = participants.map(participant => updateUser(participant));
+
+    Promise.all(promises)
+        .then(results => res.json({
+            ok: true,
+            data: results
+        })) 
+        .catch(error => res.json({
+            ok: false,
+            error:error
+        })
+        )
+})
 
 export default router;
