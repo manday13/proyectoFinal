@@ -23,6 +23,7 @@ function MyWork() {
     const [myServices, setMyServices] = useState(null);
     const [refresh, setRefresh] = useState(true);  
     const [data, setData] = useState(null); 
+    const [limit, setlimit] = useState('');
     const { type, role, id, setToken, token } = useContext(GlobalContext);
     const userTypes = {
         tutor: 'tutor',
@@ -48,7 +49,7 @@ function MyWork() {
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', authorization: token },
-            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id })
+            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id, limit })
         };
 
         fetch(API_URL + 'services', options)
@@ -304,7 +305,7 @@ function MyWork() {
                                     <option value="5"> Group THerapy</option>
                                 </select>
                             </div>
-                            <div>
+                            <div className="form-group">
                                 <label >Competency</label>
                                 <select className="form-control" onChange={(e) => setId_c(e.target.value)}>
                                     <option value="0">--Select Competence--</option>
@@ -314,6 +315,10 @@ function MyWork() {
                                     <option value="4">Fiabilidad</option>
                                     <option value="5">Adaptabilidad</option>
                                 </select>
+                            </div>
+                            <div >
+                                <label >Participant limit</label>
+                                <input type="number" className="form-control" value={limit} onChange={(e) => setlimit(e.target.value)} />
                             </div>
                         </form>
                     </Modal.Body>
