@@ -21,7 +21,7 @@ function Menu() {
         return (
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Link to="/" className="linklogo"><Navbar.Brand ><img src="/public/logo.png" alt="logo" /></Navbar.Brand></Link>
+                    <Link to="/" className="linklogo"><Navbar.Brand ><img src="/public/logo4.png" alt="logo" /></Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">

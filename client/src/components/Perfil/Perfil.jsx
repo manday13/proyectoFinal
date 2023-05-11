@@ -5,11 +5,12 @@ import API_URL from '../../apiconfig';
 import './Perfil.css';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPen, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { userTypes } from './constants';
 import { getUser } from './services';
 import Avatar from 'react-avatar';
+import LetterRecomendation from './LetterRecomendation';
 
 
 
@@ -26,6 +27,9 @@ function Perfil() {
     const [userEdit, setUserEdit] = useState(null);
     const [changeDescription, setChangeDescription] = useState(false);
     const [askDel, setAskDel] = useState(false);
+    const [userForLetter, setUserForLetter] = useState(null);
+
+    const notShowLetter = () => setUserForLetter(null);
 
     const desc = () => {
         setShowM(false);
@@ -50,7 +54,7 @@ function Perfil() {
 
     useEffect(() => {
         setRefresh(true)
-  }, [id, type])
+    }, [id, type])
 
     const editUser = () => {
         const fdata = new FormData() //para guardar una imagen se tiene que hacer en formato formData() en vez de JSON.stringify()
@@ -138,16 +142,16 @@ function Perfil() {
 
     let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services) && user.Services.map((el, index) => {
         return (
-            <>                
-                {!!el.Users_services.verification && 
-                <li>{el.Competency.name} <button className="buttonCompetencies" onClick={()=>{setIdc(index + 1); setShowCompetency(true)}}>i</button></li>}
+            <>
+                {!!el.Users_services.verification &&
+                    <li>{el.Competency.name} <button className="buttonCompetencies" onClick={() => { setIdc(index + 1); setShowCompetency(true) }}>i</button></li>}
             </>
         )
-    })           
-   
-   
-    if (!user) { return <h3>Cargando</h3> }
+    })
 
+
+    if (!user) { return <h3>Cargando</h3> }
+    console.log(user.letter)
 
     return (
         <>
@@ -156,7 +160,7 @@ function Perfil() {
             <div className='main-container'>
                 <div className="container">
                     <div className="profile-image">
-                        <Avatar src={"http://localhost:5000/" + (user.foto)} name={user.name} round={true} size="180" />
+                        <Avatar src={"http://localhost:5000/" + (user.foto)} name={user.name} round={true} size="160" />
                     </div>
                     <div className="profile-info">
                         <h1 className="profile-name">{user.name}</h1>
@@ -194,14 +198,28 @@ function Perfil() {
                     : <></>}
 
                 {(userTypes[type] === userTypes.users) &&
-                    <>
-                        <h3>My competencies</h3>
-                        {(user && user.Services) && user.Services.some((compe) => compe.Users_services.verification) ?
-                            <div className='main-workshops'>
+                    <div className='main-workshops competencies-letter'>
+                        <div className='competencies'>
+                            <h3>My competencies</h3>
+                            {(user && user.Services) && user.Services.some((compe) => compe.Users_services.verification) ?
+
 
                                 <ul>{myCompetencies}</ul>
-                            </div> : (email === user.email) ? <p>You haven't achieved any competencies at the moment.</p> : <p>There are no competencies achieved at the moment.</p>}
-                    </>
+                                : (email === user.email) ? <p><i>You haven't achieved any competencies at the moment.</i></p> : <p><i>There are no competencies achieved at the moment.</i></p>}
+                        </div>
+                        <div className='letter'>
+                            {user.Tutor &&
+                                (email === user.Tutor.email || (user.letter && email === user.email)) &&
+                                <>
+                                    <h3>Letter of recommendation</h3>
+                                    {user.letter && <><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <span>{user.letter}</span></>}
+                                    {(email === user.Tutor.email) &&
+                                        <button className="upload" onClick={() => setUserForLetter(user)}>{user.letter ? "Edit document" : "Upload document"}</button>}
+                                </>
+                            }
+
+                        </div>
+                    </div>
                 }
 
             </div>
@@ -243,16 +261,16 @@ function Perfil() {
                     <p>Want to delete your account?</p>
                     <Button variant="danger" size="m" onClick={askDelAccount} >Delete Account</Button>
                     {askDel ?
-                    <>
-                    <div>
-                        <br />
-                        <b>Are you sure?   </b>
-                        <Button variant="danger" size="m" onClick={deleteAccount} >YES</Button>
-                        <Button variant="primary" size="m" onClick={askNo} >NO</Button>
-                    </div>
-                    </>
-                    :
-                    <></>}
+                        <>
+                            <div>
+                                <br />
+                                <b>Are you sure?   </b>
+                                <Button variant="danger" size="m" onClick={deleteAccount} >YES</Button>
+                                <Button variant="primary" size="m" onClick={askNo} >NO</Button>
+                            </div>
+                        </>
+                        :
+                        <></>}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" size="m" onClick={editUser} >Edit</Button>
@@ -260,18 +278,19 @@ function Perfil() {
                 </Modal.Footer>
 
             </Modal>}
-            {user.Services && idc && 
-            <Modal show={showCompetency} onHide={()=>setShowCompetency(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{user.Services[idc - 1].Competency.name}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>{user.Services[idc - 1].Competency.description}</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Link to="/about/support"><Button variant="primary" size="m" >Know more</Button></Link>                    
-                </Modal.Footer>
-            </Modal>}
+            {user.Services && idc &&
+                <Modal show={showCompetency} onHide={() => setShowCompetency(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{user.Services[idc - 1].Competency.name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>{user.Services[idc - 1].Competency.description}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Link to="/about/support"><Button variant="primary" size="m" >Know more</Button></Link>
+                    </Modal.Footer>
+                </Modal>}
+            {userForLetter && <LetterRecomendation userForLetter={userForLetter} notShowLetter={notShowLetter} />}
 
         </>
     );

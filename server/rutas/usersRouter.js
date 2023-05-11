@@ -104,8 +104,9 @@ const storage = multer.diskStorage({
 //y ademas dice si se van a guardar 1 o mas cosas (single --> solo 1) y cual es el nombre de esa cosa (para que sepa que se tiene que guardar)
 const upload = multer({storage: storage}).single('file');
 
-//a continuacion hacemos la modificacion de un Users
 
+//a continuacion hacemos la modificacion de un Users
+//aqui estamos editando el usuario --> no es lo mismo que añadir solo la letter of recommendation
 router.put('/', autentica, function(req,res,next){
     upload(req,res, function (err){
         sequelize.sync()
@@ -156,5 +157,47 @@ router.delete('/', autentica,  function (req, res, next) {
     });
 
 });
+
+//creamos otra funcion put diferente, ya que habrá una persona que no soy yo sino mi tutor (Externo) que podrá editar cosas de 
+//mi perfil. Cuando esto pasa, no podemos usar la misma ruta que para editar cosas personales de mi perfil ya que entonces la
+//otra persona podria copiar la url --> usar postman y hacerme cambios en mi cuenta
+const letterStorage = multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null, 'letters')
+    },
+    filename: function(req,file,cb){
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+const uploadLetter = multer({storage: letterStorage}).single('file');
+
+router.put('/letter', autentica, function(req,res,next){
+    uploadLetter(req,res, function (err){
+        sequelize.sync()
+        .then(()=>{            
+            Users.findOne({where: {id: req.body.id}})
+                .then(user =>{
+                    if(req.file)
+                        req.body.letter = req.file.filename;
+                    return user.update(req.body)                        
+                })
+                .then(newuser => res.json({
+                    ok: true,
+                    data: newuser
+                }))
+                .catch(error => res.json({
+                    ok: false,
+                    error: error
+                }));
+        }).catch((error) => {
+            res.json({
+                ok: false,
+                error: error
+            })
+        });
+    });
+});
+
 export default router;
 
