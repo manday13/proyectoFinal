@@ -51,7 +51,7 @@
 /*Esto es para que el titulo del Home no se coma el navbar*/
 @media only screen and (max-width: 600px) {
     .one h1 {
-        font-size: 45px;
+        font-size: 43px;
     }
     .flechitapabajo {
         margin-bottom: 50px;

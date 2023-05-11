@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Dropdown, Container, Row, Col, Card } from 'react-bootstrap';
+import { Form, Button, Dropdown, Container, Row, Col, Card, Offcanvas } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
@@ -35,6 +35,11 @@ function Services() {
             setDis(false);
         }
     }, [serviceType])
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     // FUNCION PARA CARGAR LOS DATOS
     function loadData() {
@@ -78,17 +83,17 @@ function Services() {
 
     const handleWorkshops = dades.map((el, i) => (
         <Link className="card-ind-service" to={`/IndService/${el.id}`}>
-        <Card id='worksCard' key={i} style={{ width: '18rem' }}>
-            <Card.Body>
-                <Card.Title id='titleCard'>{el.name}</Card.Title>
-            </Card.Body>
-            <Card.Img id='imgCard' variant="top" src="https://placekitten.com/300/150" />
-            <Card.Body>
-                <Card.Text id='descript'>{el.description}</Card.Text>
-                <Card.Text>Fecha: {el.date}</Card.Text>
-                <Button variant="primary" className='mas-info-service-button'><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
-            </Card.Body>
-        </Card >
+            <Card id='worksCard' key={i} style={{ width: '18rem' }}>
+                <Card.Body>
+                    <Card.Title id='titleCard'>{el.name}</Card.Title>
+                </Card.Body>
+                <Card.Img id='imgCard' variant="top" src="https://placekitten.com/300/150" />
+                <Card.Body>
+                    <Card.Text id='descript'>{el.description}</Card.Text>
+                    <Card.Text>Fecha: {el.date}</Card.Text>
+                    <Button variant="primary" className='mas-info-service-button'><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
+                </Card.Body>
+            </Card >
         </Link>
     ));
 
@@ -134,17 +139,79 @@ function Services() {
 
     return (
         <div className='cuerpo-services'>
-            <div id='filter-nav' >
-            
+
+            <div className="botonFiltros">
+                <Button variant="primary" onClick={handleShow}>FILTERS</Button>
+            </div>
+
+            <Offcanvas show={show} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>FILTERS</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <div id='filter-nav' >
+                        <Container fluid>
+                            <Row>
+                                <Form id='filtraje'>
+                                    <Col md={3} className='filters'>
+                                        <Form.Group>
+                                            {/* <br />
+                                            <h3 className='filter-p'>Filter by</h3>
+                                            <br /> */}
+                                            <DateRangePicker
+                                                ranges={[selectionRange]}
+                                                staticRanges={[]}
+                                                onChange={handleSelect} />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={3} className='filters'>
+                                        <Form.Group>
+                                            <Dropdown id='drop' >
+                                                <Dropdown.Toggle className='filter-components' id="dropdownEventType">
+                                                    <EventTypeDisplay serviceType={serviceType} />
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    <Dropdown.Item onClick={() => setServiceType(1)}>Group therapy</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setServiceType(2)}>Workshop</Dropdown.Item>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={3} className='filters'>
+                                        <Form.Group>
+                                            <Dropdown id='drop' >
+                                                <Dropdown.Toggle className='filter-components' id="dropdownEventType" disabled={dis}>
+                                                    <WorkshopTypeDisplay workshopType={workshopType} />
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    <Dropdown.Item onClick={() => setWorkshopType(1)}>Painting</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setWorkshopType(2)}>Sculpture</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setWorkshopType(3)}>Kungfu</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setWorkshopType(4)}>Ceramic</Dropdown.Item>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={3} className='filters'>
+                                        <Button className='filter-button' onClick={handleFilter}>Filter</Button>
+                                        <Button className='delete-filter-button' onClick={handleDeleteFilter}>Borrar filtros</Button>
+                                    </Col>
+                                </Form>
+                            </Row>
+                        </Container>
+                    </div>
+                </Offcanvas.Body>
+            </Offcanvas>
+
+            {/* <div id='filter-nav' >
                 <Container fluid>
                     <Row>
                         <Form id='filtraje'>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    <br/>
-                                <h3 className='filter-p'>Filter by</h3>
-                                <br/>
-                                {/* <p>Date:</p> */}
+                                    <br />
+                                    <h3 className='filter-p'>Filter by</h3>
+                                    <br />
                                     <DateRangePicker
                                         ranges={[selectionRange]}
                                         staticRanges={[]}
@@ -153,7 +220,6 @@ function Services() {
                             </Col>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    {/* <p>Event type:</p> */}
                                     <Dropdown id='drop' >
                                         <Dropdown.Toggle className='filter-components' id="dropdownEventType">
                                             <EventTypeDisplay serviceType={serviceType} />
@@ -167,7 +233,6 @@ function Services() {
                             </Col>
                             <Col md={3} className='filters'>
                                 <Form.Group>
-                                    {/* <p>Workshop type:</p> */}
                                     <Dropdown id='drop' >
                                         <Dropdown.Toggle className='filter-components' id="dropdownEventType" disabled={dis}>
                                             <WorkshopTypeDisplay workshopType={workshopType} />
@@ -182,13 +247,13 @@ function Services() {
                                 </Form.Group>
                             </Col>
                             <Col md={3} className='filters'>
-                                <Button  className='filter-button' onClick={handleFilter}>Filter</Button>
-                                <Button  className='delete-filter-button' onClick={handleDeleteFilter}>Borrar filtros</Button>
+                                <Button className='filter-button' onClick={handleFilter}>Filter</Button>
+                                <Button className='delete-filter-button' onClick={handleDeleteFilter}>Borrar filtros</Button>
                             </Col>
                         </Form>
                     </Row>
                 </Container>
-            </div>
+            </div> */}
             <div className='card-shower'>
                 {dades.length ?
                     <div id='services'>

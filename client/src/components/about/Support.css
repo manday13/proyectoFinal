@@ -1,6 +1,7 @@
 .fondoSup {
     background-color: #f0f8ff;
 }
+
 .titleAboutS {
     flex: 100%;
     background-image: url("../public/image6.jpg");
@@ -14,25 +15,25 @@
     font-size: 75px;
 }
 
-.overallcard{
+.overallcard {
     margin: 25px 200px;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  margin: 25px 200px;
-  margin-top: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin: 25px 200px;
+    margin-top: 100px;
 }
 
 #caritem {
     max-width: 500px;
 }
 
-.leftright{
+.leftright {
     display: flex;
     width: 100%;
 }
@@ -41,7 +42,7 @@
     flex: 20%;
 }
 
-.left-side img{
+.left-side img {
     width: 200px;
     height: 200px;
     margin-left: 270px;
@@ -53,16 +54,57 @@
     padding-left: 170px;
 }
 
-.activeIndex{
+.activeIndex {
     background-color: black;
 }
 
 .divCaru {
-    background-image: linear-gradient(to bottom, #f0f8ff, #3A5766)
+    /* background-image: linear-gradient(to bottom, #f0f8ff, #3A5766) */
 }
 
 @media only screen and (max-width: 600px) {
     .titleAboutS {
         padding: 0;
     }
-  }
+
+    .leftright {
+        flex-direction: column;
+    }
+
+    .left-side {
+        flex: 50%;
+        padding: 0;
+        margin: 0;
+    }
+    .left-side img {
+        margin: 0 0 10px 100px;
+    }
+
+    .right-side {
+        flex: 50%;
+        padding: 0;
+        margin: 0;
+    }
+    .right-side h3 {
+        text-align: center;
+        margin: 0 20px 20px 20px;
+    }
+    .right-side h6 {
+        text-align: justify;
+        margin: 0 20px 20px 20px;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        margin: 0;
+        margin-top: 190px;
+    }
+    .overallcard h1 {
+        justify-content: center;
+    }
+    .overallcard {
+        margin: 10px;
+        padding: 0;
+        width: 350px;
+    }
+}

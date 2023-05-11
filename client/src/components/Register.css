@@ -28,7 +28,8 @@ select {
 }
 
 input[type="tel"] {
-    border: solid lightgray;
+    border: 2px solid rgb(206, 206, 206);
+    border-radius: 4px;
 }
 
 .register-button {
@@ -50,12 +51,12 @@ select {
 }
 
 /* Responsive styles */
-@media only screen and (min-width: 768px) {
+/* @media only screen and (min-width: 768px) {
     form {
         max-width: 500px;
         margin: auto;
     }
-}
+} */
 
 .firstpart {
     margin: 25px 200px;
@@ -126,4 +127,27 @@ select {
 
 .passEr {
     color: red;
+}
+
+@media only screen and (max-width: 600px) {
+    .titleAboutR {
+        font-size: 45px;
+        color: white;
+        text-shadow: -1.7px -1.7px 0 black, 1.7px -1.7px 0 black, -1.7px 1.7px 0 black, 1.7px 1.7px 0 black;
+        margin: 0px;
+        padding: 10px;
+    }
+
+    .parag {
+        margin: 10px;
+    }
+
+    .firstpart {
+        margin: 10px;
+        text-align: justify;
+    }
+
+    form {
+        margin: 10px;
+    }
 }

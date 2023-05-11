@@ -82,7 +82,8 @@ function Support() {
                     <img src={skill.imageUrl} alt={skill.name} />
                 </div>
                 <div className="right-side">
-                    <h3 onClick={() => handleSkillchange(skill.id - 1)}>{skill.name}</h3>                        <h6>{skill.description}</h6>
+                    <h3 onClick={() => handleSkillchange(skill.id - 1)}>{skill.name}</h3>
+                    <h6>{skill.description}</h6>
                 </div>
             </div>
             <br />
@@ -108,7 +109,7 @@ function Support() {
                     <h1 className="overallcard">Discover your next skills</h1>
                 </div>
                 <div className="divCaru">
-                    <br />
+                    {/* <br /> */}
                     <Carousel activeIndex={activeIndex} onSelect={handleSelect}>
                         {skillItems}
                     </Carousel>
