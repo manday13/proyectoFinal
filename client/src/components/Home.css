@@ -1,4 +1,4 @@
-.one {    
+.one {
     height: 700px;
     display: flex;
     flex-direction: column;
@@ -8,24 +8,34 @@
 
 }
 
-.one a{
+.one a {
     color: white;
     font-size: large;
-    animation: bounce2 4s ease-in-out infinite; 
+    animation: bounce2 4s ease-in-out infinite;
 }
 
 @keyframes bounce2 {
-	0%, 50%, 100% {transform: translateY(0);}
-	25%, 75%{transform: translateY(-15px);}	
+
+    0%,
+    50%,
+    100% {
+        transform: translateY(0);
+    }
+
+    25%,
+    75% {
+        transform: translateY(-15px);
+    }
 }
 
-.one p{
+.one p {
     color: white;
     text-align: center;
     width: 70%;
     animation: fadeIn 2s ease forwards;
-    
+
 }
+
 .one h1 {
     padding-top: 70px;
     width: 70%;
@@ -36,6 +46,16 @@
     font-weight: bolder;
     font-size: 60px;
     margin-bottom: 50px;
+}
+
+/*Esto es para que el titulo del Home no se coma el navbar*/
+@media only screen and (max-width: 600px) {
+    .one h1 {
+        font-size: 45px;
+    }
+    .flechitapabajo {
+        margin-bottom: 50px;
+    }
 }
 
 @keyframes fadeIn {
@@ -52,23 +72,25 @@
     background-color: #83c5cf;
     color: #FFF;
     height: 400px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);    
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.about h1{
+
+.about h1 {
     text-align: center;
     margin-bottom: 30px;
 }
-.about p{
+
+.about p {
     text-align: center;
     width: 100%;
-    color: rgb(70,63,104);
+    color: rgb(70, 63, 104);
 }
 
-.homebuttondiv{
+.homebuttondiv {
     width: fit-content;
     margin: auto;
 }
@@ -93,7 +115,6 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    
 }
 
 .row1,
@@ -105,6 +126,9 @@
     align-items: center;
 }
 
+.row2 {
+    flex-direction: row-reverse;
+}
 
 .row1 .col1,
 .row2 .col1,
@@ -181,10 +205,11 @@
         transform: scale(1);
     }
 }
+
 .row1 .col1,
 .row2 .col2,
 .row3 .col1 {
-    
+
     padding: 0;
     overflow: hidden;
 }
@@ -197,15 +222,15 @@
     height: 100%;
     display: block;
     margin: 0 auto;
-    border: none;  
-    transition: transform 1.5s;  
+    border: none;
+    transition: transform 1.5s;
 }
 
 .row1 .col1 img:hover,
 .row2 .col2 img:hover,
 .row3 .col1 img:hover {
-   transform: scale(1.1);
-   filter: brightness(0.5)
+    transform: scale(1.1);
+    filter: brightness(0.5)
 }
 
 
@@ -216,10 +241,12 @@
     justify-content: center;
     align-items: center;
 }
-.col1 p{
+
+.col1 p {
     text-align: center;
 }
-.col2 p{
+
+.col2 p {
     text-align: center;
 }
 
@@ -227,7 +254,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
 }
 
 .homebutton a {
@@ -240,19 +267,27 @@
     text-decoration: none;
 }
 
-.testimon{
-    color: rgb(70,63,104);
+.testimon {
+    color: rgb(70, 63, 104);
     display: flex;
     align-items: flex-start;
     justify-content: center;
 }
 
-.testimon p{
+.testimon p {
     width: 60%;
     margin-left: 30px;
     margin-right: 30px;
 }
 
-.testicon{
+.testicon {
     font-size: 50px;
+}
+.row {
+    padding: 0px;
+}
+.ContainerPage {
+    padding: 0px;
+    margin: 0px;
+    min-width: 100%;
 }

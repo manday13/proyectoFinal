@@ -55,6 +55,24 @@
   color: black;
 }
 
+@media only screen and (max-width: 600px) {
+  .inconPerInf {
+    display: flex;
+    justify-content: end;
+  }
+
+  .dropstart {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+
+  .dropdown-menu.show {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
 .logout {
   color: red;
 }

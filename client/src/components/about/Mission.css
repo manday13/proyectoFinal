@@ -70,3 +70,15 @@
     right: -30px;
     bottom: 20px;
 }
+
+@media only screen and (max-width: 600px) {
+    .titleAboutM {
+        padding: 0;
+        color: rgb(199, 0, 199);
+        text-shadow: -1.5px -1.5px 0 white, 1.5px -1.5px 0 white, -1.5px 1.5px 0 white, 1.5px 1.5px 0 white;
+    }
+    .infoAbout p {
+        margin: 25px 25px 0 25px;
+    }
+
+}
