@@ -46,10 +46,13 @@ router.post('/login', (req,res) => {
     }
     Users.findOne({where: {email}})
         .then((user)=> {
+            if (!user){
+                throw "User not found, are you sure you want to log in as a client?"
+            }
             if (user && bcrypt.compareSync(password, user.password)){
                 return user;
             } else {
-                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como el error del catch del final!!
+                throw "User and/or password invalid"; //deja de hacer el resto y pasa esto como el error del catch del final!!
             }
         })
         .then(user => { //si todo ha ido bien, es decir coincide el user con su password, crea el token que es el que le permitira acceder a los sitios de la pagina
