@@ -145,7 +145,7 @@ function RegistrationForm() {
             {(registrationType === 'volunteers') || (registrationType === 'tutor') ? (
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Full Name :
+                        Full name :
                         <input type="text" onInput={(e) => setName(e.target.value)} required />
                     </label>
                     <label>
@@ -153,7 +153,7 @@ function RegistrationForm() {
                         <input type="email" onInput={(e) => setEmail(e.target.value)} required />
                     </label>
                     <label>
-                        Create Password :
+                        Create password :
                         <input type="password" onInput={(e) => setPassword(e.target.value)} required />
                     </label>
                     <label>
@@ -169,7 +169,6 @@ function RegistrationForm() {
                     <label>
                         Phone number (optional) :
                         <br />
-                        +34
                         <input type="tel" maxLength="9" onInput={(e) => setPhone(e.target.value)} />
                     </label>
                     <label>
@@ -223,7 +222,6 @@ function RegistrationForm() {
                     <label>
                         Phone number (optional) :
                         <br />
-                        +34
                         <input type="tel" name="phone" maxLength="9" onInput={(e) => setPhone(e.target.value)} />
                     </label>
                     <label>

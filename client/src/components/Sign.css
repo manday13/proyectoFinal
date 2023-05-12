@@ -83,3 +83,17 @@ button[type="button"]:hover */
     color: red;
     text-align: center;
 }
+
+@media only screen and (max-width: 600px) {
+    .titleAboutSS {
+        padding: 0;
+        text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+    }
+    .logincontainer {
+        width: 100%;
+        margin: 0;
+    }
+    .loginbox {
+        border: none;
+    }
+}

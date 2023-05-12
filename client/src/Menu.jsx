@@ -12,9 +12,9 @@ function Menu() {
     const { token, logout, type, id } = useContext(GlobalContext)
     const [showModal, setShowModal] = useState(false);
 
-    const logoutside = () => {        
+    const logoutside = () => {
         logout();
-        setShowModal(false);        
+        setShowModal(false);
     }
 
     if (!token) {
@@ -75,34 +75,48 @@ function Menu() {
                         </NavDropdown>
                         <Link to="/services" className='nav-link'>Services</Link>
 
-                    </Nav>
-                    <Nav className="ml-auto">
-                        <Dropdown  drop='start'>
-                            <Dropdown.Toggle className='drops' id="dropdown-basic">
-                                <span style={{color: "black"}}>{<FontAwesomeIcon icon={faUser} />}</span>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1"><Link to={`/perfil/${type}/${id}`} className="linklogo nav-link">Personal information</Link></Dropdown.Item>
-                                {(type !== "tutor") && <Dropdown.Item href="#/action-2"><Link to="/myWork" className="nav-link">My workshops</Link></Dropdown.Item>}
-                                <Dropdown.Item href="#/action-3"><span className="nav-link logout" onClick={()=>setShowModal(true)}>Log out</span></Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+                        </Nav>
+                        <div className='inconPerInf'>
+                            <Nav className="ml-auto">
+                                <Dropdown drop='start'>
+                                    <Dropdown.Toggle className='drops' id="dropdown-basic">
+                                        <span style={{ color: "black" }}>{<FontAwesomeIcon icon={faUser} />}</span>
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu className='personalMenu'>
+                                        <Dropdown.Item href="#/action-1"><Link to={`/perfil/${type}/${id}`} className="linklogo nav-link">Personal information</Link></Dropdown.Item>
+                                        {(type !== "tutor") && <Dropdown.Item href="#/action-2"><Link to="/myWork" className="nav-link">My workshops</Link></Dropdown.Item>}
+                                        <Dropdown.Item href="#/action-3"><span className="nav-link logout" onClick={() => setShowModal(true)}>Log out</span></Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </Nav>
+                        </div>
+                        {/* <Nav className="ml-auto">
+                            <Dropdown drop='start'>
+                                <Dropdown.Toggle className='drops' id="dropdown-basic">
+                                    <span style={{ color: "black" }}>{<FontAwesomeIcon icon={faUser} />}</span>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1"><Link to={`/perfil/${type}/${id}`} className="linklogo nav-link">Personal information</Link></Dropdown.Item>
+                                    {(type !== "tutor") && <Dropdown.Item href="#/action-2"><Link to="/myWork" className="nav-link">My workshops</Link></Dropdown.Item>}
+                                    <Dropdown.Item href="#/action-3"><span className="nav-link logout" onClick={() => setShowModal(true)}>Log out</span></Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Nav> */}
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
 
-        <Modal show={showModal} onHide={()=>setShowModal(false)}>
-            <Modal.Header closeButton>
-                <Modal.Title><h3>Are you sure you want to log out?</h3></Modal.Title>
-            </Modal.Header>
-            <Modal.Footer>
-                <Button variant="secondary" size="m" onClick={()=>setShowModal(false)}>Cancel</Button>
-                <Button variant="danger" size="m" onClick={logoutside}>Logout</Button>
-            </Modal.Footer>
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title><h3>Are you sure you want to log out?</h3></Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button variant="secondary" size="m" onClick={() => setShowModal(false)}>Cancel</Button>
+                    <Button variant="danger" size="m" onClick={logoutside}>Logout</Button>
+                </Modal.Footer>
 
 
-        </Modal>
+            </Modal>
 
         </>
     )

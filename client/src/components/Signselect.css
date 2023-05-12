@@ -1,6 +1,4 @@
-
-
-.sign_selection{
+.sign_selection {
     display: flex;
     justify-content: center;
     text-align: center;
@@ -8,21 +6,29 @@
 }
 
 
-.sign_client, .sign_volunteer, .sign_tutor{
-    margin: 30px 30px;        
+.sign_client,
+.sign_volunteer,
+.sign_tutor {
+    margin: 30px 30px;
     width: 320px;
     height: 500px;
 }
 
 
 
-.separator_par{
+.separator_par {
     justify-content: center;
     display: flex;
 }
 
-.separator{
+.separator {
     width: 70%;
     margin: auto;
     height: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .sign_selection {
+        flex-direction: column;
+    }
 }
