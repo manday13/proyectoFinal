@@ -36,6 +36,10 @@
     position: relative;
 }
 
+.infoAbout {
+    margin-bottom: 0 !important;
+}
+
 .trans {
     bottom: 0px;
     right: 350px;

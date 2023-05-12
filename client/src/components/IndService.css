@@ -3,18 +3,20 @@
     width: 100%;
 }
 
-.infoservice {       
+.infoservice {
     width: 60%;
     margin: 32px;
 }
 
-.LoginToSeeMore{
+.LoginToSeeMore {
     cursor: not-allowed;
 }
-.volunteerthings{
+
+.volunteerthings {
     display: flex;
 }
-.infovolunteer{
+
+.infovolunteer {
     padding: 0px 20px;
     display: flex;
     flex: auto;
@@ -25,15 +27,15 @@
 
 
 
-.infoserv{
+.infoserv {
     border: 1px solid #ccc;
     border-radius: 5px;
-   margin-bottom: 10px;
-    padding: 20px; 
+    margin-bottom: 10px;
+    padding: 20px;
     /* height: 654px; */
 }
 
-.servicesAgain{
+.servicesAgain {
     text-decoration: none;
 }
 
@@ -47,24 +49,25 @@
     margin-bottom: 16px;
 }
 
-.wsimg {    
+.wsimg {
     height: 230px;
     margin-bottom: 30px;
     overflow: hidden;
+    max-width: 100%;
 }
 
-.side{
+.side {
     width: 40%;
 }
 
-.wsclients {    
+.wsclients {
     margin: 32px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.avatarsv{
+.avatarsv {
     width: fit-content;
     margin: auto;
 }
@@ -76,26 +79,54 @@
     border-radius: 5px;
 }
 
-.compename{
+.compename {
     text-transform: uppercase;
     overflow: hidden;
-    text-overflow: ellipsis;    
+    text-overflow: ellipsis;
 }
 
-.buttonparticipant{
+.buttonparticipant {
     display: flex;
-    width: 50%;
+    width: 40%;
     justify-content: space-around;
 }
 
-.participateornot{
+.participateornot {
     margin-left: 25px;
 }
 
-.workshopended{
+.workshopended {
     color: darkgray;
     cursor: not-allowed;
 }
-.delete-button-for-edit{
+
+.delete-button-for-edit {
     margin-left: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .wholepage {
+        flex-direction: column;
+        align-items: start;
+    }
+    .infoserv {
+        width: 345px;
+        border: none;
+    }
+    .infoserv img {
+        width: 100%;
+    }
+    .wsbadges, .wsclients, .LoginToSeeMore {
+        width: 345px;
+        /* border: none; */
+    }
+    .buttonparticipant {
+        width: 70%;
+    }
+    .wsdesc {
+        text-align: justify;
+    }
+    .wsname {
+        text-align: center;
+    }
 }
