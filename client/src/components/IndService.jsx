@@ -199,7 +199,7 @@ function IndService() {
             </>
         )
     })
-    console.log(data.data.Users[0].id)
+    
     return (
         <>
             <div className='wholepage'>
