@@ -45,11 +45,14 @@ router.post('/login', (req,res) => {
     }
     Volunteers.findOne({where: {email}})
         .then((vol)=> {
+            if (!vol){
+                throw "User not found, are you sure you want to log in as a volunteer?";
+            }
             if (vol && bcrypt.compareSync(password, vol.password)){
                 return vol;
             } else {
 
-                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como error
+                throw "User and/or password invalid"; //deja de hacer el resto y pasa esto como error
             }
         })
         .then(vol => { //si todo ha ido bien, es decir coincide el vol con su password, crea el token que es el que le permitira acceder a los sitios de la pagina

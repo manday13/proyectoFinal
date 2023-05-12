@@ -41,10 +41,13 @@ router.post('/login', (req,res) => {
     }
     Tutor.findOne({where: {email}})
         .then((tut)=> {
+            if (!tut) { 
+                throw "User not found, are you sure you want to log in as a tutor?"; 
+              }
             if (tut && bcrypt.compareSync(password, tut.password)){
                 return tut;
             } else {
-                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como error
+                throw "User and/or password invalid"; //deja de hacer el resto y pasa esto como error
             }
         })
         .then(tut => { //si todo ha ido bien, es decir coincide el tut con su password, crea el token que es el que le permitira acceder a los sitios de la pagina
