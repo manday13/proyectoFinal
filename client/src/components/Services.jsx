@@ -36,8 +36,8 @@ function Services() {
         }
     }, [serviceType])
 
+    // States y funciones para el offcanvas de los filtros
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -83,11 +83,11 @@ function Services() {
 
     const handleWorkshops = dades.map((el, i) => (
         <Link className="card-ind-service" to={`/IndService/${el.id}`}>
-            <Card id='worksCard' key={i} style={{ width: '18rem' }}>
+            <Card id='worksCard' key={i} >
                 <Card.Body>
                     <Card.Title id='titleCard'>{el.name}</Card.Title>
                 </Card.Body>
-                <Card.Img id='imgCard' variant="top" src="https://placekitten.com/300/150" />
+                <Card.Img id='imgCard' variant="top" src="https://placekitten.com/350/170" />
                 <Card.Body>
                     <Card.Text id='descript'>{el.description}</Card.Text>
                     <Card.Text>Fecha: {el.date}</Card.Text>
@@ -121,6 +121,7 @@ function Services() {
         }
 
         setDades(datosFiltrados);
+        handleClose();
     };
 
 
