@@ -32,6 +32,7 @@ function IndService() {
     const [serviceType, setServicetype] = useState('');
     const [id_c, setId_c] = useState('');
     const [wsedit, setWsEdit] = useState('');
+    const [limit, setLimit] = useState('');
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -70,7 +71,7 @@ function IndService() {
         const reqop = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json', authorization: token },
-            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id })
+            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id, limit })
         };
 
         fetch(API_URL + 'services/' + ids, reqop)
@@ -97,7 +98,8 @@ function IndService() {
         fdata.append("id", ids);
         fdata.append("time", wsedit.time);
         fdata.append("address", wsedit.address);
-        fdata.append("id_c", wsedit.competency);
+        fdata.append("id_c", wsedit.id_c);
+        fdata.append("limit", wsedit.limit);
 
         const requested = {
             method: 'PUT',
@@ -112,10 +114,9 @@ function IndService() {
                     setRefresh(true)
                     setShow(false)
                 } else {
-                    console.log('hello')
                     setShow(false)
-                    setToken(null)
-                    setError(res.error)
+/*                     setToken(null)
+ */                    setError(res.error)
                 }
             })
             .catch((err) => setError(err))
@@ -198,8 +199,7 @@ function IndService() {
             </>
         )
     })
-
-
+    console.log(data.data.Users[0].id)
     return (
         <>
             <div className='wholepage'>
@@ -211,6 +211,8 @@ function IndService() {
                         <p className='wsdata'><b>Date:</b> {data.data && data.data.date}</p>
                         <p><b>At:</b> {data.data && data.data.time} h</p>
                         <p><b>Address:</b> {data.data && data.data.address}</p>
+                        <p><b>maximum number of participants:</b> {data.data && data.data.limit}</p>
+
 
                         {(type === 'volunteers') ?
                             <>
@@ -222,7 +224,7 @@ function IndService() {
                                         </div>
                                         <Modal show={show} onHide={closeEditWs}>
                                             <Modal.Header closeButton>
-                                                <Modal.Title>Create a Workshop</Modal.Title>
+                                                <Modal.Title>Edit your Workshop</Modal.Title>
                                             </Modal.Header>
                                             <Modal.Body>
                                                 <form>
@@ -267,7 +269,7 @@ function IndService() {
                                                     </div>
                                                     <div>
                                                         <label>Competency</label>
-                                                        <select className="form-control" value={wsedit.competency} onChange={(e) => setWsEdit({ ...wsedit, competency: e.target.value })}>
+                                                        <select className="form-control" value={wsedit.id_c} onChange={(e) => setWsEdit({ ...wsedit, id_c: e.target.value })}>
                                                             <option value="0">--Select Competence--</option>
                                                             <option value="1">Asertividad</option>
                                                             <option value="2">Asistencia</option>
@@ -276,10 +278,14 @@ function IndService() {
                                                             <option value="5">Adaptabilidad</option>
                                                         </select>
                                                     </div>
+                                                    <div >
+                                                        <label >Participant limit</label>
+                                                        <input type="text" className="form-control" value={wsedit.limit} onChange={(e) => setLimit({ ...wsedit, limit: e.target.value })} />
+                                                    </div>
                                                 </form>
                                             </Modal.Body>
                                             <Modal.Footer>
-                                                <button className="btn btn-primary" onClick={handleSubmit}>Create</button>
+                                                <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
                                                 <button className="btn btn-secondary" onClick={closeEditWs}>Cancel</button>
                                             </Modal.Footer>
                                         </Modal>
@@ -296,30 +302,49 @@ function IndService() {
                             </>
                             :
                             <>
-                                {token ?
+                                {token ? (
                                     <>
-                                        {data.data && new Date(data.data.date + ' ' + data.data.time).getTime() < new Date().getTime() ?
+                                        {data.data && new Date(data.data.date + ' ' + data.data.time).getTime() < new Date().getTime() ? (
                                             <>
                                                 <div>
                                                     <br />
                                                     <p className='workshopended'><i>This workshop has expired</i></p>
                                                 </div>
                                             </>
-                                            :
+                                        ) : (
                                             <>
-                                                <Button variant="primary" disabled={ableButton} onClick={pressPart}>Participate</Button>
-                                                <Button className='participateornot' variant="danger" disabled={ableButton2} onClick={pressUnpart}>Unparticipate</Button>
+                                                {data.data.Users.length === data.data.limit ? (
+                                                    <>
+                                                        {data.data.Users.some((user) => user.id === id) ? (
+                                                            <>
+                                                                <Button variant="primary" disabled={ableButton} onClick={pressPart}>Participate</Button>
+                                                                <Button className='participateornot' variant="danger" disabled={ableButton2} onClick={pressUnpart}>Unparticipate</Button>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <br />
+                                                                <p className='workshopended'><i>limit of participants reached</i></p>
+                                                            </>
+                                                        )}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Button variant="primary" disabled={ableButton} onClick={pressPart}>Participate</Button>
+                                                        <Button className='participateornot' variant="danger" disabled={ableButton2} onClick={pressUnpart}>Unparticipate</Button>
+                                                    </>
+                                                )}
                                             </>
-                                        }
+                                        )}
                                     </>
-                                    :
+                                ) : (
                                     <>
                                         <p>If you want to participate, please:</p>
                                         <div className="buttonparticipant">
                                             <Link to="/signSelect"><Button>Log in</Button></Link> or <Link to="/register"><Button>Register</Button></Link>
                                         </div>
                                     </>
-                                }
+                                )}
+
                             </>
                         }
 
