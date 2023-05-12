@@ -159,11 +159,11 @@ function RegistrationForm() {
                     <label>
                         Repeat the password :
                         {errorPass ?
-                        <>
-                            <b className='passEr'>     Password is not the same</b>
-                        </>
-                        :
-                        <></>}
+                            <>
+                                <b className='passEr'>     Password is not the same</b>
+                            </>
+                            :
+                            <></>}
                         <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
                     </label>
                     <label>
@@ -212,11 +212,11 @@ function RegistrationForm() {
                     <label>
                         Repeat the password :
                         {errorPass ?
-                        <>
-                            <b className='passEr'>     Password is not the same</b>
-                        </>
-                        :
-                        <></>}
+                            <>
+                                <b className='passEr'>     Password is not the same</b>
+                            </>
+                            :
+                            <></>}
                         <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
                     </label>
                     <label>
@@ -234,7 +234,7 @@ function RegistrationForm() {
                         </select>
                     </label>
                     <label>
-                        Criminal record :
+                        Has your liberty ever been threatened?
                         <input type="text" name="record" onInput={(e) => setRecord(e.target.value)} required />
                     </label>
                     <br />

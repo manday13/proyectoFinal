@@ -62,6 +62,7 @@ export const Users = sequelize.define('Users', {
     email: dataTypes.STRING,
     password: dataTypes.STRING,
     foto: dataTypes.STRING,
+    letter: dataTypes.STRING,
     pronouns: dataTypes.TINYINT,
     phone: dataTypes.STRING,
     record: dataTypes.STRING,

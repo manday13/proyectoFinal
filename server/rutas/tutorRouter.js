@@ -31,19 +31,23 @@ router.post('/', function(req,res,next){
     })
 })
 
-//login de un cliente
+//login de un tutor
 router.post('/login', (req,res) => {
     const response = {};
     const {email, password} = req.body;
     if(!email || !password) {
         res.status(400).json({ok:false, msg: "Email or password not received"})
+        return;
     }
     Tutor.findOne({where: {email}})
         .then((tut)=> {
+            if (!tut) { 
+                throw "User not found, are you sure you want to log in as a tutor?"; 
+              }
             if (tut && bcrypt.compareSync(password, tut.password)){
                 return tut;
             } else {
-                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como error
+                throw "User and/or password invalid"; //deja de hacer el resto y pasa esto como error
             }
         })
         .then(tut => { //si todo ha ido bien, es decir coincide el tut con su password, crea el token que es el que le permitira acceder a los sitios de la pagina
@@ -57,7 +61,7 @@ router.post('/login', (req,res) => {
                 secretKey //finalmente ponemos una signature key que nos sirve para que el token sea unico
             ); //hasta aqui la creacion del token
             response.ok = true;
-            res.json(response);
+            return res.json(response);
         })
         .catch(err => res.status(400).json({ok: false, msg: err}))
 });

@@ -23,6 +23,7 @@ function MyWork() {
     const [myServices, setMyServices] = useState(null);
     const [refresh, setRefresh] = useState(true);  
     const [data, setData] = useState(null); 
+    const [limit, setlimit] = useState('');
     const { type, role, id, setToken, token } = useContext(GlobalContext);
     const userTypes = {
         tutor: 'tutor',
@@ -38,13 +39,17 @@ function MyWork() {
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
     const closeVerification = () => setServiceControl(null);
+    const closeAndRefresh = () => {
+        setServiceControl(null)
+        setRefresh(true)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', authorization: token },
-            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id })
+            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id, limit })
         };
 
         fetch(API_URL + 'services', options)
@@ -84,19 +89,19 @@ function MyWork() {
         }
     }, [refresh])
 
-    console.log(data)
+  
     const myWorkshopstodo = (isDone) =>
         myServices && myServices.filter(el =>
             isDone ?
-                new Date(Date.parse(`${el.date}T${el.time}`)) > new Date() :
-                new Date(Date.parse(`${el.date}T${el.time}`)) < new Date()
+                new Date(`${el.date}T${el.time}`).getTime() > new Date().getTime() :
+                new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
         ).map(el =>
             <div key={el.id} className="workshops">
-                <Link to={isDone ? `/IndService/${el.id}` : "#"}>              
-                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el.id)}>
-                        <h5 style={{ textAlign: "center" }}><b>{el.name}</b></h5>
+                <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` :  "#"}>              
+                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
+                        <h5 className="titlework"><b>{el.name}</b></h5>
                         <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
-                        <div className="text-muted" style={{ marginTop: "20px" }}>
+                        <div className="text-muted" style={{ marginTop: "10px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
                         </div>
@@ -131,6 +136,7 @@ function MyWork() {
             </div>
         </>
     )
+
 
     if (userTypes[type] === userTypes.volunteers && (role == roleType.artist)) {
 
@@ -299,7 +305,7 @@ function MyWork() {
                                     <option value="5"> Group THerapy</option>
                                 </select>
                             </div>
-                            <div>
+                            <div className="form-group">
                                 <label >Competency</label>
                                 <select className="form-control" onChange={(e) => setId_c(e.target.value)}>
                                     <option value="0">--Select Competence--</option>
@@ -309,6 +315,10 @@ function MyWork() {
                                     <option value="4">Fiabilidad</option>
                                     <option value="5">Adaptabilidad</option>
                                 </select>
+                            </div>
+                            <div >
+                                <label >Participant limit</label>
+                                <input type="number" className="form-control" value={limit} onChange={(e) => setlimit(e.target.value)} />
                             </div>
                         </form>
                     </Modal.Body>
@@ -326,7 +336,7 @@ function MyWork() {
             <div className='wholewscontainer'>
                 {returnItem}
             </div>
-            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification}/>}
+            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification} closeAndRefresh={closeAndRefresh}/>}
         </>
     )
 }

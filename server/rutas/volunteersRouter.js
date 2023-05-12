@@ -7,12 +7,14 @@ import bcrypt from 'bcrypt'; //se utiliza para encriptar cosas, en nuestro caso 
 import {sequelize} from '../loadSequelize.js'; //para conectar con la base de datos
 import {autentica} from './authentication.js'; //para que cada vez que se intente hacer algo se compruebe si se ha caducado el token o no para hacerlo o no hacerlo
 
-import {Volunteers, Services, Users, Users_services} from '../modelos/Models.js'
+import {Volunteers, Services, Users, Users_services, Competencies} from '../modelos/Models.js'
 
 Volunteers.hasMany(Services, {foreignKey: "id_v"})
 Services.belongsTo(Volunteers, {foreignKey: "id_v"})
 Users.belongsToMany(Services, {through: Users_services, foreignKey: "id_u"})
 Services.belongsToMany(Users, {through: Users_services, foreignKey: "id_s"})
+Competencies.hasMany(Services, {foreignKey: "id_c"})
+Services.belongsTo(Competencies, {foreignKey: "id_c"})
 
 const router = express.Router()
 
@@ -43,11 +45,14 @@ router.post('/login', (req,res) => {
     }
     Volunteers.findOne({where: {email}})
         .then((vol)=> {
+            if (!vol){
+                throw "User not found, are you sure you want to log in as a volunteer?";
+            }
             if (vol && bcrypt.compareSync(password, vol.password)){
                 return vol;
             } else {
 
-                throw "Client/password invalids"; //deja de hacer el resto y pasa esto como error
+                throw "User and/or password invalid"; //deja de hacer el resto y pasa esto como error
             }
         })
         .then(vol => { //si todo ha ido bien, es decir coincide el vol con su password, crea el token que es el que le permitira acceder a los sitios de la pagina
@@ -70,7 +75,7 @@ router.post('/login', (req,res) => {
 
 router.get('/:id', autentica, function(req,res,next){
     sequelize.sync().then(()=>{
-        Volunteers.findOne({where: {id: req.params.id}, include: [{model: Services, include: {model: Users}}]})
+        Volunteers.findOne({where: {id: req.params.id}, include: [{model: Services, include: [{model: Users}, {model: Competencies}] }]})
             .then(al => res.json({
                 ok: true,
                 data: al

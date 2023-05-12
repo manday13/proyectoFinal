@@ -21,7 +21,7 @@ function Menu() {
         return (
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Link to="/" className="linklogo"><Navbar.Brand ><img src="./logo.png" alt="logo" /></Navbar.Brand></Link>
+                    <Link to="/" className="linklogo"><Navbar.Brand ><img src="/public/logo4.png" alt="logo" /></Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -56,22 +56,24 @@ function Menu() {
 
     return (
         <>
-            <Navbar bg="light" expand="lg">
-                <Container>
-                    <Link to="/" className="linklogo"><Navbar.Brand ><img src="./logo4.png" alt="logo" /></Navbar.Brand></Link>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto optionses">
-                            <NavDropdown title="About" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">
-                                    <Link to="/about/mission" className='nav-link'>Our mission</Link>
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.2">
-                                    <Link to="/about/support" className='nav-link'>Our support</Link>
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Link to="/services" className='nav-link'>Services</Link>
+        <Navbar bg="light" expand="lg">
+            <Container>
+
+                <Link to="/" className="linklogo"><Navbar.Brand ><img src="/public/logo4.png" alt="logo" /></Navbar.Brand></Link>
+
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <NavDropdown title="About" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="#action/3.1">
+                                <Link to="/about/mission" className='nav-link'>Our mission</Link>
+                            </NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#action/3.2">
+                                <Link to="/about/support" className='nav-link'>Our support</Link>
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                        <Link to="/services" className='nav-link'>Services</Link>
 
                         </Nav>
                         <div className='inconPerInf'>

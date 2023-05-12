@@ -17,7 +17,6 @@ const app = express()
 app.use(express.json());
 app.use(cors());
 
-
 //las llamadas que se hagan a ciertas rutas las derivamos a componentes especificos donde pondrá qué es lo que se tendrá que hacer segun el metodo que se pida
 
 app.use('/', indexRouter);
@@ -32,6 +31,7 @@ app.use('/api/usersServices', usersServicesRouter);
 
 //para cuando se le pida algo y no lo encuentre que busque en la carpeta fotos:
 app.use(express.static("fotos"));
+app.use("/letters", express.static("letters"));
 
 
 
