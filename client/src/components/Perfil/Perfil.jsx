@@ -5,7 +5,7 @@ import API_URL from '../../apiconfig';
 import './Perfil.css';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faPen, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPen, faArrowRight, faFile } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { userTypes } from './constants';
 import { getUser } from './services';
@@ -30,7 +30,14 @@ function Perfil() {
     const [userForLetter, setUserForLetter] = useState(null);
 
     const notShowLetter = () => setUserForLetter(null);
-
+    const closeAndRefresh = () =>{
+        setUserForLetter(null)
+        setRefresh(true)
+    }
+    const tokenExpired = () => {
+        setUserForLetter(null)
+        setToken()
+    }
     const desc = () => {
         setShowM(false);
         setChangeDescription(false);
@@ -212,7 +219,7 @@ function Perfil() {
                                 (email === user.Tutor.email || (user.letter && email === user.email)) &&
                                 <>
                                     <h3>Letter of recommendation</h3>
-                                    {user.letter && <><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <span>{user.letter}</span></>}
+                                    {user.letter && <p><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <a href={"http://localhost:5000/letters/" + (user.letter)} download={user.letter.split('-')[1]}>{user.letter.split('-')[1]}</a> <FontAwesomeIcon icon={faFile}></FontAwesomeIcon></p>}
                                     {(email === user.Tutor.email) &&
                                         <button className="upload" onClick={() => setUserForLetter(user)}>{user.letter ? "Edit document" : "Upload document"}</button>}
                                 </>
@@ -290,7 +297,7 @@ function Perfil() {
                         <Link to="/about/support"><Button variant="primary" size="m" >Know more</Button></Link>
                     </Modal.Footer>
                 </Modal>}
-            {userForLetter && <LetterRecomendation userForLetter={userForLetter} notShowLetter={notShowLetter} />}
+            {userForLetter && <LetterRecomendation userForLetter={userForLetter} notShowLetter={notShowLetter} closeAndRefresh={closeAndRefresh} tokenExpired={tokenExpired} />}
 
         </>
     );

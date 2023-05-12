@@ -99,9 +99,9 @@ function MyWork() {
             <div key={el.id} className="workshops">
                 <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` :  "#"}>              
                     <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
-                        <h5 style={{ textAlign: "center" }}><b>{el.name}</b></h5>
+                        <h5 className="titlework"><b>{el.name}</b></h5>
                         <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
-                        <div className="text-muted" style={{ marginTop: "20px" }}>
+                        <div className="text-muted" style={{ marginTop: "10px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
                         </div>

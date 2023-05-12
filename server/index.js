@@ -16,8 +16,6 @@ const app = express()
 //necesario para poder recibir datos en json
 app.use(express.json());
 app.use(cors());
-/* app.use(bodyParser.urlencoded({ extended:true }))
-app.use(bodyParser.json()) */
 
 //las llamadas que se hagan a ciertas rutas las derivamos a componentes especificos donde pondrá qué es lo que se tendrá que hacer segun el metodo que se pida
 
@@ -33,6 +31,7 @@ app.use('/api/usersServices', usersServicesRouter);
 
 //para cuando se le pida algo y no lo encuentre que busque en la carpeta fotos:
 app.use(express.static("fotos"));
+app.use("/letters", express.static("letters"));
 
 
 

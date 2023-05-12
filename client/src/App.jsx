@@ -5,7 +5,6 @@ import jwt_decode from "jwt-decode";
 import {useState, useEffect} from 'react';
 import GlobalContext from './GlobalContext';
 import API_URL from './apiconfig';
-
 import Menu from './Menu';
 import Footer from './Footer';
 import ButtonUp from './ButtonUp';
@@ -46,6 +45,7 @@ function App() {
       const decoded = jwt_decode(localToken)
       const now = new Date().getTime()
       if(now > decoded.expiredAt){
+        setShowToast(now > decoded.expiredAt);
         localStorage.removeItem('women_access_token');
         logout() 
         return
