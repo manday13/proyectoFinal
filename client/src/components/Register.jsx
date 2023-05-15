@@ -144,19 +144,19 @@ function RegistrationForm() {
             </div>
             {(registrationType === 'volunteers') || (registrationType === 'tutor') ? (
                 <form onSubmit={handleSubmit}>
-                    <label>
+                    <label className='registerLabels'>
                         Full name :
                         <input type="text" onInput={(e) => setName(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Email :
                         <input type="email" onInput={(e) => setEmail(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Create password :
                         <input type="password" onInput={(e) => setPassword(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Repeat the password :
                         {errorPass ?
                             <>
@@ -166,12 +166,12 @@ function RegistrationForm() {
                             <></>}
                         <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Phone number (optional) :
                         <br />
                         <input type="tel" maxLength="9" onInput={(e) => setPhone(e.target.value)} />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Pronouns :
                         <select value={pronouns} onChange={handlePronounsChange} required>
                             <option value="0"></option>
@@ -180,7 +180,7 @@ function RegistrationForm() {
                             <option value="3">Prefer not to say</option>
                         </select>
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Role :
                         <select required onChange={(e) => setRole(e.target.value)}>
                             <option value="0">Please select a role</option>
@@ -197,19 +197,19 @@ function RegistrationForm() {
             ) : <></>}
             {registrationType === 'users' && (
                 <form onSubmit={handleSubmit}>
-                    <label>
+                    <label className='registerLabels'>
                         Full name :
                         <input type="text" name="name" onInput={(e) => setName(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Email :
                         <input type="email" name="email" onInput={(e) => setEmail(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Create password :
                         <input type="password" name="password" onInput={(e) => setPassword(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Repeat the password :
                         {errorPass ?
                             <>
@@ -219,12 +219,12 @@ function RegistrationForm() {
                             <></>}
                         <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Phone number (optional) :
                         <br />
                         <input type="tel" name="phone" maxLength="9" onInput={(e) => setPhone(e.target.value)} />
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Pronouns :
                         <select value={pronouns} onChange={handlePronounsChange} required>
                             <option value="0"></option>
@@ -233,7 +233,7 @@ function RegistrationForm() {
                             <option value="3">Prefer not to say</option>
                         </select>
                     </label>
-                    <label>
+                    <label className='registerLabels'>
                         Has your liberty ever been threatened?
                         <input type="text" name="record" onInput={(e) => setRecord(e.target.value)} required />
                     </label>

@@ -29,7 +29,8 @@
     transition: box-shadow 0.3s ease;
     /* cursor: pointer; */
     /*esto es lo que cambia el cursor al ponerte sobre un card de curso*/
-    min-width: 400px;
+    min-width: 330px;
+    width: 18rem;
     margin: 10px;
     border-radius: 0.5rem;
     border: 0px solid rgb(173, 173, 173);
@@ -139,9 +140,20 @@ div#filter-nav {
 div.offcanvas-body {
     padding: 0;
 }
+.botonFiltros Button {
+    width: 170px;
+    background-color: #dab25c;
+    border: #c46543;
+}
+/* .ContainerPage {
+    background-color: aliceblue;
+} */
 @media only screen and (max-width: 600px) {
     .cuerpo-services {
         flex-direction: column;
         background-color: aliceblue;
+    }
+    #services {
+        margin: 0;
     }
 }

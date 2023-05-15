@@ -40,8 +40,19 @@ function MyWork() {
     }
 
     const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false)
+        setDate(null)
+        setName(null);
+        setAddress(null);
+        setTime(null);
+        setDescription(null);
+        setId_c(null);
+        setLimit(null);
+    
+    };
     const closeVerification = () => setServiceControl(null);
+
     const closeAndRefresh = () => {
         setServiceControl(null)
         setRefresh(true)
@@ -83,7 +94,7 @@ function MyWork() {
                     handleClose()
                 }
             })
-            .catch((err) => console.log(err))        
+            .catch((err) => console.log(err))
     };
 
     useEffect(() => {
@@ -98,7 +109,7 @@ function MyWork() {
                 .then((res) => {
                     if (res.ok) {
                         setMyServices(res.data.Services);
-                        setData(res.data); 
+                        setData(res.data);
                     } else {
                         setToken(null)
                     }
@@ -109,7 +120,16 @@ function MyWork() {
     }, [refresh])
     
 
-  
+    const handleDateChange = (event) => {
+        const selectedDate = event.target.value;
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (selectedDate < currentDate) {
+            alert('Please select a newer date.');
+        } else {
+            setDate(selectedDate);
+        }
+    };
+
     const myWorkshopstodo = (isDone) =>
         myServices && myServices.filter(el =>
             isDone ?
@@ -117,18 +137,18 @@ function MyWork() {
                 new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
         ).map(el =>
             <div key={el.id} className="workshops">
-                <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` :  "#"}>              
-                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
+                <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` : "#"}>
+                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={() => !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
                         <h5 className="titlework"><b>{el.name}</b></h5>
                         <div style={{ width: "fit-content", margin: "auto" }}><Avatar src={"http://localhost:5000/fotoServices/" + (el.foto)} name={el.name} round={true} size="60" /></div>
                         <div className="text-muted" style={{ marginTop: "10px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
                         </div>
-                    </div>                   
+                    </div>
                 </Link>
             </div>) || <></>
-   
+
 
     let returnItem = (
         <>
@@ -279,7 +299,7 @@ function MyWork() {
                 </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Create a Workshop</Modal.Title>
+                        <Modal.Title>Create a Therapy session</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <form>
@@ -353,7 +373,7 @@ function MyWork() {
             <div className='wholewscontainer'>
                 {returnItem}
             </div>
-            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification} closeAndRefresh={closeAndRefresh}/>}
+            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification} closeAndRefresh={closeAndRefresh} />}
         </>
     )
 }

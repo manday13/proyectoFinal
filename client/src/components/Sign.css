@@ -69,6 +69,8 @@ button[type="button"]:hover */
 .logincontainer {
     width: 400px;
     margin: 50px auto;
+    display: flex;
+    justify-content: center;
 }
 
 .loginbox {

@@ -36,8 +36,8 @@ function Services() {
         }
     }, [serviceType])
 
+    // States y funciones para el offcanvas de los filtros
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -71,7 +71,7 @@ function Services() {
 
     const handleWorkshops = dades.map((el, i) => (
         <Link className="card-ind-service" to={`/IndService/${el.id}`}>
-            <Card id='worksCard' key={i} style={{ width: '18rem' }}>
+            <Card id='worksCard' key={i} >
                 <Card.Body>
                     <Card.Title id='titleCard'>{el.name}</Card.Title>
                 </Card.Body>
@@ -109,6 +109,7 @@ function Services() {
         }
 
         setDades(datosFiltrados);
+        handleClose();
     };
 
 
@@ -116,8 +117,8 @@ function Services() {
 
     //resetea los filtros
     const handleDeleteFilter = () => {
-        setStartDate(new Date());
-        setEndDate(new Date());
+        setStartDate('');
+        setEndDate('');
         setServiceType(0);
         setWorkshopType(0);
         loadData();

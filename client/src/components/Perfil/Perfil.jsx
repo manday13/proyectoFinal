@@ -201,7 +201,7 @@ function Perfil() {
             <br />
             <br />
             <div className='main-container'>
-                <div className="container">
+                <div className="containerP">
                     <div className="profile-image">
                         <Avatar src={"http://localhost:5000/" + (user.foto)} name={user.name} round={true} size="160" />
                     </div>
