@@ -50,9 +50,11 @@
 }
 
 .wsimg {
-    height: 230px;
+    width: 700px;
+    height: 210px;
     margin-bottom: 30px;
-    overflow: hidden;
+    object-fit: cover;
+    /* overflow: hidden; */
     max-width: 100%;
 }
 
