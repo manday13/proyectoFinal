@@ -222,77 +222,75 @@ function IndService() {
                         <p><b>Address:</b> {data.data && data.data.address}</p>
                         <p><b>maximum number of participants:</b> {data.data && data.data.limit}</p>
 
-
-                        {(type === 'volunteers') ?
+                        {token ?
                             <>
-                                {(id === data.data.id_v) ?
+                                {(type === 'volunteers') ?
                                     <>
-                                        <div>
-                                            <Button onClick={() => { setShow(true); setWsEdit({ ...data.data }) }}>Edit</Button>
-                                            <Button onClick={deleteWs} variant="danger" className='delete-button-for-edit'>Delete</Button>
-                                        </div>
-                                        <Modal show={show} onHide={closeEditWs}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>Edit your Workshop</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <form>
-                                                    <div className="form-group">
-                                                        <label>Workshop Name</label>
-                                                        <input type="text" className="form-control" value={wsedit.name} onChange={(e) => setWsEdit({ ...wsedit, name: e.target.value })} />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Description</label>
-                                                        <input type="text" className="form-control" value={wsedit.description} onChange={(e) => setWsEdit({ ...wsedit, description: e.target.value })} />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Address</label>
-                                                        <input type="text" className="form-control" value={wsedit.address} onChange={(e) => setWsEdit({ ...wsedit, address: e.target.value })} />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Date</label>
-                                                        <input type="date" className="form-control" value={wsedit.date} onChange={handleDateChange} />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Time</label>
-                                                        <input type="time" className="form-control" value={wsedit.time} onChange={(e) => setWsEdit({ ...wsedit, time: e.target.value })} />
-                                                    </div>                                                                                                        
-                                                    <div>
-                                                        <label>Competency</label>
-                                                        <select className="form-control" value={wsedit.id_c} onChange={(e) => setWsEdit({ ...wsedit, id_c: e.target.value })}>
-                                                            <option value="0">--Select Competence--</option>
-                                                            <option value="1">Asertividad</option>
-                                                            <option value="2">Asistencia</option>
-                                                            <option value="3">Comunicacion</option>
-                                                            <option value="4">Fiabilidad</option>
-                                                            <option value="5">Adaptabilidad</option>
-                                                        </select>
-                                                    </div>
-                                                    <div >
-                                                        <label >Participant limit</label>
-                                                        <input type="number" className="form-control" value={wsedit.limit} onChange={(e) => setWsEdit({ ...wsedit, limit: e.target.value })} />
-                                                    </div>
-                                                </form>
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
-                                                <button className="btn btn-secondary" onClick={closeEditWs}>Cancel</button>
-                                            </Modal.Footer>
-                                        </Modal>
-
+                                        {(id === data.data.id_v) ?
+                                            <>
+                                                <div>
+                                                    <Button onClick={() => { setShow(true); setWsEdit({ ...data.data }) }}>Edit</Button>
+                                                    <Button onClick={deleteWs} variant="danger" className='delete-button-for-edit'>Delete</Button>
+                                                </div>
+                                                <Modal show={show} onHide={closeEditWs}>
+                                                    <Modal.Header closeButton>
+                                                        <Modal.Title>Edit your Workshop</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>
+                                                        <form>
+                                                            <div className="form-group">
+                                                                <label>Workshop Name</label>
+                                                                <input type="text" className="form-control" value={wsedit.name} onChange={(e) => setWsEdit({ ...wsedit, name: e.target.value })} />
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Description</label>
+                                                                <input type="text" className="form-control" value={wsedit.description} onChange={(e) => setWsEdit({ ...wsedit, description: e.target.value })} />
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Address</label>
+                                                                <input type="text" className="form-control" value={wsedit.address} onChange={(e) => setWsEdit({ ...wsedit, address: e.target.value })} />
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Date</label>
+                                                                <input type="date" className="form-control" value={wsedit.date} onChange={handleDateChange} />
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Time</label>
+                                                                <input type="time" className="form-control" value={wsedit.time} onChange={(e) => setWsEdit({ ...wsedit, time: e.target.value })} />
+                                                            </div>
+                                                            <div>
+                                                                <label>Competency</label>
+                                                                <select className="form-control" value={wsedit.id_c} onChange={(e) => setWsEdit({ ...wsedit, id_c: e.target.value })}>
+                                                                    <option value="0">--Select Competence--</option>
+                                                                    <option value="1">Asertividad</option>
+                                                                    <option value="2">Asistencia</option>
+                                                                    <option value="3">Comunicacion</option>
+                                                                    <option value="4">Fiabilidad</option>
+                                                                    <option value="5">Adaptabilidad</option>
+                                                                </select>
+                                                            </div>
+                                                            <div >
+                                                                <label >Participant limit</label>
+                                                                <input type="number" className="form-control" value={wsedit.limit} onChange={(e) => setWsEdit({ ...wsedit, limit: e.target.value })} />
+                                                            </div>
+                                                        </form>
+                                                    </Modal.Body>
+                                                    <Modal.Footer>
+                                                        <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
+                                                        <button className="btn btn-secondary" onClick={closeEditWs}>Cancel</button>
+                                                    </Modal.Footer>
+                                                </Modal>
+                                            </>
+                                            :
+                                            <>
+                                                <div>
+                                                    <br/>
+                                                    <p className='workshopended'><i>You did not create this workshop</i></p>
+                                                </div>
+                                            </>
+                                        }
                                     </>
                                     :
-                                    <>
-                                        <div>
-                                            <p>you did NOT create this</p>
-                                        </div>
-                                    </>
-
-                                }
-                            </>
-                            :
-                            <>
-                                {token ? (
                                     <>
                                         {data.data && new Date(data.data.date + ' ' + data.data.time).getTime() < new Date().getTime() ? (
                                             <>
@@ -326,14 +324,14 @@ function IndService() {
                                             </>
                                         )}
                                     </>
-                                ) : (
-                                    <>
-                                        <p>If you want to participate, please:</p>
-                                        <div className="buttonparticipant">
-                                            <Link to="/signSelect"><Button>Log in</Button></Link> or <Link to="/register"><Button>Register</Button></Link>
-                                        </div>
-                                    </>
-                                )}
+                                }
+                            </>
+                            :
+                            <>
+                                <p>If you want to participate, please:</p>
+                                <div className="buttonparticipant">
+                                    <Link to="/signSelect"><Button>Log in</Button></Link> or <Link to="/register"><Button>Register</Button></Link>
+                                </div>
 
                             </>
                         }
