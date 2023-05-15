@@ -222,7 +222,7 @@ function MyWork() {
                             </div>
                             <div className="form-group">
                                 <label >Date*</label>
-                                <input type="date" className={`form-control ${controlError.date && "toAnswer"}`} value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" className={`form-control ${controlError.date && "toAnswer"}`} value={date} onChange={handleDateChange} />
                             </div>
                             <div className="form-group">
                                 <label >Time*</label>
@@ -317,7 +317,7 @@ function MyWork() {
                             </div>
                             <div className="form-group">
                                 <label >Date</label>
-                                <input type="date" className={`form-control ${controlError.date && "toAnswer"}`} value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" className={`form-control ${controlError.date && "toAnswer"}`} value={date} onChange={handleDateChange} />
                             </div>
                             <div className="form-group">
                                 <label >Time</label>
