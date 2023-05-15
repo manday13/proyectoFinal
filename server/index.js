@@ -32,6 +32,7 @@ app.use('/api/usersServices', usersServicesRouter);
 //para cuando se le pida algo y no lo encuentre que busque en la carpeta fotos:
 app.use(express.static("fotos"));
 app.use("/letters", express.static("letters"));
+app.use("/fotoServices", express.static("fotoServices"));
 
 
 

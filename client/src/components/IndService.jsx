@@ -205,7 +205,7 @@ function IndService() {
             <div className='wholepage'>
                 <div className='infoservice'>
                     <div className='infoserv'>
-                        <div style={{ width: "fit-content", margin: "auto" }}><img className='wsimg' src="https://placekitten.com/500/150" /></div>
+                        <div style={{ width: "fit-content", margin: "auto" }}><img className='wsimg' src={"http://localhost:5000/fotoServices/" + (data.data.foto)} /></div>
                         <h1 className='wsname compename'><b>{data.data && data.data.name}</b></h1>
                         <p className='wsdesc'><b>Description:</b> {data.data && data.data.description}</p>
                         <p className='wsdata'><b>Date:</b> {data.data && data.data.date}</p>
@@ -247,26 +247,7 @@ function IndService() {
                                                     <div className="form-group">
                                                         <label>Time</label>
                                                         <input type="time" className="form-control" value={wsedit.time} onChange={(e) => setWsEdit({ ...wsedit, time: e.target.value })} />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Type</label>
-                                                        <select value={wsedit.type} className="form-control" onChange={(e) => setWsEdit({ ...wsedit, type: e.target.value })}>
-                                                            <option value="0">--Select--</option>
-                                                            <option value="1" >Thepary</option>
-                                                            <option value="2">Workshop</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Subtype</label>
-                                                        <select className="form-control" value={wsedit.subtype} onChange={(e) => setWsEdit({ ...wsedit, subtype: e.target.value })}>
-                                                            <option value="0">--Select Type--</option>
-                                                            <option value="1">Painting</option>
-                                                            <option value="2">Sculpture</option>
-                                                            <option value="3">Kungfu</option>
-                                                            <option value="4">Ceramic</option>
-                                                            <option value="5"> Group THerapy</option>
-                                                        </select>
-                                                    </div>
+                                                    </div>                                                                                                        
                                                     <div>
                                                         <label>Competency</label>
                                                         <select className="form-control" value={wsedit.id_c} onChange={(e) => setWsEdit({ ...wsedit, id_c: e.target.value })}>

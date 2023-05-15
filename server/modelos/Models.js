@@ -19,17 +19,18 @@ export const Volunteers = sequelize.define('Volunteers', {
 }, { tableName: 'volunteers', timestamps: false });
 
 export const Services = sequelize.define('Services', {
-    name: dataTypes.STRING,
-    description: dataTypes.TEXT('medium'), //MEDIUMTEXT EN SQL
-    date: dataTypes.DATE,
-    time: dataTypes.TIME,
-    serviceType: dataTypes.TINYINT,
-    limit: dataTypes.TINYINT,
-    work_type: dataTypes.TINYINT,
-    address: dataTypes.STRING,
+    name: dataTypes.STRING | null,
+    description: dataTypes.TEXT('medium') | null, //MEDIUMTEXT EN SQL
+    date: dataTypes.DATE | null,
+    time: dataTypes.TIME | null,
+    serviceType: dataTypes.TINYINT | null,
+    foto: dataTypes.STRING | null,
+    limit: dataTypes.TINYINT | null,
+    work_type: dataTypes.TINYINT | null,
+    address: dataTypes.STRING | null,
     id_c: {
         name: "id_c",
-        type: dataTypes.INTEGER,
+        type: dataTypes.INTEGER | null,
         allowNull: true,
         references: {
             model: Competencies,

@@ -6,6 +6,9 @@
     
 }
 
+.otherColor{
+    color: #6C757D;
+}
 
 .container {
     display: flex;

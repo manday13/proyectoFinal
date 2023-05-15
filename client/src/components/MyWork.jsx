@@ -11,19 +11,22 @@ import SerVerification from "./SerVerification";
 
 function MyWork() {
     const [show, setShow] = useState(false);
-    const [name, setName] = useState('');
-    const [date, setDate] = useState('');
-    const [description, setDescription] = useState('');
-    const [time, setTime] = useState('');
-    const [work_type, setWorktype] = useState('');
-    const [serviceType, setServicetype] = useState('');
-    const [address, setAddress] = useState('');
-    const [id_c, setId_c] = useState('');
+    const [name, setName] = useState(null);
+    const [date, setDate] = useState(null);
+    const [description, setDescription] = useState(null);
+    const [time, setTime] = useState(null);
+    const [work_type, setWorktype] = useState(null);
+    const [serviceType, setServicetype] = useState(null);
+    const [address, setAddress] = useState(null);
+    const [id_c, setId_c] = useState(null);
     const [serviceControl, setServiceControl] = useState(null);
     const [myServices, setMyServices] = useState(null);
     const [refresh, setRefresh] = useState(true);  
     const [data, setData] = useState(null); 
-    const [limit, setlimit] = useState('');
+    const [limit, setlimit] = useState(null);
+    const [controlError, setControlError] = useState({
+        name: false, description: false, address: false, date: false, time: false, serviceType : false, workType:false, competency: false, limit: false
+    })   
     const { type, role, id, setToken, token } = useContext(GlobalContext);
     const userTypes = {
         tutor: 'tutor',
@@ -46,6 +49,22 @@ function MyWork() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        controlError.name = !name || name.trim() === ' '
+        controlError.description = !description || description.trim() === ' '
+        controlError.address = !address || address.trim() === ' '
+        controlError.date = !date
+        controlError.time = !time
+        controlError.serviceType = !serviceType || serviceType === '0'
+        controlError.workType = !work_type || work_type === '0'
+        controlError.competency = !id_c || id_c === '0'
+        controlError.limit = !limit
+        
+        setControlError({...controlError})       
+        if(Object.values(controlError).some(el => el === true)){
+            return;
+        }
+
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', authorization: token },
@@ -88,6 +107,7 @@ function MyWork() {
                 .finally(() => setRefresh(!refresh))
         }
     }, [refresh])
+    
 
   
     const myWorkshopstodo = (isDone) =>
@@ -100,7 +120,7 @@ function MyWork() {
                 <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` :  "#"}>              
                     <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
                         <h5 className="titlework"><b>{el.name}</b></h5>
-                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
+                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar src={"http://localhost:5000/fotoServices/" + (el.foto)} name={el.name} round={true} size="60" /></div>
                         <div className="text-muted" style={{ marginTop: "10px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
@@ -169,40 +189,36 @@ function MyWork() {
                     <Modal.Body>
                         <form>
                             <div className="form-group">
-                                <label >Workshop Name</label>
-                                <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+                                <label >Workshop Name*</label>
+                                <input type="text" className={`form-control ${controlError.name && "toAnswer"}`} value={name} onChange={(e) => setName(e.target.value)} />                                
                             </div>
                             <div className="form-group">
-                                <label >Description</label>
-                                <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                <label >Description*</label>
+                                <input type="text" className={`form-control ${controlError.description && "toAnswer"}`} value={description} onChange={(e) => setDescription(e.target.value)} />
                             </div>
                             <div className="form-group">
-                                <label >Address</label>
-                                <input type="text" className="form-control" value={address} onChange={(e) => setAddress(e.target.value)} />
+                                <label >Address*</label>
+                                <input type="text" className={`form-control ${controlError.address && "toAnswer"}`} value={address} onChange={(e) => setAddress(e.target.value)} />
                             </div>
                             <div className="form-group">
-                                <label >Date</label>
-                                <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
+                                <label >Date*</label>
+                                <input type="date" className={`form-control ${controlError.date && "toAnswer"}`} value={date} onChange={(e) => setDate(e.target.value)} />
                             </div>
                             <div className="form-group">
-                                <label >Time</label>
-                                <input type="time" className="form-control" value={time} onChange={(e) => setTime(e.target.value)} />
-                            </div>
-                            {/* <div className="form-group">
-                                    <label >Image:</label>
-                                    <input type="file" className="form-control-file" onChange={(e) => setFoto(e.target.files[0])} />
-                                    </div> */}
+                                <label >Time*</label>
+                                <input type="time" className={`form-control ${controlError.time && "toAnswer"}`} value={time} onChange={(e) => setTime(e.target.value)} />
+                            </div>                            
                             <div className="form-group">
-                                <label >Type</label>
-                                <select value={serviceType} className="form-control" onChange={(e) => setServicetype(e.target.value)}>
+                                <label >Type*</label>
+                                <select value={serviceType} className={`form-control ${controlError.serviceType && "toAnswer"}`} onChange={(e) => setServicetype(e.target.value)} >
                                     <option value="0">--Select--</option>
                                     <option value="1" disabled>Thepary</option>
                                     <option value="2">Workshop</option>
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label >Subtype</label>
-                                <select className="form-control" onChange={(e) => setWorktype(e.target.value)}>
+                                <label >Subtype*</label>
+                                <select className={`form-control ${controlError.workType && "toAnswer"}`} onChange={(e) => setWorktype(e.target.value)} >
                                     <option value="0">--Select Type--</option>
                                     <option value="1">Painting</option>
                                     <option value="2">Sculpture</option>
@@ -212,8 +228,8 @@ function MyWork() {
                                 </select>
                             </div>
                             <div>
-                                <label >Competency</label>
-                                <select className="form-control" onChange={(e) => setId_c(e.target.value)}>
+                                <label >Competency*</label>
+                                <select className={`form-control ${controlError.competency && "toAnswer"}`} onChange={(e) => setId_c(e.target.value)} >
                                     <option value="0">--Select Competence--</option>
                                     <option value="1">Asertividad</option>
                                     <option value="2">Asistencia</option>
@@ -222,6 +238,11 @@ function MyWork() {
                                     <option value="5">Adaptabilidad</option>
                                 </select>
                             </div>
+                            <div >
+                                <label >Participant limit*</label>
+                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setlimit(e.target.value)} />
+                            </div>
+                            {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -264,31 +285,27 @@ function MyWork() {
                         <form>
                             <div className="form-group">
                                 <label >Name</label>
-                                <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+                                <input type="text" className={`form-control ${controlError.name && "toAnswer"}`} value={name} onChange={(e) => setName(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <label >Description</label>
-                                <input type="text" className="form-control" value={description} onChange={(e) => setDescription(e.target.value)} />
+                                <input type="text" className={`form-control ${controlError.description && "toAnswer"}`} value={description} onChange={(e) => setDescription(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <label >Address</label>
-                                <input type="text" className="form-control" value={address} onChange={(e) => setAddress(e.target.value)} />
+                                <input type="text" className={`form-control ${controlError.address && "toAnswer"}`} value={address} onChange={(e) => setAddress(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <label >Date</label>
-                                <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" className={`form-control ${controlError.date && "toAnswer"}`} value={date} onChange={(e) => setDate(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <label >Time</label>
-                                <input type="time" className="form-control" value={time} onChange={(e) => setTime(e.target.value)} />
-                            </div>
-                            {/* <div className="form-group">
-                            <label >Image:</label>
-                            <input type="file" className="form-control-file" onChange={(e) => setFoto(e.target.files[0])} />
-                            </div> */}
+                                <input type="time" className={`form-control ${controlError.time && "toAnswer"}`} value={time} onChange={(e) => setTime(e.target.value)} />
+                            </div>                            
                             <div className="form-group">
                                 <label >Type</label>
-                                <select value={serviceType} className="form-control" onChange={(e) => setServicetype(e.target.value)}>
+                                <select value={serviceType} className={`form-control ${controlError.serviceType && "toAnswer"}`} onChange={(e) => setServicetype(e.target.value)} >
                                     <option value="0">--Select--</option>
                                     <option value="1">Thepary</option>
                                     <option value="2" disabled>Workshop</option>
@@ -296,7 +313,7 @@ function MyWork() {
                             </div>
                             <div className="form-group">
                                 <label>Subtype</label>
-                                <select value={work_type} className="form-control" onChange={(e) => setWorktype(e.target.value)}>
+                                <select value={work_type} className={`form-control ${controlError.workType && "toAnswer"}`} onChange={(e) => setWorktype(e.target.value)} >
                                     <option value="0">--Select Type--</option>
                                     <option value="1" disabled>Painting</option>
                                     <option value="2" disabled>Sculpture</option>
@@ -307,7 +324,7 @@ function MyWork() {
                             </div>
                             <div className="form-group">
                                 <label >Competency</label>
-                                <select className="form-control" onChange={(e) => setId_c(e.target.value)}>
+                                <select className={`form-control ${controlError.competency && "toAnswer"}`} onChange={(e) => setId_c(e.target.value)} >
                                     <option value="0">--Select Competence--</option>
                                     <option value="1">Asertividad</option>
                                     <option value="2">Asistencia</option>
@@ -318,7 +335,7 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit</label>
-                                <input type="number" className="form-control" value={limit} onChange={(e) => setlimit(e.target.value)} />
+                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setlimit(e.target.value)} />
                             </div>
                         </form>
                     </Modal.Body>

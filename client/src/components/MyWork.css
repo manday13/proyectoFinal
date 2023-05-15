@@ -86,6 +86,10 @@
     margin-bottom: 20px;
 }
 
+.modal-body{
+    padding: 0px var(--bs-modal-padding);
+}
+
 .datetime{
     display: flex;
     margin-bottom: 5px;
@@ -101,4 +105,8 @@
 
 .form-group{
     width: 100%;
+}
+
+.toAnswer{
+    border-color: red !important;
 }

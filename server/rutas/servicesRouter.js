@@ -16,6 +16,14 @@ Services.belongsTo(Volunteers, { foreignKey: "id_v" })
 //creo un objeto en el que se guardan las peticiones
 const router = express.Router();
 
+const workType = {
+    "1" : "defaultPainting.jpg",
+    "2" : "defaultSculpture.jpg",
+    "3" : "defaultKungfu.jpg",
+    "4" : "defaultCeramic.jpeg",
+     "5" : "defaultTherapy.jpg"
+}
+
 router.get('/', function (req, res, next) {
 
     sequelize.sync().then(() => {
@@ -77,17 +85,14 @@ router.get('/:id', function (req, res, next) {
 const upload = multer({ storage: storage }).single('file'); */
 
 //to create a new workshop
-router.post('/', autentica, function (req, res, next) {
-    /* upload(req, res, function (err) {
-        if (err) {
-            return res.status(500).json(err)
-        } */
-
-    sequelize.sync().then(() => {
-        /*             req.body.foto = req.file.filename;
-         */
-
-        console.log("hello", req.body)
+router.post('/', autentica, function (req, res, next) {  
+    sequelize.sync().then(() => {        
+        req.body.foto = workType[req.body.work_type] || "default.jpg"
+        req.body.date = req.body.date !== '' ? req.body.date : null  
+        req.body.limit = req.body.limit !== '' ? req.body.limit : null
+        req.body.serviceType = req.body.serviceType !== '' ? req.body.serviceType : null
+        req.body.work_type = req.body.work_type !== '' ? req.body.work_type : null
+        req.body.id_c = req.body.id_c !== '' ? req.body.id_c : null
         Services.create(req.body)
             .then((item) => res.json({ ok: true, data: item }))
             .catch((error) => res.json({ ok: false, error: error.message }))
@@ -102,6 +107,7 @@ router.post('/', autentica, function (req, res, next) {
         }); */
     })
 });
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

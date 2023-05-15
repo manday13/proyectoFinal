@@ -5,9 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import API_URL from '../apiconfig';
 
 function SerVerification({serviceControl, closeVerification, closeAndRefresh}){
-    const [allVerification, setAllVerification] = useState(serviceControl.Users.map(el => el.Users_services.verification));
-    console.log(serviceControl)
-    console.log(allVerification)
+    const {token} = useContext(GlobalContext)
+    const [allVerification, setAllVerification] = useState(serviceControl.Users.map(el => el.Users_services.verification));    
     const listParticipants = serviceControl.Users && serviceControl.Users.map((el, index) => {        
         return{
             idUser: el.id, 
@@ -40,11 +39,23 @@ function SerVerification({serviceControl, closeVerification, closeAndRefresh}){
     const sendForm = () => {
         const requestOptions = {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json', authorization: token},
             body: JSON.stringify(listParticipants)
         };
         fetch(API_URL + "usersServices", requestOptions )
-            .then(res => res.json())
+            .then(res => res.json()) //ponemos esto siempre antes para que le de tiempo a hacer la conversion a json de todas las promises que ha hecho en el back (en este caso tengo + d1)
+            //recordemos que el fetch espera con los then a que se haya completado para pasar a lo siguiente
+            .then(res => 
+                {                                           
+                    if(res.status === 401 || res.error === 'token absent') {
+                        setToken(null)
+                        setError(res.error)
+                        // setToastOptions({body: 'There was an error', title:'Unauthorize exception' })
+                    } else if(res.status !== 200){ //esto lo pongo para que me entre si hay otro error que no sea el del token. si pusiera solo else entraria tbb cuando no hay ningun error
+                        setError(res.error)
+                        console.log("hola")
+                    }
+                })
             .catch(err => console.log("error", error))
             .finally(()=>closeAndRefresh())
     }

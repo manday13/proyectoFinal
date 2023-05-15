@@ -202,5 +202,25 @@ router.put('/letter', autentica, function(req,res,next){
     });
 });
 
+router.put('/letterDestroy', autentica, function(req,res,next){
+    sequelize.sync().then(()=>{
+        Users.findOne({where: {id: req.body.id}})
+        .then(user => user.update(req.body))
+        .then(newuser=>res.json({
+            ok: true,
+            data: newuser
+        }))
+        .catch(error => res.json({
+            ok: false,
+            error: error + "error1"
+        }))
+    }).catch((error) => { //este catch?? de que es
+        res.json({
+            ok: false,
+            error: error + "error2"
+        })
+    })
+})
+
 export default router;
 
