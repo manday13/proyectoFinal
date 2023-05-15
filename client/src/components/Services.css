@@ -142,9 +142,9 @@ div.offcanvas-body {
     background-color: #dab25c;
     border: #c46543;
 }
-.ContainerPage {
+/* .ContainerPage {
     background-color: aliceblue;
-}
+} */
 @media only screen and (max-width: 600px) {
     .cuerpo-services {
         flex-direction: column;
