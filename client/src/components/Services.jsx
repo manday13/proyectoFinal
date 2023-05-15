@@ -128,8 +128,8 @@ function Services() {
 
     //resetea los filtros
     const handleDeleteFilter = () => {
-        setStartDate(new Date());
-        setEndDate(new Date());
+        setStartDate('');
+        setEndDate('');
         setServiceType(0);
         setWorkshopType(0);
         loadData();

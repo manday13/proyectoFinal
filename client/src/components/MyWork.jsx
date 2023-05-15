@@ -21,9 +21,9 @@ function MyWork() {
     const [id_c, setId_c] = useState('');
     const [serviceControl, setServiceControl] = useState(null);
     const [myServices, setMyServices] = useState(null);
-    const [refresh, setRefresh] = useState(true);  
-    const [data, setData] = useState(null); 
-    const [limit, setlimit] = useState('');
+    const [refresh, setRefresh] = useState(true);
+    const [data, setData] = useState(null);
+    const [limit, setLimit] = useState('');
     const { type, role, id, setToken, token } = useContext(GlobalContext);
     const userTypes = {
         tutor: 'tutor',
@@ -37,8 +37,19 @@ function MyWork() {
     }
 
     const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false)
+        setDate('');
+        setName('');
+        setAddress('');
+        setTime('');
+        setDescription('');
+        setId_c('');
+        setLimit('');
+    
+    };
     const closeVerification = () => setServiceControl(null);
+
     const closeAndRefresh = () => {
         setServiceControl(null)
         setRefresh(true)
@@ -64,7 +75,7 @@ function MyWork() {
                     handleClose()
                 }
             })
-            .catch((err) => console.log(err))        
+            .catch((err) => console.log(err))
     };
 
     useEffect(() => {
@@ -79,7 +90,7 @@ function MyWork() {
                 .then((res) => {
                     if (res.ok) {
                         setMyServices(res.data.Services);
-                        setData(res.data); 
+                        setData(res.data);
                     } else {
                         setToken(null)
                     }
@@ -89,7 +100,16 @@ function MyWork() {
         }
     }, [refresh])
 
-  
+    const handleDateChange = (event) => {
+        const selectedDate = event.target.value;
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (selectedDate < currentDate) {
+            alert('Please select a newer date.');
+        } else {
+            setDate(selectedDate);
+        }
+    };
+
     const myWorkshopstodo = (isDone) =>
         myServices && myServices.filter(el =>
             isDone ?
@@ -97,18 +117,18 @@ function MyWork() {
                 new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
         ).map(el =>
             <div key={el.id} className="workshops">
-                <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` :  "#"}>              
-                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={()=> !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
+                <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` : "#"}>
+                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={() => !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
                         <h5 className="titlework"><b>{el.name}</b></h5>
                         <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
                         <div className="text-muted" style={{ marginTop: "10px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
                         </div>
-                    </div>                   
+                    </div>
                 </Link>
             </div>) || <></>
-   
+
 
     let returnItem = (
         <>
@@ -170,7 +190,7 @@ function MyWork() {
                         <form>
                             <div className="form-group">
                                 <label >Workshop Name</label>
-                                <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+                                <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} maxLength="30" />
                             </div>
                             <div className="form-group">
                                 <label >Description</label>
@@ -182,7 +202,7 @@ function MyWork() {
                             </div>
                             <div className="form-group">
                                 <label >Date</label>
-                                <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" className="form-control" value={date} onChange={handleDateChange} />
                             </div>
                             <div className="form-group">
                                 <label >Time</label>
@@ -222,6 +242,10 @@ function MyWork() {
                                     <option value="5">Adaptabilidad</option>
                                 </select>
                             </div>
+                            <div >
+                                <label >Participant limit</label>
+                                <input type="number" className="form-control" value={limit} onChange={(e) => setLimit(e.target.value)} />
+                            </div>
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -258,13 +282,13 @@ function MyWork() {
                 </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Create a Workshop</Modal.Title>
+                        <Modal.Title>Create a Therapy session</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <form>
                             <div className="form-group">
                                 <label >Name</label>
-                                <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+                                <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} maxLength="30"/>
                             </div>
                             <div className="form-group">
                                 <label >Description</label>
@@ -276,7 +300,7 @@ function MyWork() {
                             </div>
                             <div className="form-group">
                                 <label >Date</label>
-                                <input type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
+                                <input type="date" className="form-control" value={date} onChange={handleDateChange} />
                             </div>
                             <div className="form-group">
                                 <label >Time</label>
@@ -318,7 +342,7 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit</label>
-                                <input type="number" className="form-control" value={limit} onChange={(e) => setlimit(e.target.value)} />
+                                <input type="number" className="form-control" value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
                         </form>
                     </Modal.Body>
@@ -336,7 +360,7 @@ function MyWork() {
             <div className='wholewscontainer'>
                 {returnItem}
             </div>
-            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification} closeAndRefresh={closeAndRefresh}/>}
+            {serviceControl && <SerVerification serviceControl={serviceControl} closeVerification={closeVerification} closeAndRefresh={closeAndRefresh} />}
         </>
     )
 }

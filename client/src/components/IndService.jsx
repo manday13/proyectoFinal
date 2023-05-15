@@ -156,6 +156,15 @@ function IndService() {
         setAbleButton(true);
         setAbleButton2(false);
     }
+    const handleDateChange = (event) => {
+        const selectedDate = event.target.value;
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (selectedDate < currentDate) {
+            alert('Please select a newer date.');
+        } else {
+            setWsEdit({ ...wsedit, date: selectedDate });
+        }
+    };
 
     const unparticipate = () => {
         const userId = id;
@@ -199,7 +208,7 @@ function IndService() {
             </>
         )
     })
-    
+
     return (
         <>
             <div className='wholepage'>
@@ -242,7 +251,7 @@ function IndService() {
                                                     </div>
                                                     <div className="form-group">
                                                         <label>Date</label>
-                                                        <input type="date" className="form-control" value={wsedit.date} onChange={(e) => setWsEdit({ ...wsedit, date: e.target.value })} />
+                                                        <input type="date" className="form-control" value={wsedit.date} onChange={handleDateChange} />
                                                     </div>
                                                     <div className="form-group">
                                                         <label>Time</label>
