@@ -10,6 +10,7 @@ import Avatar from 'react-avatar';
 import SerVerification from "./SerVerification";
 
 function MyWork() {
+    const [error, setError] = useState(null);
     const [show, setShow] = useState(false);
     const [name, setName] = useState(null);
     const [date, setDate] = useState(null);
@@ -23,7 +24,7 @@ function MyWork() {
     const [myServices, setMyServices] = useState(null);
     const [refresh, setRefresh] = useState(true);  
     const [data, setData] = useState(null); 
-    const [limit, setlimit] = useState(null);
+    const [limit, setLimit] = useState(null);
     const [controlError, setControlError] = useState({
         name: false, description: false, address: false, date: false, time: false, serviceType : false, workType:false, competency: false, limit: false
     })   
@@ -89,9 +90,11 @@ function MyWork() {
                 if (res.ok) {
                     setRefresh(true)
                     handleClose()
-                } else {
+                } else if(res.status === 401 ){
                     setToken(null)
                     handleClose()
+                }else{
+                    setError(res.error)
                 }
             })
             .catch((err) => console.log(err))
@@ -110,8 +113,10 @@ function MyWork() {
                     if (res.ok) {
                         setMyServices(res.data.Services);
                         setData(res.data);
-                    } else {
+                    } else if(res.status === 401 ){
                         setToken(null)
+                    } else{
+                        setError(res.error)
                     }
                 })
                 .catch((err) => console.log(err))
@@ -260,7 +265,7 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit*</label>
-                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setlimit(e.target.value)} />
+                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
                             {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}
                         </form>
@@ -355,8 +360,9 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit</label>
-                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setlimit(e.target.value)} />
+                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
+                            {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}
                         </form>
                     </Modal.Body>
                     <Modal.Footer>

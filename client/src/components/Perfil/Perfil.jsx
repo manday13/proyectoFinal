@@ -54,7 +54,7 @@ function Perfil() {
                     if(res.ok){
                         setUser(res.data)
                     }
-                    else if(res.status === 401 || res.error === 'token absent') {
+                    else if(res.status === 401 ) {
                         setToken(null)
                         setError(res.error)
                         setToastOptions({body: 'There was an error', title:'Unauthorize exception' })
@@ -96,9 +96,11 @@ function Perfil() {
                     setRefresh(true)
                     setEmail(userEdit.email);
                     setShowM(false)
-                } else {
+                } else if(res.status === 401 ){
                     setShowM(false)
                     setToken(null)
+                    setError(res.error)
+                }else{
                     setError(res.error)
                 }
             })
@@ -135,6 +137,12 @@ function Perfil() {
                     setShowM(false)
                     setToken(null)
                     logout()
+                }else if(res.status === 401 ){
+                    setShowM(false)
+                    setToken(null)
+                    setError(res.error)
+                }else{
+                    setError(res.error)
                 }
             })
     }
@@ -287,7 +295,7 @@ function Perfil() {
                         </label>
                         <label>
                             Email:
-                            <input type="text" value={userEdit.email} onChange={e => setUserEdit({ ...userEdit, email: e.target.value.trim() })} />
+                            <input type="email" value={userEdit.email} onChange={e => setUserEdit({ ...userEdit, email: e.target.value.trim() })} />
                         </label>
 
                         {(userTypes[type] !== userTypes.users)

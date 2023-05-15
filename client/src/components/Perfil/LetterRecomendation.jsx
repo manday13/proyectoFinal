@@ -9,6 +9,7 @@ const fileTypes = ["PDF"];
 
 function LetterRecomendation({ userForLetter, notShowLetter, closeAndRefresh, tokenExpired }) {
     const {token} = useContext(GlobalContext)
+    const [error, setError] = useState(null);
     const [file, setFile] = useState(null);
     const handleChange = (file) => {
         setFile(file);
@@ -30,8 +31,10 @@ function LetterRecomendation({ userForLetter, notShowLetter, closeAndRefresh, to
                 if(res.ok){
                     closeAndRefresh();
                 }
-                else{
+                else if(res.status === 401 ){
                     tokenExpired()
+                }else{
+                    setError(res.error)
                 }
             })
             .catch((err)=> err)
