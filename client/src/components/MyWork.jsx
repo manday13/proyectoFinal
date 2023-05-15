@@ -23,7 +23,7 @@ function MyWork() {
     const [myServices, setMyServices] = useState(null);
     const [refresh, setRefresh] = useState(true);  
     const [data, setData] = useState(null); 
-    const [limit, setlimit] = useState(null);
+    const [limit, setLimit] = useState(null);
     const [controlError, setControlError] = useState({
         name: false, description: false, address: false, date: false, time: false, serviceType : false, workType:false, competency: false, limit: false
     })   
@@ -125,6 +125,7 @@ function MyWork() {
         const currentDate = new Date().toISOString().split('T')[0];
         if (selectedDate < currentDate) {
             alert('Please select a newer date.');
+            setDate('');
         } else {
             setDate(selectedDate);
         }
@@ -260,7 +261,7 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit*</label>
-                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setlimit(e.target.value)} />
+                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
                             {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}
                         </form>
@@ -355,7 +356,7 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit</label>
-                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setlimit(e.target.value)} />
+                                <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
                         </form>
                     </Modal.Body>
