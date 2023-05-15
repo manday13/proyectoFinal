@@ -1,20 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import API_URL from '../apiconfig';
-import GlobalContext from '../GlobalContext';
-import { Modal } from 'react-bootstrap';
+import { useContext, useEffect, useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import API_URL from "../apiconfig";
+import GlobalContext from "../GlobalContext";
+import { Modal } from "react-bootstrap";
 
-
-import { Button } from 'react-bootstrap'
-import './IndService.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faLessThan } from '@fortawesome/free-solid-svg-icons'
+import { Button } from "react-bootstrap";
+import "./IndService.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faLessThan } from "@fortawesome/free-solid-svg-icons";
 // import Avatar from 'react-avatar';
-import { Avatar, Tooltip } from 'antd'
+import { Avatar, Tooltip } from "antd";
 // import AvatarGroup from 'react-avatar-group';
 
 function IndService() {
-    const goTo = useNavigate();
+  const goTo = useNavigate();
 
     const { id, token, setToken, type } = useContext(GlobalContext);
     const { ids } = useParams();
@@ -40,173 +39,196 @@ function IndService() {
         window.scrollTo(0, 0);
     },[]);
 
-    useEffect(() => {
-        if (refresh && ids) {
-            fetch(API_URL + `services/` + ids, {
-                headers: { 'Content-Type': 'application/json' }
-            })
-                .then((response) => response.json())
-                .then((data) => setData(data))
-                .then(() => setRefresh(!refresh))
-        }
-    }, [ids, refresh]);
-
-    useEffect(() => {
-
-        if ((type === 'tutor') || (type === 'volunteers')) {
-            setAbleButton(true);
-        }
-        if (data) {
-            const users = data.data.Users;
-            const hasTargetUser = users.some((user) => user.id === id);
-            if (hasTargetUser) {
-                setAbleButton(true);
-                setAbleButton2(false);
-            }
-        }
-    }, [data]);
-
-    if (!data) {
-        return <div>Loading...</div>;
+  useEffect(() => {
+    if (refresh && ids) {
+      fetch(API_URL + `services/` + ids, {
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => setData(data))
+        .then(() => setRefresh(!refresh));
     }
+  }, [ids, refresh]);
 
-    const closeEditWs = () => setShow(false);
-
-    const deleteWs = () => {
-        const reqop = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json', authorization: token },
-            body: JSON.stringify({ name, description, date, time, work_type, serviceType, address, id_c, "id_v": id, limit })
-        };
-
-        fetch(API_URL + 'services/' + ids, reqop)
-            .then(response => {
-                if (!response.ok) {
-                    setToken(null);
-                    throw new Error('Error al crear la entrada en la base de datos');
-                }
-                return response.json();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            })
-            .finally(() => setRefresh(true))
-        goTo('/myWork')
-
+  useEffect(() => {
+    if (type === "tutor" || type === "volunteers") {
+      setAbleButton(true);
     }
-
-    const handleSubmit = () => {
-        const fdata = new FormData()
-        fdata.append("name", wsedit.name);
-        fdata.append("description", wsedit.description);
-        fdata.append("date", wsedit.date);
-        fdata.append("id", ids);
-        fdata.append("time", wsedit.time);
-        fdata.append("address", wsedit.address);
-        fdata.append("id_c", wsedit.id_c);
-        fdata.append("limit", wsedit.limit);
-
-        const requested = {
-            method: 'PUT',
-            headers: { authorization: token },
-            body: fdata
-        };
-        fetch(API_URL + `services`, requested)
-            .then(res => res.json())
-            .catch(err => err)
-            .then((res) => {
-                if (res.ok) {
-                    setRefresh(true)
-                    setShow(false)
-                } else {
-                    setShow(false)
-/*                     setToken(null)
- */                    setError(res.error)
-                }
-            })
-            .catch((err) => setError(err))
-    }
-
-    const participate = () => {
-        const id_u = id;
-        const id_s = ids;
-
-        const data = {
-            id_u,
-            id_s,
-        };
-
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', authorization: token },
-            body: JSON.stringify(data)
-        };
-
-        fetch(API_URL + 'usersServices', requestOptions)
-            .then(response => {
-                if (!response.ok) {
-                    setToken(null);
-                    throw new Error('Error al crear la entrada en la base de datos');
-                }
-                return response.json();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            })
-            .finally(() => setRefresh(true))
-    }
-
-    const pressPart = () => {
-        participate();
+    if (data) {
+      const users = data.data.Users;
+      const hasTargetUser = users.some((user) => user.id === id);
+      if (hasTargetUser) {
         setAbleButton(true);
         setAbleButton2(false);
+      }
     }
-    const handleDateChange = (event) => {
-        const selectedDate = event.target.value;
-        const currentDate = new Date().toISOString().split('T')[0];
-        if (selectedDate < currentDate) {
-            alert('Please select a newer date.');
-        } else {
-            setWsEdit({ ...wsedit, date: selectedDate });
-        }
+  }, [data]);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const closeEditWs = () => setShow(false);
+
+  const deleteWs = () => {
+    const reqop = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", authorization: token },
+      body: JSON.stringify({
+        name,
+        description,
+        date,
+        time,
+        work_type,
+        serviceType,
+        address,
+        id_c,
+        id_v: id,
+        limit,
+      }),
     };
 
-    const unparticipate = () => {
-        const userId = id;
-        const serviceId = ids;
+    fetch(API_URL + "services/" + ids, reqop)
+      .then((response) => {
+        if (res.status === 401 ) {
+            setToken(null);
+            throw new Error("Token caducado");
+          }else if(!res.ok){
+              setError(res.error) 
+              throw new Error("Error happened");  
+          }
+          return response.json();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => setRefresh(true));
+    goTo("/myWork");
+  };
 
-        const data = {
-            userId,
-            serviceId
-        };
+  const handleSubmit = () => {
+    const fdata = new FormData();
+    fdata.append("name", wsedit.name);
+    fdata.append("description", wsedit.description);
+    fdata.append("date", wsedit.date);
+    fdata.append("id", ids);
+    fdata.append("time", wsedit.time);
+    fdata.append("address", wsedit.address);
+    fdata.append("id_c", wsedit.id_c);
+    fdata.append("limit", wsedit.limit);
+    fdata.append("file", wsedit.foto)
 
-        const requestOptions = {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json', authorization: token },
-            body: JSON.stringify(data)
-        };
+    const requested = {
+      method: "PUT",
+      headers: { authorization: token },
+      body: fdata,
+    };
+    fetch(API_URL + `services`, requested)
+      .then((res) => res.json())
+      .catch((err) => err)
+      .then((res) => {
+        if (res.ok) {
+          setRefresh(true);
+          setShow(false);
+        } else if(res.status === 401 ){
+          setShow(false);
+          setToken(null)
+            setError(res.error);
+        }else{
+            console.log("there was an error")
+            setShow(false);          
+            setError(res.error);
+        }
+      })
+      .catch((err) => setError(err));
+  };
 
-        fetch(API_URL + 'usersServices', requestOptions)
-            .then(response => {
-                if (!response.ok) {
-                    setToken(null);
-                    throw new Error('Error al crear la entrada en la base de datos');
-                }
-                return response.json();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            })
-            .finally(() => setRefresh(true))
+  const participate = () => {
+    const id_u = id;
+    const id_s = ids;
+
+    const data = {
+      id_u,
+      id_s,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json", authorization: token },
+      body: JSON.stringify(data),
+    };
+
+    fetch(API_URL + "usersServices", requestOptions)
+      .then((response) => {
+        if (res.status === 401 ) {
+          setToken(null);
+          throw new Error("Token caducado");
+        } else if(!res.ok){ //esto lo pongo para que me entre si hay otro error que no sea el del token. si pusiera solo else entraria tbb cuando no hay ningun error
+            setError(res.error) 
+            throw new Error("Error happened");                      
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => setRefresh(true));
+  };
+
+  const pressPart = () => {
+    participate();
+    setAbleButton(true);
+    setAbleButton2(false);
+  };
+  const handleDateChange = (event) => {
+    const selectedDate = event.target.value;
+    const currentDate = new Date().toISOString().split("T")[0];
+    if (selectedDate < currentDate) {
+      alert("Please select a newer date.");
+    } else {
+      setWsEdit({ ...wsedit, date: selectedDate });
     }
+  };
 
-    const pressUnpart = () => {
-        unparticipate();
-        setAbleButton2(true);
-        setAbleButton(false);
-    }
+  const unparticipate = () => {
+    const userId = id;
+    const serviceId = ids;
 
-    const askDelAccount = () => {
+    const data = {
+      userId,
+      serviceId,
+    };
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", authorization: token },
+      body: JSON.stringify(data),
+    };
+
+    fetch(API_URL + "usersServices", requestOptions)
+      .then((response) => {
+        if (res.status === 401 ) {
+          setToken(null);
+          throw new Error("Token caducado");
+        }else if(!res.ok){
+            setError(res.error) 
+            throw new Error("Error happened");  
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => setRefresh(true));
+  };
+
+  const pressUnpart = () => {
+    unparticipate();
+    setAbleButton2(true);
+    setAbleButton(false);
+  };
+  
+  const askDelAccount = () => {
         setAskDel(true);
     }
     const askNo = () => {
@@ -220,9 +242,8 @@ function IndService() {
             </>
         )
     })
-
-    return (
-        <>
+	return (
+  	<>
             <div className='wholepage'>
                 <div className='infoservice'>
                     <div className='infoserv'>
@@ -297,6 +318,18 @@ function IndService() {
                                                                 <label >Participant limit</label>
                                                                 <input type="number" className="form-control" value={wsedit.limit} onChange={(e) => setWsEdit({ ...wsedit, limit: e.target.value })} />
                                                             </div>
+                                                            <label>
+                            									<p>Image:</p>
+	                           								 <input
+	                              								type="file"
+	                              								accept="image/png, image/gif, image/jpeg, image/jpg"
+	                              								onChange={(e) =>{                                
+	                                							setWsEdit({ ...wsedit,
+	                                  							foto: e.target.files[0],
+	                                								})
+	                               									} }
+	                            									/>
+	                          								</label>
                                                         </form>
                                                     </Modal.Body>
                                                     <Modal.Footer>
@@ -410,8 +443,9 @@ function IndService() {
             <br />
             <br />
 
-        </>
-    );
+       
+    </>
+  );
 }
 
 export default IndService;

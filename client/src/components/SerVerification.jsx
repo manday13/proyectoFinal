@@ -6,6 +6,7 @@ import API_URL from '../apiconfig';
 
 function SerVerification({serviceControl, closeVerification, closeAndRefresh}){
     const {token} = useContext(GlobalContext)
+    const [error , setError] = useState(null)
     const [allVerification, setAllVerification] = useState(serviceControl.Users.map(el => el.Users_services.verification));    
     const listParticipants = serviceControl.Users && serviceControl.Users.map((el, index) => {        
         return{
@@ -47,16 +48,15 @@ function SerVerification({serviceControl, closeVerification, closeAndRefresh}){
             //recordemos que el fetch espera con los then a que se haya completado para pasar a lo siguiente
             .then(res => 
                 {                                           
-                    if(res.status === 401 || res.error === 'token absent') {
+                    if(res.status === 401 ) {
                         setToken(null)
                         setError(res.error)
                         // setToastOptions({body: 'There was an error', title:'Unauthorize exception' })
-                    } else if(res.status !== 200){ //esto lo pongo para que me entre si hay otro error que no sea el del token. si pusiera solo else entraria tbb cuando no hay ningun error
-                        setError(res.error)
-                        console.log("hola")
+                    } else if(!res.ok){ //esto lo pongo para que me entre si hay otro error que no sea el del token. si pusiera solo else entraria tbb cuando no hay ningun error
+                        setError(res.error)                       
                     }
                 })
-            .catch(err => console.log("error", error))
+            .catch(err => console.log("error", err))
             .finally(()=>closeAndRefresh())
     }
 

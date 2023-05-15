@@ -178,7 +178,7 @@ function RegistrationForm() {
                     <label className='registerLabels'>
                         Pronouns :
                         <select value={pronouns} onChange={handlePronounsChange} required>
-                            <option value="0"></option>
+                            <option value=""></option>
                             <option value="1">She/Her</option>
                             <option value="2">They/Them</option>
                             <option value="3">Prefer not to say</option>
@@ -187,7 +187,7 @@ function RegistrationForm() {
                     <label className='registerLabels'>
                         Role :
                         <select required onChange={(e) => setRole(e.target.value)}>
-                            <option value="0">Please select a role</option>
+                            <option value="">Please select a role</option>
                             <option value="1">Community support</option>
                             <option value="2">Mentoring support</option>
                             <option value="3">Mental health support</option>
@@ -231,7 +231,7 @@ function RegistrationForm() {
                     <label className='registerLabels'>
                         Pronouns :
                         <select value={pronouns} onChange={handlePronounsChange} required>
-                            <option value="0"></option>
+                            <option value=""></option>
                             <option value="1">She/Her</option>
                             <option value="2">They/Them</option>
                             <option value="3">Prefer not to say</option>

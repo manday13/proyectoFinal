@@ -10,6 +10,7 @@ import Avatar from 'react-avatar';
 import SerVerification from "./SerVerification";
 
 function MyWork() {
+    const [error, setError] = useState(null);
     const [show, setShow] = useState(false);
     const [name, setName] = useState(null);
     const [date, setDate] = useState(null);
@@ -89,9 +90,11 @@ function MyWork() {
                 if (res.ok) {
                     setRefresh(true)
                     handleClose()
-                } else {
+                } else if(res.status === 401 ){
                     setToken(null)
                     handleClose()
+                }else{
+                    setError(res.error)
                 }
             })
             .catch((err) => console.log(err))
@@ -110,8 +113,10 @@ function MyWork() {
                     if (res.ok) {
                         setMyServices(res.data.Services);
                         setData(res.data);
-                    } else {
+                    } else if(res.status === 401 ){
                         setToken(null)
+                    } else{
+                        setError(res.error)
                     }
                 })
                 .catch((err) => console.log(err))
@@ -358,6 +363,7 @@ function MyWork() {
                                 <label >Participant limit</label>
                                 <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
+                            {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
