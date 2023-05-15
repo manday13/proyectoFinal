@@ -6,7 +6,10 @@
 
 
 #descript {
-    min-height: 155px;
+    min-height: 163px;
+    max-height: 163px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #filter-nav {
@@ -50,6 +53,10 @@
 
 #imgCard {
     border-radius: 0;
+    width: 400px;
+    height: 200px;
+    object-fit: cover;
+    max-width: 100%;
 }
 
 .noWorkshop {

@@ -34,6 +34,11 @@ function IndService() {
     const [wsedit, setWsEdit] = useState('');
     const [limit, setLimit] = useState('');
     const [error, setError] = useState(null);
+    const [askDel, setAskDel] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    },[]);
 
     useEffect(() => {
         if (refresh && ids) {
@@ -201,6 +206,13 @@ function IndService() {
         setAbleButton(false);
     }
 
+    const askDelAccount = () => {
+        setAskDel(true);
+    }
+    const askNo = () => {
+        setAskDel(false);
+    }
+
     let Clients2 = (data && data.data && data.data.Users) && data.data.Users.map((el) => {
         return (
             <>
@@ -229,7 +241,20 @@ function IndService() {
                                     <>
                                         <div>
                                             <Button onClick={() => { setShow(true); setWsEdit({ ...data.data }) }}>Edit</Button>
-                                            <Button onClick={deleteWs} variant="danger" className='delete-button-for-edit'>Delete</Button>
+                                            {/* lo de abajo justo esta por borrar, lo deje hasta revisar por si acaso */}
+                                            {/* <Button onClick={deleteWs} variant="danger" className='delete-button-for-edit'>Delete</Button> */}
+                                            <Button className='delete-button-for-edit' variant="danger" size="m" onClick={askDelAccount} >Delete</Button>
+                                            {askDel ?
+                                                <>
+                                                    <div>
+                                                        <br />
+                                                        <b>Are you sure?   </b>
+                                                        <Button variant="danger" size="m" onClick={deleteWs} >YES</Button>
+                                                        <Button variant="primary" size="m" onClick={askNo} >NO</Button>
+                                                    </div>
+                                                </>
+                                                :
+                                                <></>}
                                         </div>
                                         <Modal show={show} onHide={closeEditWs}>
                                             <Modal.Header closeButton>
@@ -256,7 +281,7 @@ function IndService() {
                                                     <div className="form-group">
                                                         <label>Time</label>
                                                         <input type="time" className="form-control" value={wsedit.time} onChange={(e) => setWsEdit({ ...wsedit, time: e.target.value })} />
-                                                    </div>                                                                                                        
+                                                    </div>
                                                     <div>
                                                         <label>Competency</label>
                                                         <select className="form-control" value={wsedit.id_c} onChange={(e) => setWsEdit({ ...wsedit, id_c: e.target.value })}>
