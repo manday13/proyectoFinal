@@ -1,0 +1,32 @@
+.titleaboutTT {
+    margin-top: 20px;
+    flex: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: rgb(52, 35, 30);
+    font-weight: bold;
+    font-size: 75px;
+    text-align: center;
+}
+.personbody{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: large;
+}
+.personcard1,
+.personcard2,
+.personcard3{
+    margin: 40px;
+    width: 400px;
+    height: 600px;
+    border: solid rgb(52, 35, 30) 2px;
+    border-radius: 5px;
+    margin-bottom: 100px;
+}
+.pictureindiv{
+    object-fit: cover;
+}
+.personame{
+    margin-top: 15px;
+}

@@ -16,7 +16,12 @@ function RegistrationForm() {
     const { role, setRole } = useContext(GlobalContext);
     const [record, setRecord] = useState('');
     const [errorPass, setErrorPass] = useState('');
-     
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    },[]);
+
+    console.log(registrationType)// chivatos abandonas de la mano de Dios
     useEffect(() => {
         if (role === "2") {
             setRegistrationType("tutor");

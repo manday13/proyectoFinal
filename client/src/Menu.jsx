@@ -33,6 +33,9 @@ function Menu() {
                                 <NavDropdown.Item href="#action/3.2">
                                     <Link to="/about/support" className='nav-link'>Our support</Link>
                                 </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.3">
+                                    <Link to="/about/team" className='nav-link'>Our Team</Link>
+                                </NavDropdown.Item>
                             </NavDropdown>
                             <Link to="/services" className='nav-link'>Services</Link>
 
@@ -72,6 +75,9 @@ function Menu() {
                             <NavDropdown.Item href="#action/3.2">
                                 <Link to="/about/support" className='nav-link'>Our support</Link>
                             </NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">
+                                    <Link to="/about/team" className='nav-link'>Our Team</Link>
+                                </NavDropdown.Item>
                         </NavDropdown>
                         <Link to="/services" className='nav-link'>Services</Link>
 

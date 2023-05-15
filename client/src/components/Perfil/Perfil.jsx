@@ -46,6 +46,9 @@ function Perfil() {
         setChangeDescription(false);
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    },[]);
 
     useEffect(() => {
         if (refresh && token)

@@ -130,6 +130,7 @@ function MyWork() {
         const currentDate = new Date().toISOString().split('T')[0];
         if (selectedDate < currentDate) {
             alert('Please select a newer date.');
+            setDate('');
         } else {
             setDate(selectedDate);
         }
