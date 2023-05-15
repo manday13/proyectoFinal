@@ -289,7 +289,7 @@ function IndService() {
                                                     </div>
                                                     <div >
                                                         <label >Participant limit</label>
-                                                        <input type="text" className="form-control" value={wsedit.limit} onChange={(e) => setLimit({ ...wsedit, limit: e.target.value })} />
+                                                        <input type="number" className="form-control" value={wsedit.limit} onChange={(e) => setWsEdit({ ...wsedit, limit: e.target.value })} />
                                                     </div>
                                                 </form>
                                             </Modal.Body>
