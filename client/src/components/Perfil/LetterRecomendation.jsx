@@ -37,6 +37,31 @@ function LetterRecomendation({ userForLetter, notShowLetter, closeAndRefresh, to
             .catch((err)=> err)
     }
 
+    const deleteLetter = () => {        
+        const raw = JSON.stringify({
+            "id" : userForLetter.id,
+            "letter" : null
+        });
+        const requested = {            
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json', authorization: token},
+            body: raw
+        };
+        fetch(API_URL + "users/letterDestroy", requested)
+            .then(res => res.json())
+            .catch(err => err)
+            .then((res) => {
+                if(res.ok){
+                    closeAndRefresh();
+                }
+                else{
+                    tokenExpired()
+                }
+            })
+            .catch((err)=> err)
+    }
+
+
     return (
         <Modal show={userForLetter} onHide={notShowLetter}>
             <Modal.Header closeButton>
@@ -47,7 +72,7 @@ function LetterRecomendation({ userForLetter, notShowLetter, closeAndRefresh, to
                 <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
             </Modal.Body>
             <Modal.Footer>
-                {userForLetter.letter && <Button variant="danger" size="m">Delete existent</Button>}
+                {userForLetter.letter && <Button variant="danger" size="m" onClick={deleteLetter}>Delete existent</Button>}
                 <Button variant="primary" size="m" onClick={editLetter} >{userForLetter.letter ? "Edit" : "Upload"}</Button>
                 <Button variant="secondary" size="m" onClick={notShowLetter}>Cancel</Button>    
             </Modal.Footer>

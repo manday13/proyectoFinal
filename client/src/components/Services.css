@@ -43,6 +43,9 @@
 #titleCard {
     font-size: 27px;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #imgCard {

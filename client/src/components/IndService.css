@@ -81,8 +81,8 @@
 
 .compename {
     text-transform: uppercase;
-    overflow: hidden;
-    text-overflow: ellipsis;
+     overflow: hidden;
+    text-overflow: ellipsis;    
 }
 
 .buttonparticipant {

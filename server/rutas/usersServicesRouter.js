@@ -39,7 +39,7 @@ router.delete('/', function (req, res, next) {
 
 });
 
-router.put('/',function(req, res, next){
+router.put('/', autentica, function(req, res, next){
     const participants = req.body;
 
     function updateUser(participant){

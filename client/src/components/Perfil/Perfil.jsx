@@ -3,14 +3,16 @@ import { Modal, Button, Table } from 'react-bootstrap';
 import GlobalContext from "../../GlobalContext";
 import API_URL from '../../apiconfig';
 import './Perfil.css';
+import '../MyWork.css'
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faPen, faArrowRight, faFile } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPen, faArrowRight, faFile, faCalendar, faClock } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { userTypes } from './constants';
 import { getUser } from './services';
 import Avatar from 'react-avatar';
 import LetterRecomendation from './LetterRecomendation';
+import { ToastComponent } from '../ToastComponent';
 
 
 
@@ -28,6 +30,7 @@ function Perfil() {
     const [changeDescription, setChangeDescription] = useState(false);
     const [askDel, setAskDel] = useState(false);
     const [userForLetter, setUserForLetter] = useState(null);
+    const [toastOptions, setToastOptions] =  useState(null)
 
     const notShowLetter = () => setUserForLetter(null);
     const closeAndRefresh = () =>{
@@ -48,14 +51,22 @@ function Perfil() {
         if (refresh && token)
             getUser(token, type, id)
                 .then((res) => {
-                    if (res.ok) {
-                        setUser(res.data);
-                    } else {
+                    if(res.ok){
+                        setUser(res.data)
+                    }
+                    else if(res.status === 401 || res.error === 'token absent') {
                         setToken(null)
+                        setError(res.error)
+                        setToastOptions({body: 'There was an error', title:'Unauthorize exception' })
+                    } else{
                         setError(res.error)
                     }
                 })
-                .catch((err) => setError(err))
+                .catch((error) => {
+                    setToken(null)
+                    setError(res.error)
+                    setToastOptions({body: 'There was an error', title:'que guapa es julia' })
+                })
                 .finally(() => setRefresh(!refresh))
     }, [refresh, token])
 
@@ -157,8 +168,33 @@ function Perfil() {
     })
 
 
-    if (!user) { return <h3>Cargando</h3> }
-    console.log(user.letter)
+
+    const myWorkshopstodo = (isDone) =>
+    (userTypes[type] === userTypes.volunteers && email !== user.email && user && user.Services) && user.Services.filter(el =>
+            isDone ?
+                new Date(`${el.date}T${el.time}`).getTime() > new Date().getTime() :
+                new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
+        ).map(el =>
+            <div key={el.id} className="workshops">
+                <Link to={`/IndService/${el.id}`}>              
+                    <div className={`add-workshop-dif ${!isDone && "filterw"}`} >
+                        <h5 className="titlework otherColor"><b>{el.name}</b></h5>
+                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar name={el.name} round={true} size="60" /></div>
+                        <div className="text-muted" style={{ marginTop: "10px" }}>
+                            <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
+                            <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
+                        </div>
+                    </div>                   
+                </Link>
+            </div>) || <></>
+
+
+    if (!user) { return (
+        <>
+        {toastOptions && <ToastComponent body={toastOptions.body} title={toastOptions.title}/>}
+        <h3>Cargando</h3>
+        </>
+    ) }
 
     return (
         <>
@@ -170,7 +206,7 @@ function Perfil() {
                         <Avatar src={"http://localhost:5000/" + (user.foto)} name={user.name} round={true} size="160" />
                     </div>
                     <div className="profile-info">
-                        <h1 className="profile-name">{user.name}</h1>
+                        <h1 className="profile-name">{user.name}<i class="bi bi-info-circle" style={{fontSize: "2rem", color: "cornflowerblue"}}></i></h1>
                         <h2 className="profile-email">{user.email}</h2>
                         {(userTypes[type] === userTypes.users) ? <h3 className="profile-type"><b>My tutor: </b>{user.Tutor && <Link to={`/perfil/tutor/${user.Tutor.id}`}>{user.Tutor.name}</Link>}({user.Tutor && user.Tutor.email})</h3> : <></>}
 
@@ -219,13 +255,22 @@ function Perfil() {
                                 (email === user.Tutor.email || (user.letter && email === user.email)) &&
                                 <>
                                     <h3>Letter of recommendation</h3>
-                                    {user.letter && <p><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <a href={"http://localhost:5000/letters/" + (user.letter)} download={user.letter.split('-')[1]}>{user.letter.split('-')[1]}</a> <FontAwesomeIcon icon={faFile}></FontAwesomeIcon></p>}
+                                    {user.letter && <p><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <a href={"http://localhost:5000/letters/" + (user.letter)} download={user.letter.split('-')[1] } target="_blank">{user.letter.split('-')[1]}</a> <FontAwesomeIcon icon={faFile}></FontAwesomeIcon></p>}
                                     {(email === user.Tutor.email) &&
                                         <button className="upload" onClick={() => setUserForLetter(user)}>{user.letter ? "Edit document" : "Upload document"}</button>}
                                 </>
                             }
 
                         </div>
+                    </div>
+                }
+
+                {(userTypes[type] === userTypes.volunteers) && 
+                <div className='main-workshops'>
+                    {email !== user.email && <h2 style={{marginBottom: "40px"}}><b>Workshops that are organised by {user.name}: </b></h2>}
+                    <div className="allmyworkshops">                    
+                       {myWorkshopstodo(true)}
+                    </div>
                     </div>
                 }
 

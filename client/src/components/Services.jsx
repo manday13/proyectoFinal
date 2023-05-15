@@ -67,19 +67,7 @@ function Services() {
 
         return <span>{eventTypeOptions[workshopType]}</span>;
     }
-
-    // FUNCION PARA MAPEAR Y MOSTRAR LAS CARDS DE LOS CURSOS
-    // const handleWorkshops = dades.map((el, i) => (
-    //     <Card id='worksCard' key={i} style={{ width: '18rem' }}>
-    //         <Card.Img id='imgCard' variant="top" src="https://placekitten.com/300/150" />
-    //         <Card.Body>
-    //             <Card.Title>{el.name}</Card.Title>
-    //             <Card.Text id='descript'>{el.description}</Card.Text>
-    //             <Card.Text>Fecha: {el.date}</Card.Text>
-    //             <Button variant="primary"><Link to={`/IndService/${el.id}`}>Más información</Link></Button>
-    //         </Card.Body>
-    //     </Card >
-    // ));
+    
 
     const handleWorkshops = dades.map((el, i) => (
         <Link className="card-ind-service" to={`/IndService/${el.id}`}>
@@ -87,7 +75,7 @@ function Services() {
                 <Card.Body>
                     <Card.Title id='titleCard'>{el.name}</Card.Title>
                 </Card.Body>
-                <Card.Img id='imgCard' variant="top" src="https://placekitten.com/350/170" />
+                <Card.Img id='imgCard' variant="top" src={"http://localhost:5000/fotoServices/" + (el.foto)} />
                 <Card.Body>
                     <Card.Text id='descript'>{el.description}</Card.Text>
                     <Card.Text>Fecha: {el.date}</Card.Text>
