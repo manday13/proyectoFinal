@@ -58,9 +58,9 @@
     background-color: black;
 }
 
-.divCaru {
-    /* background-image: linear-gradient(to bottom, #f0f8ff, #3A5766) */
-}
+/* .divCaru {
+    background-image: linear-gradient(to bottom, #f0f8ff, #3A5766)
+} */
 
 @media only screen and (max-width: 600px) {
     .titleAboutS {
