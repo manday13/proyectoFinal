@@ -2,7 +2,7 @@ import React from 'react'
 import './Signselect.css'
 import { Link } from 'react-router-dom';
 import Avatar from 'react-avatar';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 function Signselect() {
   //NO FUNCIONA Y NO SE VER PORQUE
