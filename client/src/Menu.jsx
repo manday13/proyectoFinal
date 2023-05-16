@@ -28,8 +28,7 @@ function Menu() {
                             <NavDropdown title="About" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">
                                     <Link to="/about/mission" className='nav-link'>Our mission</Link>
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
+                                </NavDropdown.Item>                               
                                 <NavDropdown.Item href="#action/3.2">
                                     <Link to="/about/support" className='nav-link'>Our support</Link>
                                 </NavDropdown.Item>

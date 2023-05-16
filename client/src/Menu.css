@@ -42,7 +42,8 @@
 }
 
 .dropdown-divider {
-  border: none
+  border: none;
+  margin: 0 !important
 }
 
 #navRegister,
