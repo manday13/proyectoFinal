@@ -93,8 +93,8 @@ function Services() {
 /*         setShowCalendar(false);
  */    };
     const selectionRange = {
-        startDate: startDate,
-        endDate: endDate,
+        startDate: null,
+        endDate: null,
         key: 'selection',
     }
     // FUNCION PARA LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
