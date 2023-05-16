@@ -279,7 +279,7 @@ function Perfil() {
                                 (email === user.Tutor.email || (user.letter && email === user.email)) &&
                                 <>
                                     <h3>Letter of recommendation</h3>
-                                    {user.letter && <p><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <a href={"http://localhost:5000/letters/" + (user.letter)} download={user.letter.split('-')[1] } target="_blank">{user.letter.split('-')[1]}</a> <FontAwesomeIcon icon={faFile}></FontAwesomeIcon></p>}
+                                    {user.letter && <p><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <a href={"http://localhost:5000/letters/" + (user.letter)} download={user.letter.split('-')[1] } target="_blank">{user.letter.split('-')[1]}   <FontAwesomeIcon icon={faFile}/></a> </p>}
                                     {(email === user.Tutor.email) &&
                                         <button className="upload" onClick={() => setUserForLetter(user)}>{user.letter ? "Edit document" : "Upload document"}</button>}
                                 </>
