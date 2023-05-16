@@ -2,8 +2,15 @@ import './about.css'
 import './Mission.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 
 function Mission() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <h1 className='titleAboutM'>Our Mission</h1>
@@ -17,8 +24,8 @@ function Mission() {
 
             </div>
             <div className='divShot'>
-                <a href="/services"><h5>Click in here to see more</h5></a>
-                <a href="/services"><img className='screenshot' src="/captura-services3.png" alt="services page" /></a>
+                <Link to="/services"><h5>Click in here to see more</h5></Link>
+                <Link to="/services"><img className='screenshot' src="/captura-services3.png" alt="services page" /></Link>
             </div>
 
         </>

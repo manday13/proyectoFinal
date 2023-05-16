@@ -113,9 +113,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-left: 15px;
     }
     .competencies {
-        margin: 10px;
+        /* margin: 10px; */
     }
     .main-workshops {
         margin: 10px;

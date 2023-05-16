@@ -2,8 +2,15 @@ import React from 'react'
 import './Signselect.css'
 import { Link } from 'react-router-dom';
 import Avatar from 'react-avatar';
+import { useEffect } from 'react';
 
-export default function Signselect() {
+function Signselect() {
+  //NO FUNCIONA Y NO SE VER PORQUE
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    console.log("el useffect funciona, no lo otro");
+  }, []);
+
   return (
     <>
 
@@ -44,3 +51,5 @@ export default function Signselect() {
     </>
   )
 }
+
+export default Signselect;

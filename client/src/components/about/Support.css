@@ -1,5 +1,5 @@
 .fondoSup {
-    background-color: #f0f8ff;
+    background-color: white;
 }
 
 .titleAboutS {
@@ -43,15 +43,16 @@
 }
 
 .left-side img {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     margin-left: 270px;
+    border-radius: 20%;
 }
 
 .right-side {
     flex: 80%;
     padding-right: 300px;
-    padding-left: 170px;
+    padding-left: 130px;
 }
 
 .activeIndex {
@@ -77,7 +78,7 @@
         margin: 0;
     }
     .left-side img {
-        margin: 0 0 10px 100px;
+        margin: 0 0 10px 80px;
     }
 
     .right-side {

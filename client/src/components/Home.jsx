@@ -2,13 +2,17 @@ import './Home.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GlobalContext from '../GlobalContext.js'
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { faChevronDown, faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 import { Container, Row, Col } from 'react-bootstrap';
 
 
 function Home() {
+    //hace que suba al principio de homa al cargarlo desde cualquier contexto
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     return (
         <>
             <div className='one'>
