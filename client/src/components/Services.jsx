@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter} from '@fortawesome/free-solid-svg-icons'
 
 import { Route } from 'react-router-dom';
 
@@ -130,7 +132,7 @@ function Services() {
         <div className='cuerpo-services'>
 
             <div className="botonFiltros">
-                <Button variant="primary" onClick={handleShow}>FILTERS</Button>
+                <Button variant="primary" onClick={handleShow}>FILTERS   <FontAwesomeIcon icon={faFilter} /></Button> 
             </div>
 
             <Offcanvas show={show} onHide={handleClose}>

@@ -54,12 +54,18 @@
 }
 
 .buttonCompetencies{
-    font-size: 10px;
-    width: fit-content;
-    height: fit-content;
-    border-radius: 10px;
-    border: solid black 1px; 
-    
+    background-color: transparent;
+    border: none;    
+}
+
+.language{
+    margin-right: 100px;
+}
+
+.languageHobbie{
+    display: flex;
+    flex: auto;
+    align-items: center;
 }
 
 .buttondes{   

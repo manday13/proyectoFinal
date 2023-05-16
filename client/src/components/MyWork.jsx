@@ -70,8 +70,8 @@ function MyWork() {
         controlError.serviceType = !serviceType || serviceType === '0'
         controlError.workType = !work_type || work_type === '0'
         controlError.competency = !id_c || id_c === '0'
-        controlError.limit = !limit
-        
+        controlError.limit = !limit || parseInt(limit) <= 0  //el type number me devuelve en numero como string, con el parseInt lo paso a integer y asi puedo hacer la comparacion mas compleja
+               
         setControlError({...controlError})       
         if(Object.values(controlError).some(el => el === true)){
             return;
@@ -266,9 +266,11 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit*</label>
+                                {controlError.limit && <small style={{color: 'red'}}>The number of participants must be bigger than 0</small>}
                                 <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
+                                
                             </div>
-                            {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}
+                            {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fields</p>}
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -361,6 +363,7 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit</label>
+                                {controlError.limit && <small style={{color: 'red'}}>The number of participants must be bigger than 0</small>}
                                 <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
                             {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}

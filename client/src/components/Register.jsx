@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import GlobalContext from '../GlobalContext';
 import API_URL from '../apiconfig';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck} from '@fortawesome/free-solid-svg-icons'
 import './Register.css'
 
 function RegistrationForm() {
@@ -10,8 +12,8 @@ function RegistrationForm() {
     const [pronouns, setPronouns] = useState(0);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [password, setPassword] = useState(null); 
+    const [confirmPassword, setConfirmPassword] = useState(null);
     const [phone, setPhone] = useState('');
     const { role, setRole } = useContext(GlobalContext);
     const [record, setRecord] = useState('');
@@ -20,8 +22,7 @@ function RegistrationForm() {
     useEffect(() => {
         window.scrollTo(0, 0);
     },[]);
-
-    console.log(registrationType)// chivatos abandonas de la mano de Dios
+    
     useEffect(() => {
         if (role === "2") {
             setRegistrationType("tutor");
@@ -35,7 +36,7 @@ function RegistrationForm() {
         if (password === confirmPassword) {
             setErrorPass(false);
         }
-    }, [password, confirmPassword])
+    }, [confirmPassword])
 
     const handleVolunteerClick = () => {
         setRegistrationType('volunteers');
@@ -51,6 +52,9 @@ function RegistrationForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if(password !== confirmPassword){
+            return
+        }
         // handle form submission here
         const ob = {
             name,
@@ -161,14 +165,10 @@ function RegistrationForm() {
                         <input type="password" onInput={(e) => setPassword(e.target.value)} required />
                     </label>
                     <label className='registerLabels'>
-                        Repeat the password :
-                        {errorPass ?
-                            <>
-                                <b className='passEr'>     Password is not the same</b>
-                            </>
-                            :
-                            <></>}
-                        <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        Repeat the password :                        
+                        <input type="password" style={{borderColor: errorPass && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        {errorPass  ? <small className='passEr'>     Password is not the same</small> : 
+                        !!password && !!confirmPassword && <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>}
                     </label>
                     <label className='registerLabels'>
                         Phone number (optional) :
@@ -188,9 +188,9 @@ function RegistrationForm() {
                         Role :
                         <select required onChange={(e) => setRole(e.target.value)}>
                             <option value="">Please select a role</option>
-                            <option value="1">Community support</option>
-                            <option value="2">Mentoring support</option>
-                            <option value="3">Mental health support</option>
+                            <option value="1">Community support - Arthist</option>
+                            <option value="2">Mentoring support - Tutor</option>
+                            <option value="3">Mental health support - Therapist</option>
                         </select>
                     </label>
                     <br />
@@ -214,14 +214,10 @@ function RegistrationForm() {
                         <input type="password" name="password" onInput={(e) => setPassword(e.target.value)} required />
                     </label>
                     <label className='registerLabels'>
-                        Repeat the password :
-                        {errorPass ?
-                            <>
-                                <b className='passEr'>     Password is not the same</b>
-                            </>
-                            :
-                            <></>}
-                        <input type="password" name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        Repeat the password :                        
+                        <input type="password" style={{borderColor: errorPass && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        {errorPass  ? <small className='passEr'>     Password is not the same</small> : 
+                        !!password && !!confirmPassword && <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>}
                     </label>
                     <label className='registerLabels'>
                         Phone number (optional) :

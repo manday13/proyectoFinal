@@ -6,10 +6,11 @@ import './Perfil.css';
 import '../MyWork.css'
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faPen, faArrowRight, faFile, faCalendar, faClock } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPen, faArrowRight, faFile, faCalendar, faClock, faCircleInfo, faMinus, faLanguage, faFilm } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { userTypes } from './constants';
 import { getUser } from './services';
+import { validateEmail } from './utils';
 import Avatar from 'react-avatar';
 import LetterRecomendation from './LetterRecomendation';
 import { ToastComponent } from '../ToastComponent';
@@ -31,6 +32,7 @@ function Perfil() {
     const [askDel, setAskDel] = useState(false);
     const [userForLetter, setUserForLetter] = useState(null);
     const [toastOptions, setToastOptions] =  useState(null)
+    const [controlError, setControlError] = useState({name: false, email: false})
 
     const notShowLetter = () => setUserForLetter(null);
     const closeAndRefresh = () =>{
@@ -78,6 +80,13 @@ function Perfil() {
     }, [id, type])
 
     const editUser = () => {
+        controlError.name = !userEdit.name || userEdit.name.trim() === ''
+        controlError.email = !validateEmail(userEdit.email)
+        setControlError({...controlError})
+        if(Object.values(controlError).some(el => el === true)){
+            return
+        }
+
         const fdata = new FormData() //para guardar una imagen se tiene que hacer en formato formData() en vez de JSON.stringify()
         fdata.append("name", userEdit.name);
         fdata.append("email", userEdit.email);
@@ -173,7 +182,7 @@ function Perfil() {
         return (
             <>
                 {!!el.Users_services.verification &&
-                    <li>{el.Competency.name} <button className="buttonCompetencies" onClick={() => { setIdc(index + 1); setShowCompetency(true) }}>i</button></li>}
+                    <li>{el.Competency.name} <button className="buttonCompetencies" onClick={() => { setIdc(index + 1); setShowCompetency(true) }}><FontAwesomeIcon icon={faCircleInfo}/></button></li>}
             </>
         )
     })
@@ -220,7 +229,11 @@ function Perfil() {
                         <h1 className="profile-name">{user.name}<i class="bi bi-info-circle" style={{fontSize: "2rem", color: "cornflowerblue"}}></i></h1>
                         <h2 className="profile-email">{user.email}</h2>
                         {(userTypes[type] === userTypes.users) ? <h3 className="profile-type"><b>My tutor: </b>{user.Tutor && <Link to={`/perfil/tutor/${user.Tutor.id}`}>{user.Tutor.name}</Link>}({user.Tutor && user.Tutor.email})</h3> : <></>}
-
+                        <div className='languageHobbie'>
+                        <p className='language'><span style={{color: "grey"}}><FontAwesomeIcon icon={faLanguage}/> Languages:</span> English, Spanish</p>
+                        <p><span style={{color: "grey"}}><FontAwesomeIcon icon={faFilm}/>  Hobbies:</span> Cycling</p>
+                        </div>
+                        
                     </div>
                     {(email === user.email) ?
                         <div className="profile-button">
@@ -278,10 +291,14 @@ function Perfil() {
 
                 {(userTypes[type] === userTypes.volunteers) && 
                 <div className='main-workshops'>
-                    {email !== user.email && <h2 style={{marginBottom: "40px"}}><b>Workshops that are organised by {user.name}: </b></h2>}
-                    <div className="allmyworkshops">                    
-                       {myWorkshopstodo(true)}
+                    {email !== user.email &&  
+                    <>
+                    <h2 style={{marginBottom: "40px"}}><b>Workshops that are organised by {user.name}: </b></h2>
+                    <div className="allmyworkshops">                                     
+                       {!!(myWorkshopstodo(true).length) ? myWorkshopstodo(true) : <p><i>There are no future workshops organised by {user.name} at the moment.</i></p>}
                     </div>
+                    </>
+                    }
                     </div>
                 }
 
@@ -294,11 +311,13 @@ function Perfil() {
                     <div className="formEditPerfil">
                         <label>
                             Name:
-                            <input type="text" value={userEdit.name} onChange={e => setUserEdit({ ...userEdit, name: e.target.value })} required />
+                            <input type="text" value={userEdit.name} onChange={e => setUserEdit({ ...userEdit, name: e.target.value })} />
+                            {controlError.name && <small style={{color: 'red'}}>You must right a name</small>}
                         </label>
                         <label>
                             Email:
                             <input type="email" value={userEdit.email} onChange={e => setUserEdit({ ...userEdit, email: e.target.value.trim() })} />
+                            {controlError.email && <small style={{color: 'red'}}>Please right an email like "something@something.com"</small>}
                         </label>
 
                         {(userTypes[type] !== userTypes.users)
@@ -329,7 +348,7 @@ function Perfil() {
                                 <br />
                                 <b>Are you sure?   </b>
                                 <Button variant="danger" size="m" onClick={deleteAccount} >YES</Button>
-                                <Button variant="primary" size="m" onClick={askNo} >NO</Button>
+                                <Button className='delete-button-for-edit' variant="primary" size="m" onClick={askNo} >NO</Button>
                             </div>
                         </>
                         :
