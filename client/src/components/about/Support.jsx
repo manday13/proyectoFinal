@@ -97,7 +97,7 @@ function Support() {
             </div>
             <div className="cardholder">
                 <div className="overallcard">
-                    <h1 className="overallcard">Discover your next skills</h1>
+                    <h1>Discover your next skills</h1>
                 </div>
                 <div className="divCaru">
                     {/* <br /> */}
