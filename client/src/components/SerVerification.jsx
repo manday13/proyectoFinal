@@ -72,7 +72,7 @@ function SerVerification({serviceControl, closeVerification, closeAndRefresh}){
                         {nameParticipants}
                     </tbody>
                 </Table>
-                {!!serviceControl.Users.length && <div><Button onClick={sendForm}>Send</Button></div>}
+                {!!serviceControl.Users.length && <div><Button style={{ marginBottom: '10px' }} onClick={sendForm}>Send</Button></div>}
             </Modal.Body>                                                
         </Modal>
     )

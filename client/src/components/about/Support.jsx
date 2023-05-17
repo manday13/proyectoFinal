@@ -1,5 +1,5 @@
 import "./Support.css"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 
@@ -13,57 +13,48 @@ function Support() {
     const skills = ([
         {
             id: 1,
-            name: 'Trabajo en equipo y cooperación',
-            description: 'Trabajo en equipo y cooperación implica la intención de colaborar y cooperar con los demás, formar parte de un grupo, trabajar juntos, en comparación a trabajar individualmente o competitivamente. Para que esta competencia sea efectiva, la intención tiene que ser sincera. ',
-            imageUrl: 'https://placekitten.com/300/300',
+            name: 'Comunication skills',
+            description: 'Refers to the ability to effectively convey information, ideas, thoughts, and feelings to others in a clear and concise manner.',
+            imageUrl: '/comp1.jpg',
             infor: [
-                "Tiene una actitud positiva para colaborar con los demás.",
-                "Mantiene buenas relaciones con los compañeros/as.",
-                "Ayuda cuando se lo piden.",
-                "Coopera con actitud positiva en equipos y apoya las decisiones de éstos. Es un 'buen jugador del equipo'.",
-                "Mantiene a los otros miembros informados de los temas que les afectan (procesos, sucesos, acciones individuales, etc.).",
-                "Se coordina con los compañeros para alcanzar el objetivo común del equipo.",
-                "Escucha los compañeros/as, y valora sinceramente sus ideas y experiencia, para aprender de ellos/as.",
-                "Habla bien de los otros miembros del grupo, y expresa expectativas positivas con respecto a sus habilidades, aportaciones, etc.",
-                "Fomenta y promueve la colaboración.",
-                "Anima y motiva a los demás, y les hace sentir fuertes e importantes.",
-                "Fomenta la participación y aportación de ideas de todos los miembros del equipo.",
-                "Reconoce públicamente los méritos de los miembros del grupo que han trabajado bien.",
-                "Realiza acciones para desarrollar un ambiente de trabajo amistoso, un buen clima y espíritu de cooperación (celebra reuniones y crea símbolos de identidad en el grupo).",
-                "Resuelve los conflictos que puedan producirse dentro del equipo.",
-                "Defiende la identidad y buena reputación del grupo frente a terceros.",
-                "Fomenta y promueve la cooperación entre distintos equipos de trabajo."
+                "It encompasses both verbal and non-verbal communication, including listening, speaking, writing, and interpersonal skills. ",
+                "Strong communication skills are essential in the workplace as they enable individuals to collaborate, build relationships, resolve conflicts, and convey messages accurately and persuasively. ",
+                "Effective communication promotes understanding, minimizes misunderstandings, enhances teamwork, and contributes to a positive and productive work environment."
             ]
         },
         {
             id: 2,
-            name: 'Autoconfianza',
-            description: 'Autoconfianza es el convencimiento de que uno es capaz de realizar con éxito una tarea o escoger el enfoque adecuado para realizar un trabajo o resolver un problema. Incluye mostrar confianza en las propias capacidades, decisiones y opiniones.',
-            imageUrl: 'https://placekitten.com/300/300',
-            infor: '',
+            name: 'A strong commitment to goals',
+            description: 'Refers to the dedication and determination to achieve set objectives or targets. It involves demonstrating a steadfast focus, persistence, and resilience in pursuing and accomplishing desired outcomes.',
+            imageUrl: '/comp2.jpg',
+            infor: 'Having a strong commitment to goals means being proactive, driven, and willing to put in the necessary effort and resources to reach desired milestones. In the workplace, individuals with a strong commitment to goals are motivated and display a sense of ownership and responsibility. They set clear objectives, create actionable plans, and work diligently to achieve results. They are not easily discouraged by setbacks or challenges and are willing to adapt and adjust their strategies when needed. Their commitment to goals helps them stay focused, overcome obstacles, and maintain a high level of productivity and performance. Having a strong commitment to goals is highly valued in the workplace as it promotes accountability, perseverance, and a sense of purpose. It contributes to personal and professional growth, fosters a culture of achievement, and ultimately leads to successful outcomes and organizational success.',
         },
         {
             id: 3,
-            name: 'Comunicacion',
-            description: 'Comunicación es la habilidad de transmitir, de explicar algo a alguien de forma clara y comprensible. Incluye desde la transmisión de información hasta la relación de ideas, intereses, etc. La comunicación puede ser oral y/o escrita y se dirige a públicos distintos.',
-            imageUrl: 'https://placekitten.com/300/300',
-            infor: '',
+            name: 'Emotional inteligence',
+            description: " refers to the ability to recognize, understand, manage, and effectively express emotions, both in oneself and in others. It involves being aware of one's own emotions and their impact, as well as being attuned to the emotions of others and being able to empathize with them.",
+            imageUrl: '/comp3.jpg',
+            infor: 'Emotional intelligence encompasses several key competencies, including self-awareness, self-regulation, empathy, and social skills. In the workplace, emotional intelligence is highly valuable as it contributes to effective communication, collaboration, and relationship-building. Individuals with high emotional intelligence are able to navigate interpersonal dynamics, handle conflicts constructively, and foster a positive work environment. They are aware of their own strengths and weaknesses, manage stress effectively, and demonstrate resilience in the face of challenges. Furthermore, emotionally intelligent individuals are skilled in understanding the emotions and perspectives of their colleagues and clients. They are adept at active listening, resolving conflicts, and building rapport. They demonstrate empathy and are sensitive to the needs and feelings of others, fostering strong working relationships and promoting teamwork. Overall, emotional intelligence plays a crucial role in the workplace by enhancing individual and team performance, promoting effective leadership, and cultivating a supportive and inclusive work culture. It enables individuals to navigate complex social interactions, make sound decisions, and respond adaptively to changing circumstances.',
         },
         {
             id: 4,
-            name: 'Empatía',
-            description: 'Empatía implica saber entender a los demás. Es la habilidad para escuchar, entender correctamente los pensamientos, sentimientos o preocupaciones de los demás a pesar de que éstos no se expresen verbalmente o se expresen parcialmente. Esta competencia mide la creciente complejidad y profundidad que supone entender a los demás.',
-            imageUrl: 'https://placekitten.com/300/300',
-            infor: '',
+            name: 'Accountability and responsability',
+            description: "Accountability and responsibility is a combined concept in the workplace that emphasizes taking ownership and being answerable for one's actions, tasks, and outcomes.",
+            imageUrl: '/comp4.jpg',
+            infor: "In this context, accountability encompasses the willingness and ability to accept responsibility for one's actions and decisions. It involves acknowledging the impact of one's choices and actions on oneself, colleagues, and the organization as a whole. Accountable individuals understand the importance of meeting their commitments and delivering results in a timely and reliable manner. They proactively take steps to fulfill their obligations, communicate progress, and address any challenges or setbacks that may arise. Responsibility, on the other hand, relates to the duties and obligations assigned to an individual. It involves recognizing the tasks and roles one is entrusted with and taking appropriate action to fulfill them effectively. Responsible individuals understand the expectations placed upon them and strive to perform their duties conscientiously and with diligence. They demonstrate reliability, dependability, and the ability to prioritize and manage their workload effectively. When combined, accountability and responsibility form a powerful competency that drives individuals to take ownership of their work, make informed decisions, and ensure the successful completion of tasks and goals. It promotes a culture of trust, integrity, and professionalism within the workplace and contributes to overall team and organizational success.",
         },
         {
             id: 5,
-            name: 'Autocontrol',
-            description: 'Autocontrol es la capacidad de mantener las propias emociones bajo control y evitar reacciones negativas ante provocaciones, oposición u hostilidad por parte de otros o cuando se trabaja en condiciones de estrés. Igualmente, implica la resistencia en condiciones constantes de estrés.',
-            imageUrl: 'https://placekitten.com/300/300',
-            infor: '',
+            name: 'A learning mentality',
+            description: 'Refers to the mindset and attitude of continuously seeking opportunities for personal and professional growth through acquiring new knowledge, developing new skills, and embracing challenges..',
+            imageUrl: '/comp5.jpg',
+            infor: "Having a learning mentality in the workplace involves being open to new ideas, feedback, and constructive criticism. It is about valuing continuous learning as a means to enhance performance and adapt to changing circumstances. Individuals with a learning mentality actively seek out opportunities for self-improvement, whether through formal training, informal learning experiences, or seeking guidance from mentors and colleagues. A learning mentality also includes a willingness to step outside of one's comfort zone and take on new challenges. It involves embracing failures and setbacks as learning opportunities, rather than viewing them as obstacles or sources of discouragement. Individuals with a learning mentality approach tasks and projects with a growth mindset, believing that they can acquire new skills and knowledge with effort and practice. In the workplace, a learning mentality is highly beneficial as it promotes innovation, resilience, and a culture of continuous improvement. It enables individuals to adapt to new technologies, industry trends, and evolving job requirements. Moreover, it fosters a sense of curiosity, critical thinking, and problem-solving skills, which are essential in navigating complex work environments.",
         },
     ]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleSelect = (selectedIndex) => {
         setActiveIndex(selectedIndex);

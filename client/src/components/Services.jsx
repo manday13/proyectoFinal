@@ -23,6 +23,11 @@ function Services() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
+    //sube la pagina hasta arriba al cargar el componente
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
     //carga los datos iniciales
     useEffect(() => {
         loadData();
@@ -99,8 +104,8 @@ function Services() {
 /*         setShowCalendar(false);
  */    };
     const selectionRange = {
-        startDate: startDate,
-        endDate: endDate,
+        startDate: null,
+        endDate: null,
         key: 'selection',
     }
     // FUNCION PARA LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
@@ -129,6 +134,8 @@ function Services() {
         setEndDate('');
         setServiceType(0);
         setWorkshopType(0);
+        console.log(startDate);
+        console.log(endDate);
         loadData();
     };
 
