@@ -20,8 +20,8 @@ function Services() {
     const [dadesSeg, setDadesSeg] = useState([]);
     const [error, setError] = useState("");
     const [dis, setDis] = useState(false);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState((''));
 
     //carga los datos iniciales
     useEffect(() => {
@@ -93,8 +93,8 @@ function Services() {
 /*         setShowCalendar(false);
  */    };
     const selectionRange = {
-        startDate: null,
-        endDate: null,
+        startDate: startDate,
+        endDate: endDate,
         key: 'selection',
     }
     // FUNCION PARA LOS CURSOS CON LAS CONDICIONES DEL FILTER-NAV
