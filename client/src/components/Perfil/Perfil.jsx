@@ -67,8 +67,7 @@ function Perfil() {
                         setError(res.error)
                     }
                 })
-                .catch((error) => {
-                    setToken(null)
+                .catch((error) => {                    
                     setError(res.error)
                     setToastOptions({body: 'There was an error', title:'muy mal' })
                 })
@@ -179,7 +178,7 @@ function Perfil() {
     }) : <>There are no users under your responsability at the moment.</>
 
 
-    let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services) && user.Services.map((el, index) => {
+    let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services && user.Services.Users_services && user.Services.Users_services.verification) && user.Services.map((el, index) => {
         return (
             <>
                 {!!el.Users_services.verification &&
@@ -269,7 +268,7 @@ function Perfil() {
                     <div className='main-workshops competencies-letter'>
                         <div className='competencies'>
                             <h3>My competencies</h3>
-                            {(user && user.Services) && user.Services.some((compe) => compe.Users_services.verification) ?
+                            {(user && user.Services && user.Services.Users_services && user.Services.Users_services.verification) && user.Services.some((compe) => compe.Users_services.verification) ?
 
 
                                 <ul>{myCompetencies}</ul>
