@@ -72,7 +72,7 @@ function RegistrationForm() {
             ob.role = role;
         } else if (registrationType === "users") {
             ob.record = record;
-            ob.id_t = 1; //se podria cambiar para que no sea estatico sino que vaya asignando un tutor en funcion de si otro tutor ya tiene muchos users asociados
+            ob.id_t = 7; //se podria cambiar para que no sea estatico sino que vaya asignando un tutor en funcion de si otro tutor ya tiene muchos users asociados
         }
         const options = {
             method: 'POST',
