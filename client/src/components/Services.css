@@ -5,6 +5,7 @@
 }
 
 
+
 #descript {
     min-height: 163px;
     max-height: 163px;
@@ -39,6 +40,15 @@
     border: 0px solid rgb(173, 173, 173);
 }
 
+.filterwork{
+    filter: brightness(0.9);   
+    border-radius: 0.5rem;    
+}
+
+.blanck{
+    filter: grayscale(100%);
+}
+
 #worksCard:hover {
     box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
 }
@@ -61,6 +71,11 @@
 
 .noWorkshop {
     margin-top: 15%;
+    text-align: center;
+}
+
+.noFutureWorkshop{
+    margin: 2%;
     text-align: center;
 }
 

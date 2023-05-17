@@ -115,17 +115,17 @@ function IndService() {
   };
 
   const handleSubmit = () => {
-    controlError.name = !wsedit.name || wsedit.name.trim() === " ";
-    controlError.description =
-      !wsedit.description || wsedit.description.trim() === " ";
-    controlError.address = !wsedit.address || wsedit.address.trim() === " ";
-    controlError.date = !wsedit.date;
-    controlError.time = !wsedit.time;
-    controlError.competency = !wsedit.id_c || wsedit.id_c === "0";
-    controlError.limit = !wsedit.limit || parseInt(wsedit.limit) <= 0; //el type number me devuelve en numero como string, con el parseInt lo paso a integer y asi puedo hacer la comparacion mas compleja
+    const copycontrolError = {...controlError}
+    copycontrolError.name = !wsedit.name || wsedit.name.trim() === " ";
+    copycontrolError.description = !wsedit.description || wsedit.description.trim() === " ";
+    copycontrolError.address = !wsedit.address || wsedit.address.trim() === " ";
+    copycontrolError.date = !wsedit.date;
+    copycontrolError.time = !wsedit.time;
+    copycontrolError.competency = !wsedit.id_c || wsedit.id_c === "0";
+    copycontrolError.limit = !wsedit.limit || parseInt(wsedit.limit) <= 0; //el type number me devuelve en numero como string, con el parseInt lo paso a integer y asi puedo hacer la comparacion mas compleja
 
-    setControlError({ ...controlError });
-    if (Object.values(controlError).some((el) => el === true)) {
+    setControlError({ ...copycontrolError });
+    if (Object.values(copycontrolError).some((el) => el === true)) {
       return;
     }
 
@@ -311,6 +311,8 @@ function IndService() {
                 {type === "volunteers" ? (
                   <>
                     {id === data.data.id_v ? (
+                      <>
+                      {data.data && new Date(`${data.data.date}T${data.data.time}`).getTime() > new Date().getTime() ?
                       <>
                         <div>
                           <Button
@@ -519,6 +521,13 @@ function IndService() {
                             </button>
                           </Modal.Footer>
                         </Modal>
+                        </> : 
+                        <div>
+                        <br />
+                        <p className="workshopended">
+                          <i>This workshop has expired</i>
+                        </p>
+                      </div>}
                       </>
                     ) : (
                       <>

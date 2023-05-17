@@ -5,6 +5,7 @@ import API_URL from '../apiconfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck} from '@fortawesome/free-solid-svg-icons'
 import './Register.css'
+import { validateEmail } from './Perfil/utils';
 
 function RegistrationForm() {
     const goTo = useNavigate();
@@ -18,6 +19,7 @@ function RegistrationForm() {
     const { role, setRole } = useContext(GlobalContext);
     const [record, setRecord] = useState('');
     const [errorPass, setErrorPass] = useState('');
+    const [controlError, setControlError] = useState({email: false})
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -36,7 +38,7 @@ function RegistrationForm() {
         if (password === confirmPassword) {
             setErrorPass(false);
         }
-    }, [confirmPassword])
+    }, [password, confirmPassword])
 
     const handleVolunteerClick = () => {
         setRegistrationType('volunteers');
@@ -51,8 +53,11 @@ function RegistrationForm() {
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        if(password !== confirmPassword){
+        event.preventDefault();        
+        controlError.email = !validateEmail(email)        
+        setControlError({...controlError})       
+        if(password !== confirmPassword || !validateEmail(email) ){
+            document.getElementById('email').scrollIntoView({behavior: 'smooth'})
             return
         }
         // handle form submission here
@@ -156,19 +161,21 @@ function RegistrationForm() {
                         Full name :
                         <input type="text" onInput={(e) => setName(e.target.value)} required />
                     </label>
-                    <label className='registerLabels'>
+                    <label id="email" className='registerLabels'>
                         Email :
-                        <input type="email" onInput={(e) => setEmail(e.target.value)} required />
+                        <input type="email"  onInput={(e) => setEmail(e.target.value)} required />
+                        {controlError.email && <small style={{color: 'red'}}>Please right an email like "something@something.com"</small>}
                     </label>
                     <label className='registerLabels'>
                         Create password :
-                        <input type="password" onInput={(e) => setPassword(e.target.value)} required />
+                        <input type="password" minLength={3} onInput={(e) => setPassword(e.target.value)} required />
                     </label>
                     <label className='registerLabels'>
                         Repeat the password :                        
-                        <input type="password" style={{borderColor: errorPass && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
-                        {errorPass  ? <small className='passEr'>     Password is not the same</small> : 
-                        !!password && !!confirmPassword && <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>}
+                        <input type="password" style={{borderColor: errorPass && !!password && !!confirmPassword && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        {!!password && !!confirmPassword  &&
+                        (errorPass ? <small className='passEr'>     Password is not the same</small> : 
+                        <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>)}
                     </label>
                     <label className='registerLabels'>
                         Phone number (optional) :
@@ -188,7 +195,7 @@ function RegistrationForm() {
                         Role :
                         <select required onChange={(e) => setRole(e.target.value)}>
                             <option value="">Please select a role</option>
-                            <option value="1">Community support - Arthist</option>
+                            <option value="1">Community support - Artist</option>
                             <option value="2">Mentoring support - Tutor</option>
                             <option value="3">Mental health support - Therapist</option>
                         </select>
@@ -205,9 +212,10 @@ function RegistrationForm() {
                         Full name :
                         <input type="text" name="name" onInput={(e) => setName(e.target.value)} required />
                     </label>
-                    <label className='registerLabels'>
+                    <label id="email" className='registerLabels'>
                         Email :
-                        <input type="email" name="email" onInput={(e) => setEmail(e.target.value)} required />
+                        <input type="email" name="email"  onInput={(e) => setEmail(e.target.value)} required />
+                        {controlError.email && <small style={{color: 'red'}}>Please right an email like "something@something.com"</small>}
                     </label>
                     <label className='registerLabels'>
                         Create password :
@@ -215,9 +223,10 @@ function RegistrationForm() {
                     </label>
                     <label className='registerLabels'>
                         Repeat the password :                        
-                        <input type="password" style={{borderColor: errorPass && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
-                        {errorPass  ? <small className='passEr'>     Password is not the same</small> : 
-                        !!password && !!confirmPassword && <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>}
+                        <input type="password" style={{borderColor: errorPass && !!password && !!confirmPassword && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        {!!password && !!confirmPassword  &&
+                        (errorPass ? <small className='passEr'>     Password is not the same</small> : 
+                        <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>)}
                     </label>
                     <label className='registerLabels'>
                         Phone number (optional) :
