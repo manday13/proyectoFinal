@@ -71,13 +71,19 @@ function Services() {
     }
     
 
-    const handleWorkshops = dades.map((el, i) => (
-        <Link className="card-ind-service" to={`/IndService/${el.id}`}>
+    const handleWorkshops = (isDone) =>
+    dades && dades.filter(el =>
+        isDone ?
+            new Date(`${el.date}T${el.time}`).getTime() > new Date().getTime() :
+            new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
+        
+        ).sort((a,b) => new Date(`${a.date}T${a.time}`).getTime() - new Date(`${b.date}T${b.time}`).getTime()).map((el, i) => 
+        <Link className={`card-ind-service ${!isDone && "filterwork"}`} to={`/IndService/${el.id}`}>
             <Card id='worksCard' key={i} >
                 <Card.Body>
                     <Card.Title id='titleCard'>{el.name}</Card.Title>
                 </Card.Body>
-                <Card.Img id='imgCard' variant="top" src={"http://localhost:5000/fotoServices/" + (el.foto)} />
+                <Card.Img className={`${!isDone && "blanck"}`} id='imgCard' variant="top" src={"http://localhost:5000/fotoServices/" + (el.foto)} />
                 <Card.Body>
                     <Card.Text id='descript'>{el.description}</Card.Text>
                     <Card.Text>Fecha: {el.date}</Card.Text>
@@ -85,7 +91,7 @@ function Services() {
                 </Card.Body>
             </Card >
         </Link>
-    ));
+    );
 
     const handleSelect = (dato) => {
         setStartDate(dato.selection.startDate);
@@ -247,10 +253,16 @@ function Services() {
             </div> */}
             <div className='card-shower'>
                 {dades.length ?
+                <>
                     <div id='services'>
-                        {handleWorkshops}
+                        {handleWorkshops(true)}                        
+                        {(!handleWorkshops(true).length &&
+                        endDate && endDate.getTime() > new Date().getTime() &&
+                        <h3 className="noFutureWorkshop">Sorry, there are no future workshops that match your criteria right now, but you can take a look to similar ones that took place before:</h3> ) || <></>}                        
+                        {handleWorkshops(false)}
                     </div>
-
+                        
+                </>
                     : <h3 className="noWorkshop">Sorry, there are no workshops that match your criteria right now.</h3>}
 
             </div>

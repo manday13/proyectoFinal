@@ -70,7 +70,7 @@ function Perfil() {
                 .catch((error) => {
                     setToken(null)
                     setError(res.error)
-                    setToastOptions({body: 'There was an error', title:'que guapa es julia' })
+                    setToastOptions({body: 'There was an error', title:'muy mal' })
                 })
                 .finally(() => setRefresh(!refresh))
     }, [refresh, token])
@@ -80,10 +80,11 @@ function Perfil() {
     }, [id, type])
 
     const editUser = () => {
-        controlError.name = !userEdit.name || userEdit.name.trim() === ''
-        controlError.email = !validateEmail(userEdit.email)
-        setControlError({...controlError})
-        if(Object.values(controlError).some(el => el === true)){
+        const copycontrolError = {...controlError}        
+        copycontrolError.name = !userEdit.name || userEdit.name.trim() === ''
+        copycontrolError.email = !validateEmail(userEdit.email)        
+        setControlError({...copycontrolError})
+        if(Object.values(copycontrolError).some(el => el === true)){
             return
         }
 
@@ -229,10 +230,10 @@ function Perfil() {
                         <h1 className="profile-name">{user.name}<i class="bi bi-info-circle" style={{fontSize: "2rem", color: "cornflowerblue"}}></i></h1>
                         <h2 className="profile-email">{user.email}</h2>
                         {(userTypes[type] === userTypes.users) ? <h3 className="profile-type"><b>My tutor: </b>{user.Tutor && <Link to={`/perfil/tutor/${user.Tutor.id}`}>{user.Tutor.name}</Link>}({user.Tutor && user.Tutor.email})</h3> : <></>}
-                        <div className='languageHobbie'>
-                        <p className='language'><span style={{color: "grey"}}><FontAwesomeIcon icon={faLanguage}/> Languages:</span> English, Spanish</p>
+                        {/* <div className='languageHobbie'>
+                        <p className='language'><span style={{color: "grey"}}><FontAwesomeIcon icon={faLanguage}/> Languages:  </span> English, Spanish</p>
                         <p><span style={{color: "grey"}}><FontAwesomeIcon icon={faFilm}/>  Hobbies:</span> Cycling</p>
-                        </div>
+                        </div> */}
                         
                     </div>
                     {(email === user.email) ?

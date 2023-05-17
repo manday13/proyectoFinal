@@ -61,19 +61,23 @@ function MyWork() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        controlError.name = !name || name.trim() === ' '
-        controlError.description = !description || description.trim() === ' '
-        controlError.address = !address || address.trim() === ' '
-        controlError.date = !date
-        controlError.time = !time
-        controlError.serviceType = !serviceType || serviceType === '0'
-        controlError.workType = !work_type || work_type === '0'
-        controlError.competency = !id_c || id_c === '0'
-        controlError.limit = !limit || parseInt(limit) <= 0  //el type number me devuelve en numero como string, con el parseInt lo paso a integer y asi puedo hacer la comparacion mas compleja
+        const copycontrolError = {...controlError} //hago una copia del controlError que creo simplemente en la funcion y me servira para evitar los problemas
+        //de sincronizacion a la hora de hacer el seter de la funcion controlError (evitando que me lo haga más tarde de lo que yo necesito)
+        //lo que hare sera entonces mirar en los atirbutos de este objeto --> los atributos de un objeto se pueden cambiar sin mas NO UNA CONSTANTE (definimos el objeto
+        //como una constante pero no sus atirbutos). Luego seteo el controlError a este objeto copiado para que me aparezcan los mensajes de aviso en los inputs, ya
+        //que este copycontrolError esta definido simplemente aqui
+        copycontrolError.name = !name || name.trim() === ' '
+        copycontrolError.description = !description || description.trim() === ' '
+        copycontrolError.address = !address || address.trim() === ' '
+        copycontrolError.date = !date
+        copycontrolError.time = !time
+        copycontrolError.serviceType = !serviceType || serviceType === '0'
+        copycontrolError.workType = !work_type || work_type === '0'
+        copycontrolError.competency = !id_c || id_c === '0'
+        copycontrolError.limit = !limit || parseInt(limit) <= 0  //el type number me devuelve en numero como string, con el parseInt lo paso a integer y asi puedo hacer la comparacion mas compleja
                
-        setControlError({...controlError})       
-        if(Object.values(controlError).some(el => el === true)){
+        setControlError({...copycontrolError})       
+        if(Object.values(copycontrolError).some(el => el === true)){
             return;
         }
 
@@ -141,12 +145,12 @@ function MyWork() {
             isDone ?
                 new Date(`${el.date}T${el.time}`).getTime() > new Date().getTime() :
                 new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
-        ).map(el =>
+        ).sort((a,b) => new Date(`${a.date}T${a.time}`).getTime() - new Date(`${b.date}T${b.time}`).getTime()).map(el =>
             <div key={el.id} className="workshops">
                 <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` : "#"}>
                     <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={() => !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
                         <h5 className="titlework"><b>{el.name}</b></h5>
-                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar src={"http://localhost:5000/fotoServices/" + (el.foto)} name={el.name} round={true} size="60" /></div>
+                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar className={`${!isDone && "blanck"}`} src={"http://localhost:5000/fotoServices/" + (el.foto)} name={el.name} round={true} size="60" /></div>
                         <div className="text-muted" style={{ marginTop: "10px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>
