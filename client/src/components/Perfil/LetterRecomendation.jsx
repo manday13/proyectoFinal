@@ -57,8 +57,10 @@ function LetterRecomendation({ userForLetter, notShowLetter, closeAndRefresh, to
                 if(res.ok){
                     closeAndRefresh();
                 }
-                else{
+                else if(res.status === 401 ){
                     tokenExpired()
+                }else{
+                    setError(res.error)
                 }
             })
             .catch((err)=> err)
