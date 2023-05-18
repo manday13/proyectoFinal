@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import GlobalContext from '../GlobalContext';
 import API_URL from '../apiconfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck} from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import './Register.css'
 import { validateEmail } from './Perfil/utils';
 
@@ -13,18 +13,18 @@ function RegistrationForm() {
     const [pronouns, setPronouns] = useState(0);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(null); 
+    const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
     const [phone, setPhone] = useState('');
     const { role, setRole } = useContext(GlobalContext);
     const [record, setRecord] = useState('');
     const [errorPass, setErrorPass] = useState('');
-    const [controlError, setControlError] = useState({email: false})
+    const [controlError, setControlError] = useState({ email: false })
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    },[]);
-    
+    }, []);
+
     useEffect(() => {
         if (role === "2") {
             setRegistrationType("tutor");
@@ -53,11 +53,11 @@ function RegistrationForm() {
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault();        
-        controlError.email = !validateEmail(email)        
-        setControlError({...controlError})       
-        if(password !== confirmPassword || !validateEmail(email) ){
-            document.getElementById('email').scrollIntoView({behavior: 'smooth'})
+        event.preventDefault();
+        controlError.email = !validateEmail(email)
+        setControlError({ ...controlError })
+        if (password !== confirmPassword || !validateEmail(email)) {
+            document.getElementById('email').scrollIntoView({ behavior: 'smooth' })
             return
         }
         // handle form submission here
@@ -163,19 +163,19 @@ function RegistrationForm() {
                     </label>
                     <label id="email" className='registerLabels'>
                         Email :
-                        <input type="email"  onInput={(e) => setEmail(e.target.value)} required />
-                        {controlError.email && <small style={{color: 'red'}}>Please right an email like "something@something.com"</small>}
+                        <input type="email" onInput={(e) => setEmail(e.target.value)} required />
+                        {controlError.email && <small style={{ color: 'red' }}>Please enter a valid email. Ex.: "something@something.com"</small>}
                     </label>
                     <label className='registerLabels'>
                         Create password :
                         <input type="password" minLength={3} onInput={(e) => setPassword(e.target.value)} required />
                     </label>
                     <label className='registerLabels'>
-                        Repeat the password :                        
-                        <input type="password" style={{borderColor: errorPass && !!password && !!confirmPassword && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
-                        {!!password && !!confirmPassword  &&
-                        (errorPass ? <small className='passEr'>     Password is not the same</small> : 
-                        <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>)}
+                        Repeat the password :
+                        <input type="password" style={{ borderColor: errorPass && !!password && !!confirmPassword && "red" }} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        {!!password && !!confirmPassword &&
+                            (errorPass ? <small className='passEr'>     Password is not the same</small> :
+                                <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>)}
                     </label>
                     <label className='registerLabels'>
                         Phone number (optional) :
@@ -214,19 +214,19 @@ function RegistrationForm() {
                     </label>
                     <label id="email" className='registerLabels'>
                         Email :
-                        <input type="email" name="email"  onInput={(e) => setEmail(e.target.value)} required />
-                        {controlError.email && <small style={{color: 'red'}}>Please right an email like "something@something.com"</small>}
+                        <input type="email" name="email" onInput={(e) => setEmail(e.target.value)} required />
+                        {controlError.email && <small style={{ color: 'red' }}>Please enter a valid email. Ex.: "something@something.com"</small>}
                     </label>
                     <label className='registerLabels'>
                         Create password :
                         <input type="password" name="password" onInput={(e) => setPassword(e.target.value)} required />
                     </label>
                     <label className='registerLabels'>
-                        Repeat the password :                        
-                        <input type="password" style={{borderColor: errorPass && !!password && !!confirmPassword && "red"}} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
-                        {!!password && !!confirmPassword  &&
-                        (errorPass ? <small className='passEr'>     Password is not the same</small> : 
-                        <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>)}
+                        Repeat the password :
+                        <input type="password" style={{ borderColor: errorPass && !!password && !!confirmPassword && "red" }} name="confirmPassword" onInput={(e) => setConfirmPassword(e.target.value)} required />
+                        {!!password && !!confirmPassword &&
+                            (errorPass ? <small className='passEr'>     Password is not the same</small> :
+                                <small><FontAwesomeIcon icon={faCheck} /> Passwords coincide.</small>)}
                     </label>
                     <label className='registerLabels'>
                         Phone number (optional) :
@@ -243,7 +243,7 @@ function RegistrationForm() {
                         </select>
                     </label>
                     <label className='registerLabels'>
-                        Has your liberty ever been threatened?
+                        Have you ever experienced a situation where your freedom was compromised? 
                         <input type="text" name="record" onInput={(e) => setRecord(e.target.value)} required />
                     </label>
                     <br />
