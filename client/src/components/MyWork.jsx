@@ -22,12 +22,12 @@ function MyWork() {
     const [id_c, setId_c] = useState(null);
     const [serviceControl, setServiceControl] = useState(null);
     const [myServices, setMyServices] = useState(null);
-    const [refresh, setRefresh] = useState(true);  
-    const [data, setData] = useState(null); 
+    const [refresh, setRefresh] = useState(true);
+    const [data, setData] = useState(null);
     const [limit, setLimit] = useState(null);
     const [controlError, setControlError] = useState({
-        name: false, description: false, address: false, date: false, time: false, serviceType : false, workType:false, competency: false, limit: false
-    })   
+        name: false, description: false, address: false, date: false, time: false, serviceType: false, workType: false, competency: false, limit: false
+    })
     const { type, role, id, setToken, token } = useContext(GlobalContext);
     const userTypes = {
         tutor: 'tutor',
@@ -50,7 +50,7 @@ function MyWork() {
         setDescription(null);
         setId_c(null);
         setLimit(null);
-    
+
     };
     const closeVerification = () => setServiceControl(null);
 
@@ -61,7 +61,7 @@ function MyWork() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const copycontrolError = {...controlError} //hago una copia del controlError que creo simplemente en la funcion y me servira para evitar los problemas
+        const copycontrolError = { ...controlError } //hago una copia del controlError que creo simplemente en la funcion y me servira para evitar los problemas
         //de sincronizacion a la hora de hacer el seter de la funcion controlError (evitando que me lo haga más tarde de lo que yo necesito)
         //lo que hare sera entonces mirar en los atirbutos de este objeto --> los atributos de un objeto se pueden cambiar sin mas NO UNA CONSTANTE (definimos el objeto
         //como una constante pero no sus atirbutos). Luego seteo el controlError a este objeto copiado para que me aparezcan los mensajes de aviso en los inputs, ya
@@ -75,9 +75,9 @@ function MyWork() {
         copycontrolError.workType = !work_type || work_type === '0'
         copycontrolError.competency = !id_c || id_c === '0'
         copycontrolError.limit = !limit || parseInt(limit) <= 0  //el type number me devuelve en numero como string, con el parseInt lo paso a integer y asi puedo hacer la comparacion mas compleja
-               
-        setControlError({...copycontrolError})       
-        if(Object.values(copycontrolError).some(el => el === true)){
+
+        setControlError({ ...copycontrolError })
+        if (Object.values(copycontrolError).some(el => el === true)) {
             return;
         }
 
@@ -94,10 +94,10 @@ function MyWork() {
                 if (res.ok) {
                     setRefresh(true)
                     handleClose()
-                } else if(res.status === 401 ){
+                } else if (res.status === 401) {
                     setToken(null)
                     handleClose()
-                }else{
+                } else {
                     setError(res.error)
                 }
             })
@@ -117,9 +117,9 @@ function MyWork() {
                     if (res.ok) {
                         setMyServices(res.data.Services);
                         setData(res.data);
-                    } else if(res.status === 401 ){
+                    } else if (res.status === 401) {
                         setToken(null)
-                    } else{
+                    } else {
                         setError(res.error)
                     }
                 })
@@ -127,7 +127,7 @@ function MyWork() {
                 .finally(() => setRefresh(!refresh))
         }
     }, [refresh])
-    
+
 
     const handleDateChange = (event) => {
         const selectedDate = event.target.value;
@@ -145,7 +145,7 @@ function MyWork() {
             isDone ?
                 new Date(`${el.date}T${el.time}`).getTime() > new Date().getTime() :
                 new Date(`${el.date}T${el.time}`).getTime() < new Date().getTime()
-        ).sort((a,b) => new Date(`${a.date}T${a.time}`).getTime() - new Date(`${b.date}T${b.time}`).getTime()).map(el =>
+        ).sort((a, b) => new Date(`${a.date}T${a.time}`).getTime() - new Date(`${b.date}T${b.time}`).getTime()).map(el =>
             <div key={el.id} className="workshops">
                 <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` : "#"}>
                     <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={() => !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
@@ -220,7 +220,7 @@ function MyWork() {
                         <form>
                             <div className="form-group">
                                 <label >Workshop Name*</label>
-                                <input type="text" className={`form-control ${controlError.name && "toAnswer"}`} value={name} onChange={(e) => setName(e.target.value)} />                                
+                                <input type="text" className={`form-control ${controlError.name && "toAnswer"}`} value={name} onChange={(e) => setName(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <label >Description*</label>
@@ -237,7 +237,7 @@ function MyWork() {
                             <div className="form-group">
                                 <label >Time*</label>
                                 <input type="time" className={`form-control ${controlError.time && "toAnswer"}`} value={time} onChange={(e) => setTime(e.target.value)} />
-                            </div>                            
+                            </div>
                             <div className="form-group">
                                 <label >Type*</label>
                                 <select value={serviceType} className={`form-control ${controlError.serviceType && "toAnswer"}`} onChange={(e) => setServicetype(e.target.value)} >
@@ -270,11 +270,11 @@ function MyWork() {
                             </div>
                             <div >
                                 <label >Participant limit*</label>
-                                {controlError.limit && <small style={{color: 'red'}}>The number of participants must be bigger than 0</small>}
+                                {controlError.limit && <small style={{ color: 'red' }}>The number of participants must be bigger than 0</small>}
                                 <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
-                                
+
                             </div>
-                            {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fields</p>}
+                            {Object.values(controlError).some(el => el === true) && <p style={{ color: 'red' }}>*Please fill all the required fields</p>}
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -334,7 +334,7 @@ function MyWork() {
                             <div className="form-group">
                                 <label >Time</label>
                                 <input type="time" className={`form-control ${controlError.time && "toAnswer"}`} value={time} onChange={(e) => setTime(e.target.value)} />
-                            </div>                            
+                            </div>
                             <div className="form-group">
                                 <label >Type</label>
                                 <select value={serviceType} className={`form-control ${controlError.serviceType && "toAnswer"}`} onChange={(e) => setServicetype(e.target.value)} >
@@ -358,19 +358,19 @@ function MyWork() {
                                 <label >Competency</label>
                                 <select className={`form-control ${controlError.competency && "toAnswer"}`} onChange={(e) => setId_c(e.target.value)} >
                                     <option value="0">--Select Competence--</option>
-                                    <option value="1">Asertividad</option>
-                                    <option value="2">Asistencia</option>
-                                    <option value="3">Comunicacion</option>
-                                    <option value="4">Fiabilidad</option>
-                                    <option value="5">Adaptabilidad</option>
+                                    <option value="1">Comunication skills</option>
+                                    <option value="2">Strong commitment</option>
+                                    <option value="3">Emotional inteligence</option>
+                                    <option value="4">Responsability</option>
+                                    <option value="5">A learning mentality</option>
                                 </select>
                             </div>
                             <div >
                                 <label >Participant limit</label>
-                                {controlError.limit && <small style={{color: 'red'}}>The number of participants must be bigger than 0</small>}
+                                {controlError.limit && <small style={{ color: 'red' }}>The number of participants must be bigger than 0</small>}
                                 <input type="number" className={`form-control ${controlError.limit && "toAnswer"}`} value={limit} onChange={(e) => setLimit(e.target.value)} />
                             </div>
-                            {Object.values(controlError).some(el => el === true) && <p style={{color: 'red'}}>*Please fill all the required fills</p>}
+                            {Object.values(controlError).some(el => el === true) && <p style={{ color: 'red' }}>*Please fill all the required fills</p>}
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
