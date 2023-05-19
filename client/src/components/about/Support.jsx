@@ -68,12 +68,12 @@ function Support() {
 
     const skillItems = skills.map((skill) => (
         <Carousel.Item key={skill.id}>
-            <div className="leftright">
+            <div className="leftright" onClick={() => handleSkillchange(skill.id - 1)}>
                 <div className="left-side">
                     <img src={skill.imageUrl} alt={skill.name} />
                 </div>
                 <div className="right-side">
-                    <h3 onClick={() => handleSkillchange(skill.id - 1)}>{skill.name}</h3>
+                    <h3 >{skill.name}</h3>
                     <h6>{skill.description}</h6>
                 </div>
             </div>
