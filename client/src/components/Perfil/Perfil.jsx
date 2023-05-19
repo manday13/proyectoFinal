@@ -177,12 +177,15 @@ function Perfil() {
         )
     }) : <>There are no users under your responsability at the moment.</>
 
+    console.log(user)
 
-    let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services && user.Services.Users_services && user.Services.Users_services.verification) && user.Services.map((el, index) => {
+    let myCompetencies = (userTypes[type] === userTypes.users && user && user.Services && user.Services.length ) && user.Services.map((el, index) => {
         return (
             <>
-                {!!el.Users_services.verification &&
-                    <li>{el.Competency.name} <button className="buttonCompetencies" onClick={() => { setIdc(index + 1); setShowCompetency(true) }}><FontAwesomeIcon icon={faCircleInfo}/></button></li>}
+            {el.Users_services  &&
+                !!el.Users_services.verification &&
+                    <li>{el.Competency.name} <button className="buttonCompetencies" onClick={() => { setIdc(index + 1); setShowCompetency(true) }}><FontAwesomeIcon icon={faCircleInfo}/></button></li>
+            }
             </>
         )
     })
@@ -268,9 +271,7 @@ function Perfil() {
                     <div className='main-workshops competencies-letter'>
                         <div className='competencies'>
                             <h3>My competencies</h3>
-                            {(user && user.Services && user.Services.Users_services && user.Services.Users_services.verification) && user.Services.some((compe) => compe.Users_services.verification) ?
-
-
+                            {(user && user.Services ) && user.Services.some((compe) => compe.Users_services && compe.Users_services.verification) ?
                                 <ul>{myCompetencies}</ul>
                                 : (email === user.email) ? <p><i>You haven't achieved any competencies at the moment.</i></p> : <p><i>There are no competencies achieved at the moment.</i></p>}
                         </div>
