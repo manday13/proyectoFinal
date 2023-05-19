@@ -12,29 +12,29 @@ export default function Team() {
     const [showdescmai, setShowdescmai] = useState(false);
 
     useEffect(() => {
-        if(showdescadri){
-            document.getElementById('adriscroll').scrollIntoView({behavior: 'smooth'})
+        if (showdescadri) {
+            document.getElementById('adriscroll').scrollIntoView({ behavior: 'smooth' })
         }
-    },[showdescadri]) 
+    }, [showdescadri])
 
     useEffect(() => {
-        if(showdescjul){
-            document.getElementById('scrolljul').scrollIntoView({behavior: 'smooth'})
+        if (showdescjul) {
+            document.getElementById('scrolljul').scrollIntoView({ behavior: 'smooth' })
         }
-    },[showdescjul]) 
+    }, [showdescjul])
 
     useEffect(() => {
-        if(showdescmai){
-            document.getElementById('scrollmai').scrollIntoView({behavior: 'smooth'})
+        if (showdescmai) {
+            document.getElementById('scrollmai').scrollIntoView({ behavior: 'smooth' })
         }
-    },[showdescmai]) 
+    }, [showdescmai])
 
 
     const toggledescadri = () => {
         setShowdescadri(!showdescadri);
         setShowdescjul(false);
         setShowdescmai(false);
-        
+
     };
     const toggledescjul = () => {
         setShowdescjul(!showdescjul);
@@ -54,12 +54,12 @@ export default function Team() {
             </div>
             <div className='personbody'>
                 <div className='personcard1'>
-                    <div onClick={toggledescadri}>
-                        <Avatar className='pictureindivadri' src="../public/adribnw.jpg" square={true} size="397" />
+                    <div onClick={toggledescmai}>
+                        <Avatar className='pictureindivmai' src="../public/maibnw.jpeg" square={true} size="397" />
                     </div>
                     <div className='personame'>
-                        <h4>Adria Manday</h4>
-                        <p className='perdesc'>Pixel-art Artist and Software Web Developer</p>
+                        <h4>Oumaima Essamadi</h4>
+                        <p className='perdesc'>Psychologist and Software Web Developer</p>
                     </div>
                 </div>
                 <div className='personcard2'>
@@ -72,12 +72,12 @@ export default function Team() {
                     </div>
                 </div>
                 <div className='personcard3'>
-                    <div onClick={toggledescmai}>
-                        <Avatar className='pictureindivmai' src="../public/maibnw.jpeg" square={true} size="397" />
+                    <div onClick={toggledescadri}>
+                        <Avatar className='pictureindivadri' src="../public/adribnw.jpg" square={true} size="397" />
                     </div>
                     <div className='personame'>
-                        <h4>Oumaima Essamadi</h4>
-                        <p className='perdesc'>Psychologist and Software Web Developer</p>
+                        <h4>Adria Manday</h4>
+                        <p className='perdesc'>Martial artist and Software Web Developer</p>
                     </div>
                 </div>
             </div>
@@ -93,9 +93,9 @@ export default function Team() {
                                         <span className='contacticon'><FontAwesomeIcon icon={faEnvelope} /></span>
                                         adriamanday@gmail.com
                                     </a>
-                                    <div>
-                                        <span><a href='https://www.linkedin.com/in/manday-adri%C3%A0/'><img className='contactli' src="../public/linkedin.png"/>/manday-adri</a></span>
-                                    </div>
+                                        <div>
+                                            <span><a href='https://www.linkedin.com/in/manday-adri%C3%A0/'><img className='contactli' src="../public/linkedin.png" />/manday-adri</a></span>
+                                        </div>
                                     </p>
 
                                 </div>
@@ -112,7 +112,7 @@ export default function Team() {
                                         </div>
                                     </div>
                                     <div className='insideof2'>
-                                        <div>
+                                        <div className='minimg'>
                                             <Avatar className='pictureindivinfo rectangular-avatar' src="../public/adriart.jpg" size="150" />
                                         </div>
                                         <div>
@@ -154,9 +154,9 @@ export default function Team() {
                                         <span className='contacticon'><FontAwesomeIcon icon={faEnvelope} /></span>
                                         julia.v_28@hotmail.com
                                     </a>
-                                    <div>
-                                        <span><a href='https://www.linkedin.com/in/julia-villalba-garc%C3%ADa-a37b97275/'><img className='contactli' src="../public/linkedin.png"/>/julia-villalba-garcia</a></span>
-                                    </div>
+                                        <div>
+                                            <span><a href='https://www.linkedin.com/in/julia-villalba-garc%C3%ADa-a37b97275/'><img className='contactli' src="../public/linkedin.png" />/julia-villalba-garcia</a></span>
+                                        </div>
                                     </p>
                                 </div>
                             </div>
@@ -173,9 +173,9 @@ export default function Team() {
                                         <span className='contacticon'><FontAwesomeIcon icon={faEnvelope} /></span>
                                         oumaimaessamadi@gmail.com
                                     </a>
-                                    <div>
-                                        <span><a href='https://www.linkedin.com/in/oumaima-essamadi/'><img className='contactli' src="../public/linkedin.png"/>/oumaima-essamadi/</a></span>
-                                    </div>
+                                        <div>
+                                            <span><a href='https://www.linkedin.com/in/oumaima-essamadi/'><img className='contactli' src="../public/linkedin.png" />/oumaima-essamadi/</a></span>
+                                        </div>
                                     </p>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@ export default function Team() {
                                         </div>
                                     </div>
                                     <div className='insideof2'>
-                                        <div>
+                                        <div className='minimg'>
                                             <Avatar className='pictureindivinfo rectangular-avatar' src="../public/art.png" size="150" />
                                         </div>
                                         <div>
