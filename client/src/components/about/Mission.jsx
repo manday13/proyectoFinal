@@ -25,7 +25,7 @@ function Mission() {
             </div>
             <div className='divShot'>
                 <Link to="/services"><h5>Click in here to see more</h5></Link>
-                <Link to="/services"><img className='screenshot' src="/captura-services3.png" alt="services page" /></Link>
+                <Link to="/services"><img className='screenshot' src="../public/captura-services3.png" alt="services page" /></Link>
             </div>
 
         </>
