@@ -261,11 +261,11 @@ function MyWork() {
                                 <label >Competency*</label>
                                 <select className={`form-control ${controlError.competency && "toAnswer"}`} onChange={(e) => setId_c(e.target.value)} >
                                     <option value="0">--Select Competence--</option>
-                                    <option value="1">Asertividad</option>
-                                    <option value="2">Asistencia</option>
-                                    <option value="3">Comunicacion</option>
-                                    <option value="4">Fiabilidad</option>
-                                    <option value="5">Adaptabilidad</option>
+                                    <option value="1">Comunication skills</option>
+                                    <option value="2">Strong commitment</option>
+                                    <option value="3">Emotional inteligence</option>
+                                    <option value="4">Responsability</option>
+                                    <option value="5">A learning mentality</option>
                                 </select>
                             </div>
                             <div >
