@@ -4,7 +4,7 @@ import { Container, ToastContainer, Toast} from 'react-bootstrap';
 import jwt_decode from "jwt-decode";
 import {useState, useEffect} from 'react';
 import GlobalContext from './GlobalContext';
-import API_URL from './apiconfig';
+import {API_URL, IMG_URL} from "./apiconfig";
 import Menu from './Menu';
 import Footer from './Footer';
 import ButtonUp from './ButtonUp';
@@ -12,7 +12,7 @@ import Home from './components/Home';
 import Services from './components/Services';
 import Register from './components/Register';
 import Sign from './components/Sign';
-import SignSelect from './components/SignSelect';
+import Signselect from './components/Signselect';
 import Mission from './components/about/Mission';
 import Support from './components/about/Support';
 import Team from './components/about/Team';
@@ -125,7 +125,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/register" element={<Register />} />
             <Route path="/sign/:position" element={<Sign handleLogin={handleLogin} />} />
-            <Route path="/signSelect" element={<SignSelect />} />
+            <Route path="/Signselect" element={<Signselect />} />
             <Route path="/IndService/:ids" element={<IndService/>} />
             <Route path="/perfil/:type/:id" element={<Perfil />} />           
             {token && id && type && <Route path="/myWork" element={<MyWork />} />}

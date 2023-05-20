@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import API_URL from "../apiconfig";
+import {API_URL, IMG_URL} from "../apiconfig";
 import GlobalContext from "../GlobalContext";
 import { Modal } from "react-bootstrap";
 
@@ -267,7 +267,7 @@ function IndService() {
         <>
           <Link to={`/perfil/users/${el.id}`}>
             <Tooltip title={el.name} placement="top">
-              <Avatar key={el.id} src={"http://localhost:5000/" + el.foto}>
+              <Avatar key={el.id} src={IMG_URL+"" + el.foto}>
                 {el.name[0].toUpperCase()}
               </Avatar>
             </Tooltip>
@@ -283,7 +283,7 @@ function IndService() {
             <div style={{ width: "fit-content", margin: "auto" }}>
               <img
                 className="wsimg"
-                src={"http://localhost:5000/fotoServices/" + data.data.foto}
+                src={IMG_URL+"fotoServices/" + data.data.foto}
               />
             </div>
             <h1 className="wsname compename">
@@ -637,7 +637,7 @@ function IndService() {
                     <div className="imagevolunteer">
                       <Avatar
                         src={
-                          "http://localhost:5000/" + data.data.Volunteer.foto
+                          IMG_URL + data.data.Volunteer.foto
                         }
                         size={140}
                         style={{ backgroundColor: "purple" }}

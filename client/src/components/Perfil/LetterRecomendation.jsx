@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Modal, Button, Table } from 'react-bootstrap';
 import GlobalContext from "../../GlobalContext";
-import API_URL from '../../apiconfig';
+import {API_URL, IMG_URL} from '../../apiconfig';
 import './LetterRecomendation.css';
 import { FileUploader } from "react-drag-drop-files";
 

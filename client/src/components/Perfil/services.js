@@ -1,6 +1,5 @@
 
-import API_URL from '../../apiconfig';
-
+import {API_URL, IMG_URL} from '../../apiconfig';
 
 export const getUser = (token, type, id) =>{
     const requestOptions = {

@@ -19,6 +19,10 @@
 -- Table structure for table `competencies`
 --
 
+drop database if exists finalproject;
+create database finalproject;
+use finalproject;
+
 DROP TABLE IF EXISTS `competencies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -28,7 +32,7 @@ CREATE TABLE `competencies` (
   `foto` varchar(100) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +70,7 @@ CREATE TABLE `services` (
   KEY `id_v_idx` (`id_v`),
   CONSTRAINT `id_c` FOREIGN KEY (`id_c`) REFERENCES `competencies` (`id`),
   CONSTRAINT `id_v` FOREIGN KEY (`id_v`) REFERENCES `volunteers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +100,7 @@ CREATE TABLE `tutor` (
   `phone` varchar(9) DEFAULT NULL,
   `pronouns` tinyint DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +134,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `id_t_idx` (`id_t`),
   CONSTRAINT `id_t` FOREIGN KEY (`id_t`) REFERENCES `tutor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +164,7 @@ CREATE TABLE `users_services` (
   KEY `id_s_idx` (`id_s`),
   CONSTRAINT `id_s` FOREIGN KEY (`id_s`) REFERENCES `services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id_u` FOREIGN KEY (`id_u`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +195,7 @@ CREATE TABLE `volunteers` (
   `phone` varchar(9) DEFAULT NULL,
   `description` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

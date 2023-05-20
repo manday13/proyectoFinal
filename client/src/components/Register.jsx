@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import GlobalContext from '../GlobalContext';
-import API_URL from '../apiconfig';
+import {API_URL, IMG_URL} from '../apiconfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import './Register.css'

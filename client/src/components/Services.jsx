@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter} from '@fortawesome/free-solid-svg-icons'
 
 import { Route } from 'react-router-dom';
-
+import { API_URL } from '../apiconfig';
 
 import './Services.css'
 
@@ -50,7 +50,7 @@ function Services() {
 
     // FUNCION PARA CARGAR LOS DATOS
     function loadData() {
-        fetch("http://localhost:5000/api/services")
+        fetch(API_URL+"services")
             .then(resultat => resultat.json())
             .then(retornat => {
                 if (retornat.ok === true) {
@@ -88,7 +88,7 @@ function Services() {
                 <Card.Body>
                     <Card.Title id='titleCard'>{el.name}</Card.Title>
                 </Card.Body>
-                <Card.Img className={`${!isDone && "blanck"}`} id='imgCard' variant="top" src={"http://localhost:5000/fotoServices/" + (el.foto)} />
+                <Card.Img className={`${!isDone && "blanck"}`} id='imgCard' variant="top" src={IMG_URL+"fotoServices/" + (el.foto)} />
                 <Card.Body>
                     <Card.Text id='descript'>{el.description}</Card.Text>
                     <Card.Text>Fecha: {el.date}</Card.Text>

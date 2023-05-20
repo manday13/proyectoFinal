@@ -2,7 +2,7 @@ import GlobalContext from "../GlobalContext";
 import { useContext, useState, useEffect } from 'react';
 import { Modal, Button, Table } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import API_URL from '../apiconfig';
+import {API_URL, IMG_URL} from '../apiconfig';
 
 function SerVerification({serviceControl, closeVerification, closeAndRefresh}){
     const {token} = useContext(GlobalContext)

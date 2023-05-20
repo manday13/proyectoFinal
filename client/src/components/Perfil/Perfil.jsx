@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Modal, Button, Table } from 'react-bootstrap';
 import GlobalContext from "../../GlobalContext";
-import API_URL from '../../apiconfig';
+import {API_URL, IMG_URL} from '../../apiconfig';
 import './Perfil.css';
 import '../MyWork.css'
 import { useParams } from 'react-router-dom';
@@ -170,7 +170,7 @@ function Perfil() {
     let myClients = (userTypes[type] === userTypes.tutor && user && user.Users) ? user.Users.map((el) => {
         return (
             <tr key={el.id}>
-                <td> <Avatar src={"http://localhost:5000/" + (el.foto)} name={el.name} round={true} size="50" /></td>
+                <td> <Avatar src={IMG_URL+"" + (el.foto)} name={el.name} round={true} size="50" /></td>
                 <td><Link to={`/perfil/users/${el.id}`}> {el.name}</Link></td>
                 <td>{el.email}</td>
             </tr>
@@ -226,7 +226,7 @@ function Perfil() {
             <div className='main-container'>
                 <div className="containerP">
                     <div className="profile-image">
-                        <Avatar src={"http://localhost:5000/" + (user.foto)} name={user.name} round={true} size="160" />
+                        <Avatar src={IMG_URL+"" + (user.foto)} name={user.name} round={true} size="160" />
                     </div>
                     <div className="profile-info">
                         <h1 className="profile-name">{user.name}<i class="bi bi-info-circle" style={{fontSize: "2rem", color: "cornflowerblue"}}></i></h1>
@@ -280,7 +280,7 @@ function Perfil() {
                                 (email === user.Tutor.email || (user.letter && email === user.email)) &&
                                 <>
                                     <h3>Letter of recommendation</h3>
-                                    {user.letter && <p><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <a href={"http://localhost:5000/letters/" + (user.letter)} download={user.letter.split('-')[1] } target="_blank">{user.letter.split('-')[1]}   <FontAwesomeIcon icon={faFile}/></a> </p>}
+                                    {user.letter && <p><FontAwesomeIcon style={{ marginLeft: "15px" }} icon={faArrowRight}></FontAwesomeIcon>    <a href={IMG_URL+"letters/" + (user.letter)} download={user.letter.split('-')[1] } target="_blank">{user.letter.split('-')[1]}   <FontAwesomeIcon icon={faFile}/></a> </p>}
                                     {(email === user.Tutor.email) &&
                                         <button className="upload" onClick={() => setUserForLetter(user)}>{user.letter ? "Edit document" : "Upload document"}</button>}
                                 </>

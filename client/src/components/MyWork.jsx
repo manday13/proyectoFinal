@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faClock, faCalendar } from '@fortawesome/free-solid-svg-icons'
 import { Modal } from 'react-bootstrap';
-import API_URL from '../apiconfig';
+import {API_URL, IMG_URL} from '../apiconfig';
 import Avatar from 'react-avatar';
 import SerVerification from "./SerVerification";
 
@@ -150,7 +150,7 @@ function MyWork() {
                 <Link to={isDone || userTypes[type] === userTypes.users ? `/IndService/${el.id}` : "#"}>
                     <div className={`add-workshop-dif ${!isDone && "filterw"}`} onClick={() => !isDone && userTypes[type] === userTypes.volunteers && setServiceControl(el)}>
                         <h5 className="titlework"><b>{el.name}</b></h5>
-                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar className={`${!isDone && "blanck"}`} src={"http://localhost:5000/fotoServices/" + (el.foto)} name={el.name} round={true} size="60" /></div>
+                        <div style={{ width: "fit-content", margin: "auto" }}><Avatar className={`${!isDone && "blanck"}`} src={IMG_URL+"fotoServices/" + (el.foto)} name={el.name} round={true} size="60" /></div>
                         <div className="text-muted" style={{ marginTop: "10px" }}>
                             <p><FontAwesomeIcon icon={faCalendar} />  {el.date}</p>
                             <p><FontAwesomeIcon icon={faClock} />   {el.time}</p>

@@ -10,6 +10,13 @@ import competenciesRouter from './rutas/competenciesRouter.js'
 import servicesRouter from './rutas/servicesRouter.js'
 import usersServicesRouter from './rutas/usersServicesRouter.js'
 
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 //instanciamos nueva aplicación express
 const app = express()
 
@@ -19,7 +26,7 @@ app.use(cors());
 
 //las llamadas que se hagan a ciertas rutas las derivamos a componentes especificos donde pondrá qué es lo que se tendrá que hacer segun el metodo que se pida
 
-app.use('/', indexRouter);
+//app.use('/', indexRouter);
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/volunteers', volunteersRouter);
@@ -35,7 +42,16 @@ app.use("/letters", express.static("letters"));
 app.use("/fotoServices", express.static("fotoServices"));
 
 
+app.use(express.static("../client/dist"));
+
+// Sirve el frontend ReactJS en cualquier ruta no definida anteriormente
+// importante! no definir rutas en la API que apunten a "/", siempre a "/api/…"
+// las rutas genéricas las tenemos que desviar al front
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname,  '..','client', 'dist', 'index.html'));
+});
 
 
-const port = 5000
+
+const port = 3030
 app.listen(port, ()=> console.log("App listening on port" + port + "!"))
