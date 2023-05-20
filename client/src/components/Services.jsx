@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter} from '@fortawesome/free-solid-svg-icons'
 
 import { Route } from 'react-router-dom';
-import { API_URL } from '../apiconfig';
+import { API_URL, IMG_URL } from '../apiconfig';
 
 import './Services.css'
 
