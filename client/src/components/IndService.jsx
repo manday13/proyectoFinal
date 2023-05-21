@@ -115,7 +115,7 @@ function IndService() {
   };
 
   const handleSubmit = () => {
-    const copycontrolError = {...controlError}
+    const copycontrolError = { ...controlError }
     copycontrolError.name = !wsedit.name || wsedit.name.trim() === " ";
     copycontrolError.description = !wsedit.description || wsedit.description.trim() === " ";
     copycontrolError.address = !wsedit.address || wsedit.address.trim() === " ";
@@ -312,222 +312,213 @@ function IndService() {
                   <>
                     {id === data.data.id_v ? (
                       <>
-                      {data.data && new Date(`${data.data.date}T${data.data.time}`).getTime() > new Date().getTime() ?
-                      <>
-                        <div>
-                          <Button
-                            onClick={() => {
-                              setShow(true);
-                              setWsEdit({ ...data.data });
-                            }}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            className="delete-button-for-edit"
-                            variant="danger"
-                            size="m"
-                            onClick={askDelAccount}
-                          >
-                            Delete
-                          </Button>
-                          {askDel ? (
-                            <>
-                              <div>
-                                <br />
-                                <b>Are you sure? </b>
-                                <Button
-                                  variant="danger"
-                                  size="m"
-                                  onClick={deleteWs}
-                                >
-                                  YES
-                                </Button>
-                                <Button
-                                  className="delete-button-for-edit"
-                                  variant="primary"
-                                  size="m"
-                                  onClick={askNo}
-                                >
-                                  NO
-                                </Button>
-                              </div>
-                            </>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                        <Modal show={show} onHide={closeEditWs}>
-                          <Modal.Header closeButton>
-                            <Modal.Title>Edit your Workshop</Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            <form>
-                              <div className="form-group">
-                                <label>Workshop Name*</label>
-                                <input
-                                  type="text"
-                                  className={`form-control ${
-                                    controlError.name && "toAnswer"
-                                  }`}
-                                  value={wsedit.name}
-                                  onChange={(e) =>
-                                    setWsEdit({
-                                      ...wsedit,
-                                      name: e.target.value,
-                                    })
-                                  }
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label>Description*</label>
-                                <input
-                                  type="text"
-                                  className={`form-control ${
-                                    controlError.description && "toAnswer"
-                                  }`}
-                                  value={wsedit.description}
-                                  onChange={(e) =>
-                                    setWsEdit({
-                                      ...wsedit,
-                                      description: e.target.value,
-                                    })
-                                  }
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label>Address*</label>
-                                <input
-                                  type="text"
-                                  className={`form-control ${
-                                    controlError.address && "toAnswer"
-                                  }`}
-                                  value={wsedit.address}
-                                  onChange={(e) =>
-                                    setWsEdit({
-                                      ...wsedit,
-                                      address: e.target.value,
-                                    })
-                                  }
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label>Date*</label>
-                                <input
-                                  type="date"
-                                  className={`form-control ${
-                                    controlError.date && "toAnswer"
-                                  }`}
-                                  value={wsedit.date}
-                                  onChange={handleDateChange}
-                                />
-                              </div>
-                              <div className="form-group">
-                                <label>Time*</label>
-                                <input
-                                  type="time"
-                                  className={`form-control ${
-                                    controlError.time && "toAnswer"
-                                  }`}
-                                  value={wsedit.time}
-                                  onChange={(e) =>
-                                    setWsEdit({
-                                      ...wsedit,
-                                      time: e.target.value,
-                                    })
-                                  }
-                                />
-                              </div>
-                              <div>
-                                <label>Competency*</label>
-                                <select
-                                  className={`form-control ${
-                                    controlError.competency && "toAnswer"
-                                  }`}
-                                  value={wsedit.id_c}
-                                  onChange={(e) =>
-                                    setWsEdit({
-                                      ...wsedit,
-                                      id_c: e.target.value,
-                                    })
-                                  }
-                                >
-                                  <option value="0">
-                                    --Select Competence--
-                                  </option>
-                                  <option value="1">Asertividad</option>
-                                  <option value="2">Asistencia</option>
-                                  <option value="3">Comunicacion</option>
-                                  <option value="4">Fiabilidad</option>
-                                  <option value="5">Adaptabilidad</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label>Participant limit*</label>
-                                {controlError.limit && (
-                                  <small style={{ color: "red" }}>
-                                    The number of participants must be bigger
-                                    than 0
-                                  </small>
-                                )}
-                                <input
-                                  type="number"
-                                  className={`form-control ${
-                                    controlError.limit && "toAnswer"
-                                  }`}
-                                  value={wsedit.limit}
-                                  onChange={(e) =>
-                                    setWsEdit({
-                                      ...wsedit,
-                                      limit: e.target.value,
-                                    })
-                                  }
-                                />
-                              </div>
-                              <label>
-                                <p>Image:</p>
-                                <input
-                                  type="file"
-                                  accept="image/png, image/gif, image/jpeg, image/jpg"
-                                  onChange={(e) => {
-                                    setWsEdit({
-                                      ...wsedit,
-                                      foto: e.target.files[0],
-                                    });
-                                  }}
-                                />
-                              </label>
-                              {Object.values(controlError).some(
-                                (el) => el === true
-                              ) && (
-                                <p style={{ color: "red" }}>
-                                  *All the fields must be fullfilled.
-                                </p>
+                        {data.data && new Date(`${data.data.date}T${data.data.time}`).getTime() > new Date().getTime() ?
+                          <>
+                            <div>
+                              <Button
+                                onClick={() => {
+                                  setShow(true);
+                                  setWsEdit({ ...data.data });
+                                }}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                className="delete-button-for-edit"
+                                variant="danger"
+                                size="m"
+                                onClick={askDelAccount}
+                              >
+                                Delete
+                              </Button>
+                              {askDel ? (
+                                <>
+                                  <div>
+                                    <br />
+                                    <b>Are you sure? </b>
+                                    <Button
+                                      variant="danger"
+                                      size="m"
+                                      onClick={deleteWs}
+                                    >
+                                      YES
+                                    </Button>
+                                    <Button
+                                      className="delete-button-for-edit"
+                                      variant="primary"
+                                      size="m"
+                                      onClick={askNo}
+                                    >
+                                      NO
+                                    </Button>
+                                  </div>
+                                </>
+                              ) : (
+                                <></>
                               )}
-                            </form>
-                          </Modal.Body>
-                          <Modal.Footer>
-                            <button
-                              className="btn btn-primary"
-                              onClick={handleSubmit}
-                            >
-                              Save
-                            </button>
-                            <button
-                              className="btn btn-secondary"
-                              onClick={closeEditWs}
-                            >
-                              Cancel
-                            </button>
-                          </Modal.Footer>
-                        </Modal>
-                        </> : 
-                        <div>
-                        <br />
-                        <p className="workshopended">
-                          <i>This workshop has expired</i>
-                        </p>
-                      </div>}
+                            </div>
+                            <Modal show={show} onHide={closeEditWs}>
+                              <Modal.Header closeButton>
+                                <Modal.Title>Edit your Workshop</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <form>
+                                  <div className="form-group">
+                                    <label>Workshop Name*</label>
+                                    <input
+                                      type="text"
+                                      className={`form-control ${controlError.name && "toAnswer"
+                                        }`}
+                                      value={wsedit.name}
+                                      onChange={(e) =>
+                                        setWsEdit({
+                                          ...wsedit,
+                                          name: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                  <div className="form-group">
+                                    <label>Description*</label>
+                                    <input
+                                      type="text"
+                                      className={`form-control ${controlError.description && "toAnswer"
+                                        }`}
+                                      value={wsedit.description}
+                                      onChange={(e) =>
+                                        setWsEdit({
+                                          ...wsedit,
+                                          description: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                  <div className="form-group">
+                                    <label>Address*</label>
+                                    <input
+                                      type="text"
+                                      className={`form-control ${controlError.address && "toAnswer"
+                                        }`}
+                                      value={wsedit.address}
+                                      onChange={(e) =>
+                                        setWsEdit({
+                                          ...wsedit,
+                                          address: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                  <div className="form-group">
+                                    <label>Date*</label>
+                                    <input
+                                      type="date"
+                                      className={`form-control ${controlError.date && "toAnswer"
+                                        }`}
+                                      value={wsedit.date}
+                                      onChange={handleDateChange}
+                                    />
+                                  </div>
+                                  <div className="form-group">
+                                    <label>Time*</label>
+                                    <input
+                                      type="time"
+                                      className={`form-control ${controlError.time && "toAnswer"
+                                        }`}
+                                      value={wsedit.time}
+                                      onChange={(e) =>
+                                        setWsEdit({
+                                          ...wsedit,
+                                          time: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                  <div>
+                                    <label>Competency*</label>
+                                    <select
+                                      className={`form-control ${controlError.competency && "toAnswer"
+                                        }`}
+                                      value={wsedit.id_c}
+                                      onChange={(e) =>
+                                        setWsEdit({
+                                          ...wsedit,
+                                          id_c: e.target.value,
+                                        })
+                                      }
+                                    >
+                                      <option value="0">--Select Competence--</option>
+                                      <option value="1">Comunication skills</option>
+                                      <option value="2">Strong commitment</option>
+                                      <option value="3">Emotional inteligence</option>
+                                      <option value="4">Responsability</option>
+                                      <option value="5">A learning mentality</option>
+                                    </select>
+                                  </div>
+                                  <div>
+                                    <label>Participant limit*</label>
+                                    {controlError.limit && (
+                                      <small style={{ color: "red" }}>
+                                        The number of participants must be bigger
+                                        than 0
+                                      </small>
+                                    )}
+                                    <input
+                                      type="number"
+                                      className={`form-control ${controlError.limit && "toAnswer"
+                                        }`}
+                                      value={wsedit.limit}
+                                      onChange={(e) =>
+                                        setWsEdit({
+                                          ...wsedit,
+                                          limit: e.target.value,
+                                        })
+                                      }
+                                    />
+                                  </div>
+                                  <label>
+                                    <p>Image:</p>
+                                    <input
+                                      type="file"
+                                      accept="image/png, image/gif, image/jpeg, image/jpg"
+                                      onChange={(e) => {
+                                        setWsEdit({
+                                          ...wsedit,
+                                          foto: e.target.files[0],
+                                        });
+                                      }}
+                                    />
+                                  </label>
+                                  {Object.values(controlError).some(
+                                    (el) => el === true
+                                  ) && (
+                                      <p style={{ color: "red" }}>
+                                        *All the fields must be fullfilled.
+                                      </p>
+                                    )}
+                                </form>
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <button
+                                  className="btn btn-primary"
+                                  onClick={handleSubmit}
+                                >
+                                  Save
+                                </button>
+                                <button
+                                  className="btn btn-secondary"
+                                  onClick={closeEditWs}
+                                >
+                                  Cancel
+                                </button>
+                              </Modal.Footer>
+                            </Modal>
+                          </> :
+                          <div>
+                            <br />
+                            <p className="workshopended">
+                              <i>This workshop has expired</i>
+                            </p>
+                          </div>}
                       </>
                     ) : (
                       <>
@@ -543,7 +534,7 @@ function IndService() {
                 ) : (
                   <>
                     {data.data &&
-                    new Date(data.data.date + " " + data.data.time).getTime() <
+                      new Date(data.data.date + " " + data.data.time).getTime() <
                       new Date().getTime() ? (
                       <>
                         <div>
