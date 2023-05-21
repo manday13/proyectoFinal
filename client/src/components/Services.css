@@ -18,8 +18,7 @@
 }
 
 .card-shower {
-    flex-basis: 100%;
-    margin-top: 30px;
+    flex-basis: 100%;    
 }
 
 #services {
@@ -162,10 +161,16 @@ div#filter-nav {
 div.offcanvas-body {
     padding: 0;
 }
+
+.botonFiltros{
+    margin-top: 30px;
+    margin-left: 77px;
+}
+
 .botonFiltros Button {
     width: 170px;
     background-color: #dab25c;
-    border: #c46543;
+    border: #c46543;    
 }
 /* .ContainerPage {
     background-color: aliceblue;

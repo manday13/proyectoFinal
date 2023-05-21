@@ -91,7 +91,7 @@ function RegistrationForm() {
         };
         return (
             <div>
-                <h5 onClick={handleToggle}>
+                <h5 className='inforole' onClick={handleToggle}>
                     {title}
                     <span className='symbol'>{isOpen ? '-' : '+'}</span>
                 </h5>
